@@ -31,7 +31,7 @@
 - 04.10.2026: Website-Knöpfe mit Radius 14 wie die App-Knöpfe, keine Pille (Pillen nur für Chips und Zeilen, wie in der App)
 - 04.10.2026: Rahmen A (Raster) bestätigt
 - 04.10.2026: Icons als eine Datei images/icons.svg (Ionicons 7.4.0), Lizenzen in LICENSES.md (Ionicons MIT, Montserrat OFL)
-- 04.10.2026: Favicon chefklick-icon-reduziert.svg
+- 04.10.2026: Als Bild nur das App-Icon (chefklick-icon.svg: Grund #D8D5CE, C und Haken #163A7C, Punkt #A8823A) – im Kopf neben der Wortmarke und als Favicon. Die Bildmarken (hell/dunkel, reduziert) kommen in der App nicht vor und werden nicht benutzt
 - 04.10.2026: Gestaltung: moderne Seite (Navigation, grosse Überschriften, Raster), nur die Kacheln im App-Design – 1:1 nach dem App-Code (Karten, Radien, Schatten, Ionicons, Ringe, Monatsuhr, runde Haken, Ja/Nein-Knöpfe, Eingabefelder); jede Kachel bewegt sich einmal, wenn sie ins Bild kommt. Verworfen: Handy entfaltet sich, Bonschiene, Papier, Kuli
 - 04.10.2026: Erste Version = reine Vorstellung, "Bald verfügbar", Kontakt per Mail-Link, kein Formular, keine Daten
 - 04.10.2026: Einfaches HTML statt Astro, gleicher Ablauf wie canuma (Push → GitHub Pages)
@@ -46,6 +46,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 04.10.2026: Kopf und Favicon auf das App-Icon umgestellt, unbenutzte Marken-SVGs aus images/ entfernt (Fehler: zuerst die Bildmarke mit schwarzem Punkt genommen, die es in der App nicht gibt)
 - 04.10.2026: index.html mit Kopf (Bildmarke, Wortmarke, Knopf "Interesse?") und Einstieg mit der Kachel "Heute" (Ringe nach DayRings.tsx, Zeilen nach dashboard.tsx, "Beispielansicht"); script.js: Kacheln bewegen sich einmal beim Sichtbarwerden, Startzustand per Zeile im Kopf von index.html (sonst springt die Animation oder läuft rückwärts); ohne JavaScript und bei "Bewegung reduzieren" Endzustand sofort. Geprüft 390 px und 1280 px, nur heller Modus
 - 04.10.2026: Grundlage für die Startseite: Marken-SVGs nach images/ kopiert, images/icons.svg (7 Ionicons), LICENSES.md, styles.css mit den beiden Soft-Farben, .card nach Card.tsx (Radius 14, Innenabstand 16), neu .card-dash für die Karten auf "Heute" (Radius 20, Innenabstand 20, Rand), Knöpfe Radius 14
 - 04.10.2026: styles.css mit allen App-Werten als CSS-Variablen (nur hell), Grundstile, Wortmarke, Knopf-Hierarchie, Karte; fonts/montserrat-bold.woff2 aus canuma kopiert
