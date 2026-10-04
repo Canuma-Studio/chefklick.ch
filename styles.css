@@ -155,26 +155,25 @@ a:focus-visible, button:focus-visible {
 .accent { color: var(--accent); }
 .icon { width: 18px; height: 18px; flex: none; }
 html { scroll-behavior: smooth; }
-section[id] { scroll-margin-top: 60px; }
+section[id] { scroll-margin-top: 84px; }
 
-/* Kopf */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: color-mix(in srgb, var(--background) 86%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--divider);
-}
-.site-header-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); height: 60px; }
-.brand { display: flex; align-items: center; gap: var(--space-sm); text-decoration: none; }
+/* Kopf: die schwebende Leiste der App (components/ChefKlickTabBar.tsx):
+   surface, Rand, Pille, Innenabstand 5, App-Schatten, aktiver Bereich auf tabActive */
+.site-header { position: sticky; top: 12px; z-index: 10; padding-inline: 12px; margin-top: 12px; pointer-events: none; }
+.bar { pointer-events: auto; max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 5px 5px 5px 14px; box-shadow: var(--shadow); transition: background-color 0.3s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease-out; }
+/* Oben auf der Seite (grosse Wortmarke im Bild): Leiste ohne Grund, nur Links und Knopf */
+.site-header.brand-hidden .bar { background: transparent; border-color: transparent; box-shadow: none; }
+.brand { display: flex; align-items: center; gap: var(--space-sm); text-decoration: none; transition: opacity 0.3s ease-out; }
 .brand img { width: 28px; height: 28px; }
 .brand .wordmark { font-size: 20px; }
-.btn-small { padding: 8px var(--space-md); font-size: 14px; }
-.site-nav { display: none; gap: 22px; margin-left: auto; font-size: 15px; }
-.site-nav a { color: var(--text-secondary); text-decoration: none; }
+/* Solange die grosse Wortmarke im Bild ist, steht die kleine nicht doppelt da (setzt script.js) */
+.site-header.brand-hidden .brand { opacity: 0; pointer-events: none; }
+.btn-small { padding: 9px var(--space-md); font-size: 14px; }
+.bar .btn { border-radius: var(--radius-pill); }
+.site-nav { display: none; gap: 2px; font-size: 14px; }
+.site-nav a { color: var(--text-secondary); text-decoration: none; padding: 9px 14px; border-radius: var(--radius-pill); }
 .site-nav a:hover { color: var(--accent); }
+.site-nav a.is-active { background: var(--tab-active); color: var(--accent); font-weight: 700; }
 
 /* Baender */
 .band { padding-block: var(--section-y); }
@@ -186,19 +185,33 @@ section[id] { scroll-margin-top: 60px; }
 .section-title { font-size: var(--font-section); letter-spacing: -0.02em; line-height: 1.1; }
 .section-lead { color: var(--text-secondary); font-size: 17px; max-width: 40rem; }
 
-/* Einstieg */
-.hero { display: grid; gap: var(--space-xl); align-items: center; }
-.hero-copy { display: grid; gap: 20px; justify-items: start; }
+/* Einstieg: Wortmarke wie beim App-Start, darunter Titel mittig, dann drei Kacheln auf einer Flaeche */
+.opener-band { padding-bottom: 0; padding-top: 40px; }
+.opener { display: grid; justify-items: center; text-align: center; gap: 20px; }
+.bigmark { font-size: clamp(56px, 14vw, 132px); line-height: 1; letter-spacing: -0.01em; margin-bottom: var(--space-sm); }
+.bigmark .l { display: inline-block; }
+.bigmark .iw { position: relative; }
+.bigmark .baseline { display: inline-block; width: 0; height: 0; }
+.bigmark .dot-cover, .bigmark .dot { display: none; position: absolute; border-radius: 50%; pointer-events: none; }
+.reveal-ready .bigmark .dot-cover, .reveal-ready .bigmark .dot { display: block; }
+.bigmark .dot-cover { background: var(--background); }
+.bigmark .dot { background: var(--logo-klick); }
+/* Vor dem Ablauf unsichtbar, damit nichts aufblitzt; ohne Ablauf steht die Wortmarke einfach da */
+.reveal-ready .bigmark .l, .reveal-ready .bigmark .dot { opacity: 0; }
 .soon { display: inline-flex; align-items: center; gap: var(--space-sm); padding: 6px 12px; border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: var(--font-caption); color: var(--text-secondary); background: var(--surface); }
 .soon-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warning); }
-.hero .display { letter-spacing: -0.025em; }
-.lead { font-size: var(--font-subheading); color: var(--text-secondary); max-width: 34ch; }
+.hero-title { font-size: clamp(36px, calc(16px + 5.4vw), 64px); letter-spacing: -0.03em; line-height: 1.05; max-width: 15ch; }
+.lead { font-size: var(--font-subheading); color: var(--text-secondary); max-width: 40ch; }
+.opener .cta { justify-content: center; }
 .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-stage { margin-top: var(--space-xxl); background: var(--tab-active); padding: var(--space-xl) 20px; }
+.hero-tiles { max-width: var(--content-max); margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; gap: var(--space-lg); }
+.hero-tiles .tile { width: 100%; max-width: 360px; }
+.hero-side { display: none; width: 300px; flex: none; margin-top: 72px; }
 
 /* Buehne: farbige Flaeche, auf der eine Kachel liegt. Farben aus der App (Modulfarben, soft). */
 .stage { border-radius: var(--radius-lg); padding: var(--space-lg) var(--space-md); display: grid; place-items: center; }
 .stage .tile { width: 100%; max-width: 360px; }
-.stage-hero { background: var(--tab-active); }
 .stage-checklist { background: var(--module-checklist-soft); }
 .stage-temperature { background: var(--module-temperature-soft); }
 .stage-receipt { background: var(--surface-elevated); }
@@ -388,12 +401,14 @@ section[id] { scroll-margin-top: 60px; }
 @media (min-width: 760px) {
   :root { --section-y: 96px; }
   .in { padding-inline: 40px; }
-  .site-nav { display: flex; margin-right: var(--space-lg); }
-  .hero { grid-template-columns: 1.1fr 0.9fr; gap: 56px; }
+  .site-nav { display: flex; }
+  .opener-band { padding-top: 56px; }
+  .hero-stage { padding: var(--space-xxl) 40px; }
   .stage { padding: var(--space-xxl) var(--space-xl); }
 }
 /* Kachel und Text nebeneinander erst, wenn die Kachel so breit bleibt wie am Handy */
 @media (min-width: 1000px) {
+  .hero-side { display: block; }
   .feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; }
   .principles { grid-template-columns: repeat(3, 1fr); }
 }

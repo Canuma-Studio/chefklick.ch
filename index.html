@@ -10,35 +10,39 @@
   <link rel="canonical" href="https://chefklick.ch/">
   <link rel="icon" href="images/chefklick-icon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/montserrat-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <!-- Kacheln ab dem ersten Bild im Startzustand, damit nichts rueckwaerts laeuft (siehe script.js).
        Bei "Bewegung reduzieren" kein Startzustand: die Kacheln stehen sofort fertig da. -->
   <script>if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('reveal-ready');</script>
-  <script src="script.js?v=3" defer></script>
+  <script src="script.js?v=4" defer></script>
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="in site-header-row">
+  <!-- Kopf: die schwebende Leiste der App (components/ChefKlickTabBar.tsx) -->
+  <header class="site-header" id="site-header">
+    <div class="bar">
       <a class="brand" href="#top" aria-label="ChefKlick, zum Seitenanfang">
         <img src="images/chefklick-icon.svg" alt="" width="28" height="28">
         <span class="wordmark"><span class="chef">Chef</span><span class="klick">Klick</span></span>
       </a>
       <nav class="site-nav" aria-label="Seitenbereiche">
-        <a href="#funktionen">Funktionen</a>
-        <a href="#grundsaetze">Grundsätze</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#top" data-spy="top">Start</a>
+        <a href="#funktionen" data-spy="funktionen">Funktionen</a>
+        <a href="#grundsaetze" data-spy="grundsaetze">Grundsätze</a>
+        <a href="#kontakt" data-spy="kontakt">Kontakt</a>
       </nav>
       <a class="btn btn-primary btn-small" href="mailto:info@canuma.ch">Interesse?</a>
     </div>
   </header>
 
   <main id="top">
-    <section class="band" aria-labelledby="hero-title">
-      <div class="in hero">
-      <div class="hero-copy">
-        <p class="soon"><span class="soon-dot" aria-hidden="true"></span>Bald verfügbar · HACCP-App für die Gastronomie</p>
-        <h1 id="hero-title" class="display">Die HACCP-Listen deiner Küche. <span class="accent">Auf dem Handy.</span></h1>
+    <section class="band opener-band" aria-labelledby="hero-title">
+      <div class="in opener">
+        <!-- Wortmarke wie beim Start der App (components/ChefKlickLogo.tsx): Buchstabe fuer Buchstabe,
+             dann faellt der i-Punkt herein. Abdeckung und Punkt setzt script.js. -->
+        <p class="wordmark bigmark" id="bigmark" aria-hidden="true"><span class="chef"><span class="l">C</span><span class="l">h</span><span class="l">e</span><span class="l">f</span></span><span class="klick"><span class="l">K</span><span class="l">l</span><span class="l iw">i<span class="baseline"></span><span class="dot-cover"></span><span class="dot"></span></span><span class="l">c</span><span class="l">k</span></span></p>
+        <p class="soon"><span class="soon-dot" aria-hidden="true"></span>Bald verfügbar</p>
+        <h1 id="hero-title" class="hero-title">Die HACCP&#8209;Listen deiner Küche. <span class="accent">Auf dem Handy.</span></h1>
         <p class="lead">Temperatur, Checkliste und Warenannahme. Jede Eingabe mit Name und Uhrzeit, jeder Tag als PDF&#8209;Nachweis.</p>
         <div class="cta">
           <a class="btn btn-primary" href="mailto:info@canuma.ch">Interesse? Schreib uns</a>
@@ -46,38 +50,53 @@
         </div>
       </div>
 
-      <!-- Kachel "Heute": app/(tabs)/dashboard.tsx (Ringkarte) und components/DayRings.tsx -->
-      <div class="stage stage-hero">
-      <figure class="tile tile-hero" data-reveal>
-        <div class="card card-dash today">
-          <p class="card-title">Donnerstag, 24. September</p>
-          <svg class="rings" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true">
-            <circle class="ring-track ring-checklist" cx="75" cy="75" r="69" />
-            <circle class="ring-bar ring-checklist" cx="75" cy="75" r="69" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.8182" />
-            <circle class="ring-track ring-temperature" cx="75" cy="75" r="51" />
-            <circle class="ring-bar ring-temperature" cx="75" cy="75" r="51" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.5" />
-          </svg>
-          <ul class="legend">
-            <li class="legend-row legend-checklist">
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-checkbox" /></svg>
-              <span class="legend-label">Checkliste</span>
-              <span class="legend-count">18/22</span>
-            </li>
-            <li class="legend-row legend-temperature">
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-thermo" /></svg>
-              <span class="legend-label">Temperatur</span>
-              <span class="legend-count">2/4</span>
-            </li>
-            <li class="legend-row legend-receipt">
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-cube" /></svg>
-              <span class="legend-label">Warenannahme</span>
-              <span class="legend-count">keine</span>
-            </li>
-          </ul>
+      <div class="hero-stage">
+        <div class="hero-tiles">
+          <!-- Nebenkachel Temperatur (TemperatureCard.tsx), nur ab Desktop -->
+          <div class="card hero-side" aria-hidden="true">
+            <div class="temp-name">Tiefkühler</div>
+            <div class="temp-target">maximal -18 °C</div>
+            <div class="temp-row"><div class="app-input">-15.4</div><span class="temp-unit">°C</span></div>
+            <div class="temp-status"><span class="status-danger">Ausserhalb Sollbereich</span></div>
+          </div>
+
+          <!-- Kachel "Heute": app/(tabs)/dashboard.tsx (Ringkarte) und components/DayRings.tsx -->
+          <figure class="tile tile-hero" data-reveal>
+            <div class="card card-dash today">
+              <p class="card-title">Donnerstag, 24. September</p>
+              <svg class="rings" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true">
+                <circle class="ring-track ring-checklist" cx="75" cy="75" r="69" />
+                <circle class="ring-bar ring-checklist" cx="75" cy="75" r="69" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.8182" />
+                <circle class="ring-track ring-temperature" cx="75" cy="75" r="51" />
+                <circle class="ring-bar ring-temperature" cx="75" cy="75" r="51" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.5" />
+              </svg>
+              <ul class="legend">
+                <li class="legend-row legend-checklist">
+                  <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-checkbox" /></svg>
+                  <span class="legend-label">Checkliste</span>
+                  <span class="legend-count">18/22</span>
+                </li>
+                <li class="legend-row legend-temperature">
+                  <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-thermo" /></svg>
+                  <span class="legend-label">Temperatur</span>
+                  <span class="legend-count">2/4</span>
+                </li>
+                <li class="legend-row legend-receipt">
+                  <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-cube" /></svg>
+                  <span class="legend-label">Warenannahme</span>
+                  <span class="legend-count">keine</span>
+                </li>
+              </ul>
+            </div>
+            <figcaption class="caption">Beispielansicht</figcaption>
+          </figure>
+
+          <!-- Nebenkachel Warenannahme (goods-receipt.tsx, YesNoToggle.tsx), nur ab Desktop -->
+          <div class="card hero-side" aria-hidden="true">
+            <div class="check-row step-on"><span class="check-label">Ware unbeschädigt</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
+            <div class="check-row step-on"><span class="check-label">Ware vollständig</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
+          </div>
         </div>
-        <figcaption class="caption">Beispielansicht</figcaption>
-      </figure>
-      </div>
       </div>
     </section>
 
