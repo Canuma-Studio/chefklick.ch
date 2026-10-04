@@ -8,10 +8,10 @@
 - Repo ist öffentlich: auch STAND.md und alle Commit-Nachrichten sind sichtbar. Nichts Internes, keine Schlüssel.
 
 ## Offen
-1. Seitenstruktur der Startseite festlegen (Abschnitte)
+1. Gestaltung der Abschnitte an einem Artifact entscheiden (Struktur steht, siehe Entscheidungen)
 2. Marken-Dateien aus ChefKlick/assets/brand übernehmen (kopieren, nicht neu zeichnen)
 3. Texte – nur Funktionen, die in der App fertig sind
-4. Screenshots mit neutralem Demo-Betrieb
+4. Handy im Einstieg: Nachbau in HTML aus canuma übernehmen (canuma/index.html Panel "01 ChefKlick" class "phone/ck", styles.css ab "ChefKlick: Handy im echten App-Design", script.js ab "01 ChefKlick"); Demo-Betrieb "Restaurant Muster", Begriffe der App verwenden
 5. impressum.html und datenschutz.html (Vorlage canuma, Entwurf – muss geprüft werden), 404.html
 6. Online gehen: CNAME, GitHub Pages einschalten, DNS bei Hostpoint wie bei canuma.ch, Enforce HTTPS, Domain bei GitHub verifizieren
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
@@ -30,6 +30,9 @@
 - 04.10.2026: Wortmarke wie in der App (hell: Chef #163A7C, Klick #1A1A1C), kein Gold im hellen Modus
 - 04.10.2026: Überschriften in Systemschrift wie die App, Montserrat nur für die Wortmarke
 - 04.10.2026: Zusätzliche Web-Stufe --font-display (34 px Handy bis 44 px Desktop) nur für den Haupttitel der Startseite – gibt es in der App nicht
+- 04.10.2026: Startseite, volle Fassung, von oben: 1 Kopf (Bild- + Wortmarke, "Bald verfügbar") · 2 Einstieg (Haupttitel display, ein Satz, Handy "Heute", Knopf "Interesse? Schreib uns") · 3 Module Temperatur/Checkliste/Warenannahme · 4 Kalender und PDF-Nachweis · 5 Was nie verloren geht (Grundsätze) · 6 Team (eigenes Handy, drei Rollen, Einladung per Code) · 7 Von einem Küchenchef gebaut (ohne Arbeitgeber) · 8 Kontakt · 9 Fusszeile (Impressum, Datenschutz, "ein Projekt von Canuma Studio" → canuma.ch)
+- 04.10.2026: Kontaktadresse auf der Seite: info@canuma.ch (eigenes chefklick.ch-Postfach später)
+- 04.10.2026: Handy als HTML-Nachbau wie auf canuma.ch, keine Screenshots
 - Regel: --text-muted (Kontrast 3.2) nie für lesbaren Text, mindestens --text-secondary
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
