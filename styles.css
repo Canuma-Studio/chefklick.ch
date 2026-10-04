@@ -318,8 +318,10 @@ html { scroll-behavior: smooth; }
 /* Wechsel zwischen zwei Texten: ohne Ablauf steht der Endtext */
 .swap-from { display: none; }
 .reveal-ready .swap-from { display: inline; }
-.reveal-ready .swap-to:not(.step-on) { display: none; }
-.reveal-ready .swap:has(.swap-to.step-on) .swap-from { display: none; }
+.reveal-ready .swap { display: inline-grid; }
+.reveal-ready .swap > * { grid-area: 1 / 1; transition: opacity 300ms ease-out; }
+.reveal-ready .swap-to:not(.step-on) { opacity: 0; }
+.reveal-ready .swap:has(.swap-to.step-on) .swap-from { opacity: 0; }
 
 /* Checkliste: haccp.tsx areaTitle, rhythmTitle, rhythmRow, taskRow, checkbox, taskDetail */
 .app-area { color: var(--accent); font-size: var(--font-subheading); font-weight: 700; line-height: 1.25; margin-bottom: var(--space-sm); }
@@ -339,9 +341,9 @@ html { scroll-behavior: smooth; }
 .task.done .task-label { color: var(--text-secondary); }
 .task.done .task-detail { display: block; }
 .reveal-ready .task.done[data-at]:not(.step-on) .check { background: transparent; border-color: var(--border); }
-.reveal-ready .task.done[data-at]:not(.step-on) .check::after { content: none; }
+.reveal-ready .task.done[data-at]:not(.step-on) .check::after { opacity: 0; transform: scale(0.4); }
 .reveal-ready .task.done[data-at]:not(.step-on) .task-label { color: var(--text-primary); }
-.reveal-ready .task.done[data-at]:not(.step-on) .task-detail { display: none; }
+.reveal-ready .task.done[data-at]:not(.step-on) .task-detail { max-height: 0; margin-top: 0; opacity: 0; }
 
 /* Temperatur: TemperatureCard.tsx, saveButton aus temperature.tsx */
 .temp-name { color: var(--text-primary); font-size: var(--font-heading); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-sm); }
@@ -402,6 +404,19 @@ html { scroll-behavior: smooth; }
 .head-row .icon { color: var(--accent); }
 .reveal-ready .head-card[data-at] { transition: opacity 350ms ease-out, transform 450ms cubic-bezier(0.33, 1, 0.68, 1); }
 .reveal-ready .head-card[data-at]:not(.step-on) { opacity: 0; transform: translateY(8px); }
+
+/* ===== Weiche Uebergaenge der Ablaeufe (Entscheid 04.10.2026) =====
+   Nur mit reveal-ready; bei "Bewegung reduzieren" schaltet die Regel ganz unten alles ab. */
+@keyframes appear { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.reveal-ready .check { transition: background-color 250ms ease-out, border-color 250ms ease-out; }
+.reveal-ready .check::after { transition: opacity 200ms ease-out 80ms, transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1) 80ms; }
+.reveal-ready .task-label { transition: color 250ms ease-out; }
+.reveal-ready .task-detail { overflow: hidden; max-height: 2.4em; transition: max-height 300ms ease-out, margin-top 300ms ease-out, opacity 300ms ease-out 100ms; }
+.reveal-ready .check-row .yn-yes { transition: background-color 250ms ease-out, border-color 250ms ease-out, color 250ms ease-out; }
+.reveal-ready .app-save { transition: background-color 350ms ease-out, color 350ms ease-out; }
+.reveal-ready .temp-action.step-on, .reveal-ready .entry-void.step-on .entry-reason { animation: appear 350ms ease-out both; }
+.reveal-ready .entry-void .entry-value { text-decoration-line: line-through; transition: color 300ms ease-out, text-decoration-color 300ms ease-out; }
+.reveal-ready .entry-void:not(.step-on) .entry-value { text-decoration-line: line-through; text-decoration-color: transparent; }
 
 /* ===== Tablet und Desktop ===== */
 @media (min-width: 760px) {
