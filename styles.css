@@ -145,85 +145,123 @@ a:focus-visible, button:focus-visible {
   border: 1px solid var(--border);
 }
 
-/* ===== Seite ===== */
-/* Ein Abstandswert fuer alle Abschnitte (wie --section-y bei scoff), Baender abwechselnd. */
+/* ===== Seite: Farbflaechen nach dem Vorbild noahbachofen.ch (Entscheid 04.10.2026) ===== */
+/* Flaechenfarben "Kraeftig": aus den App-Farben aufgehellt, in der App so nicht vorhanden. */
 :root {
-  --section-y: 64px;
-  --content-max: 1140px;
+  --f-hero: #A9B6E8;   /* accent aufgehellt */
+  --f-cream: #FBF9F4;
+  --f-check: #A8CDBB;  /* moduleChecklist aufgehellt */
+  --f-temp: #9DC6EA;   /* moduleTemperature aufgehellt */
+  --f-ware: #E9D2A6;   /* warning aufgehellt */
+  --f-day: #E7B9B9;    /* danger aufgehellt */
+  --f-warm: #E39A4A;   /* warning aufgehellt, kraeftiger */
+  --f-strong: #163A7C; /* accent */
+  --f-strong-ink: #F4F2ED; /* background */
+  /* Duenne Titel und grosser Fliesstext wie bei der Vorlage (nur Website, nicht in den Kacheln) */
+  --font-light: "Helvetica Neue", Helvetica, Arial, var(--font-system);
 }
-.in { max-width: var(--content-max); margin: 0 auto; padding-inline: 20px; }
-.accent { color: var(--accent); }
-.icon { width: 18px; height: 18px; flex: none; }
+body { background: var(--f-cream); font-family: var(--font-light); font-weight: 300; font-size: 18px; line-height: 1.4; }
 html { scroll-behavior: smooth; }
-section[id] { scroll-margin-top: 84px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.caps { text-transform: uppercase; font-weight: 300; letter-spacing: 0; line-height: 1.02; }
+.icon { width: 18px; height: 18px; flex: none; }
 
-/* Kopf: die schwebende Leiste der App (components/ChefKlickTabBar.tsx):
-   surface, Rand, Pille, Innenabstand 5, App-Schatten, aktiver Bereich auf tabActive */
-.site-header { position: sticky; top: 12px; z-index: 10; padding-inline: 12px; margin-top: 12px; pointer-events: none; }
-.bar { pointer-events: auto; max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 5px 5px 5px 14px; box-shadow: var(--shadow); transition: background-color 0.3s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease-out; }
-/* Oben auf der Seite (grosse Wortmarke im Bild): Leiste ohne Grund, nur Links und Knopf */
-.site-header.brand-hidden .bar { background: transparent; border-color: transparent; box-shadow: none; }
-.brand { display: flex; align-items: center; gap: var(--space-sm); text-decoration: none; transition: opacity 0.3s ease-out; }
-.brand img { width: 28px; height: 28px; }
-.brand .wordmark { font-size: 20px; }
-/* Solange die grosse Wortmarke im Bild ist, steht die kleine nicht doppelt da (setzt script.js) */
-.site-header.brand-hidden .brand { opacity: 0; pointer-events: none; }
-.btn-small { padding: 9px var(--space-md); font-size: 14px; }
-.bar .btn { border-radius: var(--radius-pill); }
-.site-nav { display: none; gap: 2px; font-size: 14px; }
-.site-nav a { color: var(--text-secondary); text-decoration: none; padding: 9px 14px; border-radius: var(--radius-pill); }
-.site-nav a:hover { color: var(--accent); }
-.site-nav a.is-active { background: var(--tab-active); color: var(--accent); font-weight: 700; }
+/* Menue: nur ein Symbol oben rechts, als runde Pille wie die Leiste der App (sonst auf den
+   dunklen Flaechen nicht sichtbar). Ohne JavaScript kein Knopf, die Fusszeile hat die Links. */
+.menu-btn { display: none; position: fixed; top: 14px; right: 16px; z-index: 30; width: 52px; height: 52px; padding: 0; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface); box-shadow: var(--shadow); cursor: pointer; place-content: center; gap: 6px; }
+.js .menu-btn { display: grid; }
+.menu-btn span { display: block; width: 24px; height: 2px; background: var(--text-primary); transition: transform 0.3s, opacity 0.3s; }
+.menu-open .menu-btn span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-open .menu-btn span:nth-child(2) { opacity: 0; }
+.menu-open .menu-btn span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.menu-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius-pill); }
+.menu { position: fixed; inset: 0; z-index: 25; overflow-y: auto; background: var(--f-hero); padding: 96px 24px 40px; display: grid; align-content: start; justify-items: start; gap: 6px; transform: translateX(100%); visibility: hidden; transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0s linear 0.4s; }
+.menu-open .menu { transform: none; visibility: visible; transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0s; }
+.menu-open body { overflow: hidden; }
+.menu a { font-size: clamp(34px, 8vw, 64px); text-transform: uppercase; color: var(--text-primary); text-decoration: none; line-height: 1.05; }
+.menu a:hover { color: var(--accent); }
 
-/* Baender */
-.band { padding-block: var(--section-y); }
-.band-surface { background: var(--surface); }
-.band-dark { background: var(--accent-dark); color: var(--background); }
-
-.eyebrow { font-size: var(--font-caption); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
-.section-head { display: grid; gap: 12px; max-width: 40rem; margin-bottom: var(--space-xxl); }
-.section-title { font-size: var(--font-section); letter-spacing: -0.02em; line-height: 1.1; }
-.section-lead { color: var(--text-secondary); font-size: 17px; max-width: 40rem; }
-
-/* Einstieg: Wortmarke wie beim App-Start, darunter Titel mittig, dann drei Kacheln auf einer Flaeche */
-.opener-band { padding-bottom: 0; padding-top: 40px; }
-.opener { display: grid; justify-items: center; text-align: center; gap: 20px; }
-.bigmark { font-size: clamp(56px, 14vw, 132px); line-height: 1; letter-spacing: -0.01em; margin-bottom: var(--space-sm); }
+/* Einstieg: grosse Wortmarke links oben, Leitsatz rechts, Text links unten */
+.hero { background: var(--f-hero); padding: 72px 20px 40px; display: grid; gap: 32px; min-height: 620px; align-content: space-between; }
+.bigmark { font-size: clamp(72px, 19vw, 210px); line-height: 0.9; letter-spacing: -0.02em; }
+.bigmark .chef, .bigmark .klick { display: block; }
 .bigmark .l { display: inline-block; }
 .bigmark .iw { position: relative; }
 .bigmark .baseline { display: inline-block; width: 0; height: 0; }
 .bigmark .dot-cover, .bigmark .dot { display: none; position: absolute; border-radius: 50%; pointer-events: none; }
 .reveal-ready .bigmark .dot-cover, .reveal-ready .bigmark .dot { display: block; }
-.bigmark .dot-cover { background: var(--background); }
+.bigmark .dot-cover { background: var(--f-hero); }
 .bigmark .dot { background: var(--logo-klick); }
 /* Vor dem Ablauf unsichtbar, damit nichts aufblitzt; ohne Ablauf steht die Wortmarke einfach da */
 .reveal-ready .bigmark .l, .reveal-ready .bigmark .dot { opacity: 0; }
-.soon { display: inline-flex; align-items: center; gap: var(--space-sm); padding: 6px 12px; border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: var(--font-caption); color: var(--text-secondary); background: var(--surface); }
-.soon-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warning); }
-.hero-title { font-size: clamp(36px, calc(16px + 5.4vw), 64px); letter-spacing: -0.03em; line-height: 1.05; max-width: 15ch; }
-.lead { font-size: var(--font-subheading); color: var(--text-secondary); max-width: 40ch; }
-.opener .cta { justify-content: center; }
-.cta { display: flex; flex-wrap: wrap; gap: 10px; }
-.hero-stage { margin-top: var(--space-xxl); background: var(--tab-active); padding: var(--space-xl) 20px; }
-.hero-tiles { max-width: var(--content-max); margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; gap: var(--space-lg); }
-.hero-tiles .tile { width: 100%; max-width: 360px; }
-.hero-side { display: none; width: 300px; flex: none; margin-top: 72px; }
+.hero .tag { font-size: clamp(18px, 2.6vw, 26px); text-align: right; justify-self: end; max-width: 22ch; }
+.hero .row { display: grid; gap: 24px; align-items: end; }
+.hero-text { display: grid; gap: 18px; }
+.intro-text { font-size: clamp(20px, 2.4vw, 26px); max-width: 30ch; }
+.arrow { justify-self: end; width: 24px; height: 64px; }
+.soonline { font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 10px; }
+.soon-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--warning); }
 
-/* Buehne: farbige Flaeche, auf der eine Kachel liegt. Farben aus der App (Modulfarben, soft). */
-.stage { border-radius: var(--radius-lg); padding: var(--space-lg) var(--space-md); display: grid; place-items: center; }
-.stage .tile { width: 100%; max-width: 360px; }
-.stage-checklist { background: var(--module-checklist-soft); }
-.stage-temperature { background: var(--module-temperature-soft); }
-.stage-receipt { background: var(--surface-elevated); }
-.stage-calendar { background: var(--tab-active); }
-.stage-daysheet { background: var(--module-temperature-soft); }
-.stage-team { background: var(--surface-elevated); }
-/* Am Handy laeuft die Buehne bis an den Rand: so ist die Kachel so breit wie in der App */
-@media (max-width: 759px) {
-  .stage { margin-inline: -20px; border-radius: 0; padding: var(--space-xl) 20px; }
-}
-.tile { margin: 0; display: grid; gap: var(--space-sm); }
+/* Zweiteilung */
+.split { display: grid; grid-template-columns: 1fr; }
+.half { padding: 40px 20px; display: grid; align-content: start; gap: 20px; min-width: 0; }
+.half.media { place-items: center; align-content: center; padding-block: 48px; }
+.half.media > .tile { width: 100%; max-width: 360px; }
+.half .title { font-size: clamp(36px, 5vw, 52px); }
+.half .body { font-size: clamp(19px, 2.1vw, 24px); max-width: 30ch; }
+.half .foot { margin-top: auto; padding-top: 40px; display: grid; gap: 14px; }
+.half .foot hr { border: 0; border-top: 1px solid currentColor; opacity: 0.45; margin: 0; width: 100%; }
+.more, .foot-row { font-size: 14px; text-transform: uppercase; letter-spacing: 0.03em; }
+.more { justify-self: end; text-decoration: none; color: inherit; }
+.more:hover { text-decoration: underline; }
+.foot-row { display: flex; justify-content: space-between; gap: 16px; }
+.bg-cream { background: var(--f-cream); } .bg-check { background: var(--f-check); } .bg-temp { background: var(--f-temp); }
+.bg-ware { background: var(--f-ware); } .bg-day { background: var(--f-day); } .bg-hero { background: var(--f-hero); } .bg-warm { background: var(--f-warm); }
+
+/* Zwischentitel ueber die ganze Breite, dahinter stehen die Ringe still */
+.banner { position: relative; overflow: hidden; background: var(--f-strong); color: var(--f-strong-ink); padding: 72px 20px; display: grid; gap: 20px; }
+.banner h2 { position: relative; font-size: clamp(44px, 9vw, 104px); max-width: 12ch; }
+.banner-note { position: relative; font-size: 18px; }
+.banner-bg { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.banner-bg svg { width: min(760px, 120%); height: auto; }
+.banner-bg circle { fill: none; stroke: var(--f-strong-ink); stroke-width: 52; }
+.banner-bg .tr { stroke-opacity: 0.08; }
+.banner-bg .br { stroke-opacity: 0.2; stroke-linecap: round; stroke-dasharray: 100 100; }
+
+/* Grundsaetze: Titel mittig, Zeilen mit feiner Linie */
+.principles { background: var(--f-cream); padding: 72px 20px; }
+.principles > h2 { text-align: center; font-size: clamp(32px, 5vw, 52px); letter-spacing: 0.06em; }
+.principles-lead { text-align: center; color: var(--text-secondary); margin: 12px 0 48px; }
+.principles ul { list-style: none; margin: 0 auto; padding: 0; max-width: 980px; display: grid; }
+.principles li { display: grid; gap: 6px; padding-block: 24px; border-top: 1px solid var(--text-primary); }
+.principles li:last-child { border-bottom: 1px solid var(--text-primary); }
+.principles h3 { font-size: clamp(24px, 3.4vw, 34px); font-weight: 300; line-height: 1.15; }
+.principles li p { font-size: 18px; color: var(--text-secondary); max-width: 52ch; }
+
+/* Kontakt neben einer Farbflaeche */
+.contact .mail { font-size: clamp(26px, 4vw, 44px); color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; justify-self: start; word-break: break-word; }
+.contact .mail:hover { color: var(--accent); }
+.soon-half { align-content: end; }
+.soonbig { font-size: clamp(40px, 5.6vw, 72px); overflow-wrap: anywhere; }
+
+/* Fusszeile in der Einstiegsfarbe */
+.foot-nav { background: var(--f-hero); padding: 32px 20px 24px; display: grid; gap: 24px; font-size: 14px; text-transform: uppercase; }
+.foot-nav nav { display: flex; flex-wrap: wrap; gap: 12px 36px; }
+.foot-nav a { color: inherit; text-decoration: none; }
+.foot-nav a:hover { text-decoration: underline; }
+.foot-nav small { font-size: 12px; text-transform: none; }
+.foot-nav small a { text-decoration: underline; }
+
+/* Bewegung wie bei der Vorlage (script.js): Titel schweben 60 px herein, Texte blenden ein,
+   der Pfeil pulsiert, die Kacheln laufen beim Scrollen langsamer mit. */
+.reveal-ready [data-m]:not(.m-done) { opacity: 0; }
+@keyframes pulse { 15.39% { transform: scale(0.96); } 25.65% { transform: scale(1); } 41.04% { transform: scale(0.93); } 57%, 100% { transform: scale(1); } }
+.reveal-ready .arrow { animation: pulse 2300ms linear infinite; transform-origin: 50% 100%; }
+
+/* Kacheln: Schrift wie in der App, nicht die duenne Seitenschrift */
+.tile { margin: 0; display: grid; gap: var(--space-sm); font-family: var(--font-system); font-weight: 400; font-size: var(--font-body); line-height: 1.5; }
 .tile > .caption { text-align: center; }
+.accent { color: var(--accent); }
 
 /* ===== Kachel "Heute": dashboard.tsx + DayRings.tsx ===== */
 .card-title { color: var(--accent); font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
@@ -256,43 +294,6 @@ section[id] { scroll-margin-top: 84px; }
 .legend-checklist { border-color: var(--module-checklist); background: var(--module-checklist-soft); color: var(--module-checklist); }
 .legend-temperature { border-color: var(--module-temperature); background: var(--module-temperature-soft); color: var(--module-temperature); }
 .legend-receipt { color: var(--text-muted); } /* nur das Icon, Text hat eigene Farben */
-
-/* ===== Funktionen: untereinander, links die Kachel, rechts der Text ===== */
-.features { display: grid; gap: var(--section-y); }
-.feature { display: grid; gap: var(--space-lg); align-items: center; }
-.feature-text { display: grid; gap: 14px; max-width: 30rem; }
-.feature-kicker { display: flex; align-items: center; gap: 10px; font-size: var(--font-caption); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
-.chip { width: 36px; height: 36px; border-radius: var(--radius-pill); display: grid; place-items: center; }
-.chip .icon { width: 20px; height: 20px; }
-.chip-checklist { background: var(--module-checklist-soft); color: var(--module-checklist); }
-.chip-temperature { background: var(--module-temperature-soft); color: var(--module-temperature); }
-.chip-receipt, .chip-calendar, .chip-daysheet, .chip-team { background: var(--tab-active); color: var(--accent); }
-.feature-title { font-size: clamp(26px, calc(14px + 3vw), 36px); letter-spacing: -0.02em; line-height: 1.12; }
-.feature-body { color: var(--text-secondary); font-size: 17px; }
-
-/* Grundsaetze: nummerierte Karten */
-.principles { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-md); grid-template-columns: 1fr; }
-.principle { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); display: grid; gap: var(--space-sm); align-content: start; }
-.principle-num { font-size: var(--font-caption); font-weight: 700; color: var(--accent); background: var(--tab-active); border-radius: var(--radius-pill); padding: 4px 10px; justify-self: start; font-variant-numeric: tabular-nums; }
-.principle h3 { font-size: var(--font-subheading); }
-.principle p { color: var(--text-secondary); }
-
-/* Geschichte (dunkles Band) */
-.story { display: grid; gap: var(--space-lg); }
-.band-dark .eyebrow { color: var(--disabled); }
-.story-text { font-size: clamp(26px, calc(12px + 3.6vw), 44px); line-height: 1.22; letter-spacing: -0.015em; font-weight: 600; text-wrap: balance; max-width: 22em; color: var(--disabled); }
-.story-strong { color: var(--surface); }
-.story-by { color: var(--disabled); }
-
-/* Kontakt */
-.contact { display: grid; gap: 20px; justify-items: start; }
-.contact-mail { font-size: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--accent); text-decoration: none; word-break: break-word; }
-.contact-mail:hover { text-decoration: underline; text-underline-offset: 6px; }
-
-/* Grosse Wortmarke als Abschluss (nur Schmuck) */
-.bigword { display: block; font-size: min(18.5vw, 232px); line-height: 0.9; text-align: center; padding-block: var(--space-sm); opacity: 0.1; user-select: none; overflow: hidden; }
-.site-footer { padding-block: var(--space-md) var(--space-xl); font-size: var(--font-caption); color: var(--text-secondary); }
-.site-footer a { color: var(--text-secondary); }
 
 /* ===== App-Bausteine (1:1 nach App-Code) ===== */
 /* Karten mit Rand: haccp.tsx listCard, TemperatureDaySection.tsx listCard (Radius lg, Innenabstand md, Rand) */
@@ -395,22 +396,18 @@ section[id] { scroll-margin-top: 84px; }
 .reveal-ready .head-card[data-at]:not(.step-on) { opacity: 0; transform: translateY(8px); }
 
 /* ===== Tablet und Desktop ===== */
-@media (min-width: 640px) {
-  .principles { grid-template-columns: repeat(2, 1fr); }
-}
 @media (min-width: 760px) {
-  :root { --section-y: 96px; }
-  .in { padding-inline: 40px; }
-  .site-nav { display: flex; }
-  .opener-band { padding-top: 56px; }
-  .hero-stage { padding: var(--space-xxl) 40px; }
-  .stage { padding: var(--space-xxl) var(--space-xl); }
-}
-/* Kachel und Text nebeneinander erst, wenn die Kachel so breit bleibt wie am Handy */
-@media (min-width: 1000px) {
-  .hero-side { display: block; }
-  .feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; }
-  .principles { grid-template-columns: repeat(3, 1fr); }
+  .hero { padding: 72px 48px 48px; min-height: 680px; }
+  .hero .row { grid-template-columns: 1fr auto; }
+  .split { grid-template-columns: 1fr 1fr; }
+  .split.flip .half:first-child { order: 2; }
+  .half { padding: 48px; min-height: 560px; }
+  .half.media { padding: 56px 48px; }
+  .banner { padding: 120px 48px; }
+  .principles { padding: 110px 48px; }
+  .principles li { grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: baseline; }
+  .foot-nav { padding: 40px 48px 28px; }
+  .menu { padding: 110px 48px 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

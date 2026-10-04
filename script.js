@@ -90,37 +90,80 @@
   tiles.forEach(function (el) { observer.observe(el); });
 })();
 
-// Kopf und Einstieg (Entscheid 04.10.2026: Mischung aus "Wie der App-Start" und "Schwebende Leiste").
+// Menue: nur ein Symbol oben rechts wie bei der Vorlage (Entscheid 04.10.2026).
 (function () {
-  var header = document.getElementById('site-header');
-  var mark = document.getElementById('bigmark');
+  var root = document.documentElement;
+  var btn = document.getElementById('menu-toggle'), menu = document.getElementById('menu');
+  if (!btn || !menu) return;
+  function set(open) {
+    root.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Menü schliessen' : 'Menü öffnen');
+    if (open) menu.querySelector('a').focus();
+  }
+  btn.addEventListener('click', function () { set(!root.classList.contains('menu-open')); });
+  menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && root.classList.contains('menu-open')) { set(false); btn.focus(); }
+  });
+})();
 
-  // Kleine Marke in der Leiste erst zeigen, wenn die grosse Wortmarke aus dem Bild ist.
-  if (header && mark && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      header.classList.toggle('brand-hidden', entries[0].isIntersecting);
-    }, { rootMargin: '-80px 0px 0px 0px' }).observe(mark);
+// Bewegung wie bei der Vorlage: Titel (data-m="float") schweben 60 px herein, Texte
+// (data-m="fade") blenden ein, 1200 ms, am Handy 600 ms. Kacheln (data-par) laufen beim
+// Scrollen langsamer mit, die Ringe hinter dem Zwischentitel (data-fixed) stehen still.
+(function () {
+  if (!document.documentElement.classList.contains('reveal-ready')) return;
+  var EASE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
+  var items = document.querySelectorAll('[data-m]');
+  if (!Element.prototype.animate) {
+    items.forEach(function (el) { el.classList.add('m-done'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        io.unobserve(el);
+        var dur = window.innerWidth < 750 ? 600 : 1200;
+        var kf = el.dataset.m === 'float'
+          ? [{ opacity: 0, transform: 'translateY(60px)' }, { opacity: 1, transform: 'none' }]
+          : [{ opacity: 0 }, { opacity: 1 }];
+        el.classList.add('m-done');
+        el.animate(kf, { duration: dur, easing: EASE, fill: 'backwards' });
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { io.observe(el); });
   }
 
-  // Aktiver Bereich in der Leiste, wie der aktive Reiter in der App.
-  var links = document.querySelectorAll('.site-nav a[data-spy]');
-  if (links.length && 'IntersectionObserver' in window) {
-    var targets = [];
-    links.forEach(function (a) {
-      var id = a.dataset.spy;
-      var el = id === 'top' ? document.querySelector('.opener-band') : document.getElementById(id);
-      if (el) targets.push({ el: el, link: a });
+  var par = document.querySelectorAll('[data-par]'), fixed = document.querySelectorAll('[data-fixed]');
+  var waiting = false;
+  function update() {
+    waiting = false;
+    var h = window.innerHeight;
+    par.forEach(function (el) {
+      var r = el.parentElement.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > h + 200) return;
+      var off = (r.top + r.height / 2 - h / 2) * (1 - 1 / 1.5) * 0.35;
+      // Nie ueber den Rand der eigenen Flaeche hinaus (hohe Kacheln haben wenig Luft)
+      var free = Math.max(0, (r.height - el.offsetHeight) / 2 - 16);
+      off = Math.max(-free, Math.min(free, off));
+      el.style.transform = 'translateY(' + off.toFixed(1) + 'px)';
     });
-    var setActive = function () {
-      var line = window.innerHeight * 0.35, current = targets[0];
-      targets.forEach(function (t) { if (t.el.getBoundingClientRect().top <= line) current = t; });
-      links.forEach(function (a) { a.classList.toggle('is-active', a === current.link); });
-    };
-    window.addEventListener('scroll', setActive, { passive: true });
-    window.addEventListener('resize', setActive);
-    setActive();
+    fixed.forEach(function (el) {
+      var r = el.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > h) return;
+      el.style.transform = 'translateY(' + (-r.top + (h - r.height) / 2).toFixed(1) + 'px)';
+    });
   }
+  window.addEventListener('scroll', function () {
+    if (!waiting) { waiting = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
 
+// Wortmarke im Einstieg wie beim Start der App (Entscheid 04.10.2026).
+(function () {
+  var mark = document.getElementById('bigmark');
   // Wortmarke wie components/ChefKlickLogo.tsx: Buchstaben im Abstand von 90 ms, je 260 ms,
   // 200 ms Pause vor "Klick"; dann faellt der i-Punkt (420 ms) und huepft dreimal
   // (0.55 / 0.28 / 0.12 der Schriftgroesse). Punkt 0.20, Abdeckung 0.28 der Schriftgroesse,
