@@ -109,8 +109,8 @@
 })();
 
 // Bewegung wie bei der Vorlage: Titel (data-m="float") schweben 60 px herein, Texte
-// (data-m="fade") blenden ein, 1200 ms, am Handy 600 ms. Kacheln (data-par) laufen beim
-// Scrollen langsamer mit, die Ringe hinter dem Zwischentitel (data-fixed) stehen still.
+// (data-m="fade") blenden ein, 1200 ms, am Handy 600 ms. Die Ringe hinter dem
+// Zwischentitel (data-fixed) stehen still.
 (function () {
   if (!document.documentElement.classList.contains('reveal-ready')) return;
   var EASE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
@@ -151,40 +151,23 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
-  // Mitlaufen gedaempft (Entscheid 04.10.2026): jede Kachel zieht ihrem Ziel weich nach statt
-  // direkt zu springen, und nahe am Rand ihrer Flaeche wird sie langsamer statt hart zu stoppen.
-  var fixed = document.querySelectorAll('[data-fixed]'), state = [], running = false;
-  document.querySelectorAll('[data-par]').forEach(function (el) { state.push({ el: el, cur: 0, target: 0 }); });
-  function targets() {
+  // Die Ringe hinter dem Zwischentitel (data-fixed) stehen beim Scrollen still.
+  // Mitlaufen der Kacheln entfernt (Entscheid 05.10.2026: zu verspielt).
+  var fixed = document.querySelectorAll('[data-fixed]'), waiting = false;
+  function update() {
+    waiting = false;
     var h = window.innerHeight;
-    state.forEach(function (s) {
-      var r = s.el.parentElement.getBoundingClientRect();
-      var raw = (r.top + r.height / 2 - h / 2) * (1 - 1 / 1.5) * 0.35;
-      var free = Math.max(0, (r.height - s.el.offsetHeight) / 2 - 16);
-      s.target = free > 0 ? free * Math.tanh(raw / free) : 0;
-    });
     fixed.forEach(function (el) {
       var r = el.parentElement.getBoundingClientRect();
       if (r.bottom < 0 || r.top > h) return;
       el.style.transform = 'translateY(' + (-r.top + (h - r.height) / 2).toFixed(1) + 'px)';
     });
   }
-  function paint(s) { s.el.style.transform = 'translateY(' + s.cur.toFixed(2) + 'px)'; }
-  function step() {
-    targets();
-    var moving = false;
-    state.forEach(function (s) {
-      var d = s.target - s.cur;
-      if (Math.abs(d) > 0.1) { s.cur += d * 0.1; moving = true; } else s.cur = s.target;
-      paint(s);
-    });
-    if (moving) requestAnimationFrame(step); else running = false;
-  }
-  function kick() { if (!running) { running = true; requestAnimationFrame(step); } }
-  window.addEventListener('scroll', kick, { passive: true });
-  window.addEventListener('resize', kick);
-  targets();
-  state.forEach(function (s) { s.cur = s.target; paint(s); });
+  window.addEventListener('scroll', function () {
+    if (!waiting) { waiting = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();
 
 // Wortmarke im Einstieg wie beim Start der App (Entscheid 04.10.2026).

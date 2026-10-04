@@ -10,11 +10,11 @@
   <link rel="canonical" href="https://chefklick.ch/">
   <link rel="icon" href="images/chefklick-icon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/montserrat-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <!-- js: Menue-Knopf zeigen. reveal-ready: Kacheln und Texte ab dem ersten Bild im Startzustand,
        damit nichts rueckwaerts laeuft (siehe script.js). Bei "Bewegung reduzieren" kein Startzustand. -->
   <script>document.documentElement.classList.add('js'); if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('reveal-ready');</script>
-  <script src="script.js?v=7" defer></script>
+  <script src="script.js?v=8" defer></script>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
     <section class="split" aria-label="Über ChefKlick">
       <div class="half media bg-cream">
         <!-- Kachel "Heute": app/(tabs)/dashboard.tsx (Ringkarte) und components/DayRings.tsx -->
-        <figure class="tile tile-hero" data-reveal data-par>
+        <figure class="tile tile-hero" data-reveal>
             <div class="card card-dash today">
               <p class="card-title">Donnerstag, 24. September</p>
               <svg class="rings" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true">
@@ -95,7 +95,7 @@
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-cream">
-            <div class="tile" data-reveal data-par>
+            <div class="tile" data-reveal>
               <div class="app-area">Küche</div>
               <div class="app-rhythm">Täglich</div>
               <div class="card card-list">
@@ -121,7 +121,7 @@
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-hero">
-            <div class="tile" data-reveal data-par>
+            <div class="tile" data-reveal>
               <div class="card">
                 <div class="temp-name">Tiefkühler</div>
                 <div class="temp-target">maximal -18 °C</div>
@@ -146,7 +146,7 @@
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-cream">
-            <div class="tile" data-reveal data-par>
+            <div class="tile" data-reveal>
               <div class="app-section">Prüfpunkte</div>
               <div class="card">
                 <div class="check-row" data-at="300"><span class="check-label">Verpackung unbeschädigt</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
@@ -164,7 +164,7 @@
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-check">
-            <div class="tile" data-reveal data-par data-clock>
+            <div class="tile" data-reveal data-clock>
               <div class="card card-dash">
                 <div class="month-head">
                   <span class="card-title">September 2026</span>
@@ -218,7 +218,7 @@
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-temp">
-            <div class="tile" data-reveal data-par>
+            <div class="tile" data-reveal>
               <div class="card card-list day-card">
                 <div class="control-head">07:31 · Alex</div>
                 <div class="entry entry-void" data-at="600">
@@ -250,7 +250,7 @@
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-cream">
-            <div class="tile" data-reveal data-par>
+            <div class="tile" data-reveal>
               <div class="app-field"><span class="field-value" data-type data-at="400" data-speed="150">482917</span><span class="ph">Code</span></div>
               <div class="app-field"><span class="field-value" data-type data-at="1550" data-speed="70">••••••••••</span><span class="ph">Neues Passwort</span></div>
               <div class="card card-dash head-card" data-at="2600">

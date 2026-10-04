@@ -13,7 +13,6 @@
    - Grundsatz "Jeder Tag bleibt genau so gespeichert, wie er ausgefüllt wurde" bewusst weggelassen: Gültigkeitszeiträume sind noch geplant
    - Bewegungen, die es in der App nicht gibt: Tagesblatt (zweite Karte blendet ein), Team (Kopfkarte blendet ein); alles andere wie in der App
    - Menü nur als Symbol: am Desktop sind die Bereiche nicht direkt sichtbar (Nachteil aus dem Artifact)
-   - Kontraste der kräftigen Flächen nachmessen (Text ist überall --text-primary)
    - Codelänge 6 Ziffern angenommen (Supabase-Standard), nicht im App-Code nachgelesen
    - Foto des Lieferscheins: nur im Text erwähnt, Darstellung in der App noch nicht gelesen
 2. Marken-PNGs (wortmarke-*.png, icon.png, favicon.png) erst übernehmen, wenn sie gebraucht werden
@@ -31,6 +30,7 @@
 - Login-Bereich, falls je nötig: eigenes Projekt unter eigener Unteradresse (z. B. app.chefklick.ch), nicht in dieser Seite
 
 ## Entscheidungen
+- 05.10.2026: Ruhiger, weil die Seite für eine Dokumentations-App zu verspielt wirkte (Philipp): Flächen in den App-Farben statt "Kräftig" (--f-* = tabActive, background, moduleChecklistSoft, moduleTemperatureSoft, surfaceElevated, surface); Pfeil pulsiert nicht mehr; Mitlaufen der Kacheln entfernt; Häkchen blendet nur noch ein, ohne Aufspringen. Bleibt: Titel schweben herein, Texte blenden ein, Linien ziehen sich, Ringe füllen sich und stehen still, Grundsätze nacheinander, Menü gestaffelt, weiche Übergänge in den Kacheln, Wortmarke wie beim App-Start
 - 04.10.2026 (spät): Abläufe der Kacheln flüssiger (Philipp: "bauen sich komisch auf, nicht so flüssig"): weiche Übergänge bei jedem Schritt (Haken füllt sich und Häkchen springt leicht auf – weicht bewusst von der App ab –, Zeile darunter klappt auf, Ja-Knöpfe, Texte blenden über, Speichern-Knopf, Strich); Mitlaufen gedämpft (zieht weich nach, wird am Rand der Fläche langsamer statt hart zu stoppen). Nicht gewählt: Feld Korrekturmassnahme klappt auf (blendet nur ein, die Kachel wächst weiter in einem Schritt), Kachel schwebt herein
 - 04.10.2026 (spät): Zusätzliche Bewegungen (Philipp: "mir fehlen noch ein paar Animationen"): Linie unter jedem Text zieht sich von links, danach "+ Interesse"; Ringe hinter dem Zwischentitel füllen sich wie DayRings.tsx (1.8 s); Grundsätze kommen nacheinander (Linie, Titel, Text); Menü-Links schweben gestaffelt herein. Was gleichzeitig ins Bild kommt, startet gestaffelt (150 ms)
 - 04.10.2026 (spät): Startseite nach dem Vorbild noahbachofen.ch (Artifact "ChefKlick Farbflächen", Version 2) – ersetzt Kopf-Leiste, Einstieg mit Titel und das Raster der Funktionen. Farbflächen über die ganze Breite, Zweiteilung 50/50 abwechselnd, dünne Titel in Grossbuchstaben (Helvetica Light; ersetzt "Überschriften in Systemschrift" – in den Kacheln bleibt die Systemschrift), grosser Fliesstext, feine Linie mit "+"-Link, Menü nur als Symbol oben rechts. Farben: Satz "Kräftig" (aus den App-Farben aufgehellt, in der App so nicht vorhanden, Variablen --f-*). Abläufe der Kacheln bleiben. Alle sechs Funktionen. Bewegungen der Vorlage: Titel schweben 60 px herein, Texte blenden ein (1.2 s, Handy 0.6 s), Pfeil pulsiert, Kacheln laufen langsamer mit (nie über den Rand ihrer Fläche), Ringe hinter dem Zwischentitel stehen still, Menü fährt von rechts herein
@@ -59,6 +59,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 05.10.2026: Farben auf App-Farben, Pulsieren und Mitlaufen entfernt, Häkchen ohne Aufspringen. Geprüft 390 und 1280 px, keine Fehler
 - 04.10.2026 (spät): Abläufe flüssiger (siehe Entscheidungen). Gemessen: Mitlaufen höchstens 2 px pro Bild; Einzelbilder Checkliste und Temperatur; bei "Bewegung reduzieren" Endzustand sofort
 - 04.10.2026 (spät): Vier zusätzliche Bewegungen eingebaut (siehe Entscheidungen). Geprüft 1280 px mit Zwischenbildern, Menü 390 und 1280 px (deckt das ganze Bild, Esc schliesst, Fokus zurück auf den Knopf), keine Fehler in der Konsole
 - 04.10.2026 (spät): Farbflächen-Entwurf in index.html, styles.css, script.js eingebaut (siehe Entscheidungen). Kopf-Leiste, Einstieg mit Titel und Nebenkacheln, dunkles Band und grosse Wortmarke am Schluss entfernt; Kacheln unverändert übernommen. Geprüft 390 und 1280 px: kein seitliches Scrollen, keine Fehler in der Konsole, Kacheln stehen nie über ihre Fläche hinaus, Menü öffnet und schliesst (auch mit Esc); ohne JavaScript und bei "Bewegung reduzieren" steht alles sofort da, ohne JavaScript kein Menü-Knopf (Links in der Fusszeile)

@@ -146,15 +146,16 @@ a:focus-visible, button:focus-visible {
 }
 
 /* ===== Seite: Farbflaechen nach dem Vorbild noahbachofen.ch (Entscheid 04.10.2026) ===== */
-/* Flaechenfarben "Kraeftig": aus den App-Farben aufgehellt, in der App so nicht vorhanden. */
+/* Flaechenfarben: nur Toene, die es in der App gibt (Entscheid 05.10.2026, vorher "Kraeftig" -
+   aufgehellte Farben, wirkte fuer eine Dokumentations-App zu verspielt). */
 :root {
-  --f-hero: #A9B6E8;   /* accent aufgehellt */
-  --f-cream: #FBF9F4;
-  --f-check: #A8CDBB;  /* moduleChecklist aufgehellt */
-  --f-temp: #9DC6EA;   /* moduleTemperature aufgehellt */
-  --f-ware: #E9D2A6;   /* warning aufgehellt */
-  --f-day: #E7B9B9;    /* danger aufgehellt */
-  --f-warm: #E39A4A;   /* warning aufgehellt, kraeftiger */
+  --f-hero: #E4EAF5;   /* tabActive */
+  --f-cream: #F4F2ED;  /* background */
+  --f-check: #E6ECE9;  /* moduleChecklistSoft */
+  --f-temp: #E4EEF6;   /* moduleTemperatureSoft */
+  --f-ware: #EAE7E0;   /* surfaceElevated */
+  --f-day: #FFFFFF;    /* surface */
+  --f-warm: #EAE7E0;   /* surfaceElevated */
   --f-strong: #163A7C; /* accent */
   --f-strong-ink: #F4F2ED; /* background */
   /* Duenne Titel und grosser Fliesstext wie bei der Vorlage (nur Website, nicht in den Kacheln) */
@@ -260,11 +261,9 @@ html { scroll-behavior: smooth; }
 .foot-nav small { font-size: 12px; text-transform: none; }
 .foot-nav small a { text-decoration: underline; }
 
-/* Bewegung wie bei der Vorlage (script.js): Titel schweben 60 px herein, Texte blenden ein,
-   der Pfeil pulsiert, die Kacheln laufen beim Scrollen langsamer mit. */
+/* Bewegung wie bei der Vorlage (script.js): Titel schweben 60 px herein, Texte blenden ein.
+   Pfeil-Pulsieren und Mitlaufen der Kacheln entfernt (Entscheid 05.10.2026: zu verspielt). */
 .reveal-ready [data-m]:not(.m-done) { opacity: 0; }
-@keyframes pulse { 15.39% { transform: scale(0.96); } 25.65% { transform: scale(1); } 41.04% { transform: scale(0.93); } 57%, 100% { transform: scale(1); } }
-.reveal-ready .arrow { animation: pulse 2300ms linear infinite; transform-origin: 50% 100%; }
 
 /* Kacheln: Schrift wie in der App, nicht die duenne Seitenschrift */
 .tile { margin: 0; display: grid; gap: var(--space-sm); font-family: var(--font-system); font-weight: 400; font-size: var(--font-body); line-height: 1.5; }
@@ -341,7 +340,7 @@ html { scroll-behavior: smooth; }
 .task.done .task-label { color: var(--text-secondary); }
 .task.done .task-detail { display: block; }
 .reveal-ready .task.done[data-at]:not(.step-on) .check { background: transparent; border-color: var(--border); }
-.reveal-ready .task.done[data-at]:not(.step-on) .check::after { opacity: 0; transform: scale(0.4); }
+.reveal-ready .task.done[data-at]:not(.step-on) .check::after { opacity: 0; }
 .reveal-ready .task.done[data-at]:not(.step-on) .task-label { color: var(--text-primary); }
 .reveal-ready .task.done[data-at]:not(.step-on) .task-detail { max-height: 0; margin-top: 0; opacity: 0; }
 
@@ -409,7 +408,7 @@ html { scroll-behavior: smooth; }
    Nur mit reveal-ready; bei "Bewegung reduzieren" schaltet die Regel ganz unten alles ab. */
 @keyframes appear { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 .reveal-ready .check { transition: background-color 250ms ease-out, border-color 250ms ease-out; }
-.reveal-ready .check::after { transition: opacity 200ms ease-out 80ms, transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1) 80ms; }
+.reveal-ready .check::after { transition: opacity 200ms ease-out 80ms; } /* ohne Aufspringen (Entscheid 05.10.2026) */
 .reveal-ready .task-label { transition: color 250ms ease-out; }
 .reveal-ready .task-detail { overflow: hidden; max-height: 2.4em; transition: max-height 300ms ease-out, margin-top 300ms ease-out, opacity 300ms ease-out 100ms; }
 .reveal-ready .check-row .yn-yes { transition: background-color 250ms ease-out, border-color 250ms ease-out, color 250ms ease-out; }
