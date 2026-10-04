@@ -10,11 +10,11 @@
   <link rel="canonical" href="https://chefklick.ch/">
   <link rel="icon" href="images/chefklick-icon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/montserrat-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
   <!-- Kacheln ab dem ersten Bild im Startzustand, damit nichts rueckwaerts laeuft (siehe script.js).
        Bei "Bewegung reduzieren" kein Startzustand: die Kacheln stehen sofort fertig da. -->
   <script>if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('reveal-ready');</script>
-  <script src="script.js?v=2" defer></script>
+  <script src="script.js?v=3" defer></script>
 </head>
 
 <body>
@@ -34,7 +34,8 @@
   </header>
 
   <main id="top">
-    <section class="in hero" aria-labelledby="hero-title">
+    <section class="band" aria-labelledby="hero-title">
+      <div class="in hero">
       <div class="hero-copy">
         <p class="soon"><span class="soon-dot" aria-hidden="true"></span>Bald verfügbar · HACCP-App für die Gastronomie</p>
         <h1 id="hero-title" class="display">Die HACCP-Listen deiner Küche. <span class="accent">Auf dem Handy.</span></h1>
@@ -46,6 +47,7 @@
       </div>
 
       <!-- Kachel "Heute": app/(tabs)/dashboard.tsx (Ringkarte) und components/DayRings.tsx -->
+      <div class="stage stage-hero">
       <figure class="tile tile-hero" data-reveal>
         <div class="card card-dash today">
           <p class="card-title">Donnerstag, 24. September</p>
@@ -75,193 +77,239 @@
         </div>
         <figcaption class="caption">Beispielansicht</figcaption>
       </figure>
+      </div>
+      </div>
     </section>
 
-    <section class="in section" id="funktionen" aria-labelledby="funktionen-title">
+    <section class="band band-surface" id="funktionen" aria-labelledby="funktionen-title">
+      <div class="in">
       <div class="section-head">
         <p class="eyebrow">Funktionen</p>
         <h2 id="funktionen-title" class="section-title">Alles, was eine Küche festhalten muss.</h2>
         <p class="section-lead">So sieht es in der App aus, mit Beispieldaten.</p>
       </div>
 
-      <div class="bento">
-        <!-- Checkliste: app/(tabs)/haccp.tsx (renderAreaBlock, renderTaskRow, Stile ab Zeile 844) -->
-        <figure class="tile" data-reveal>
-          <figcaption class="tile-label">Checkliste</figcaption>
-          <div class="app-area">Küche</div>
-          <div class="app-rhythm">Täglich</div>
-          <div class="card card-list">
-            <div class="task done" data-at="300"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Arbeitsflächen desinfiziert</span><span class="task-detail">von <b>Sam</b> um 14:52 Uhr</span></span></div>
-            <div class="task done" data-at="750"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Schneidebretter gereinigt</span><span class="task-detail">von <b>Sam</b> um 14:58 Uhr</span></span></div>
-            <div class="task done" data-at="1200"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Kühlraum ausgeräumt</span><span class="task-detail">von <b>Mia</b> um 15:04 Uhr</span></span></div>
-          </div>
-          <div class="app-rhythm-row">
-            <span class="app-rhythm">Grundreinigung – diese Woche</span>
-            <span class="app-rhythm-count swap"><span class="swap-from">1 von 2 erledigt</span><span class="swap-to" data-at="1650">2 von 2 erledigt</span></span>
-          </div>
-          <div class="card card-list">
-            <div class="task done"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Dampfabzug Filter</span><span class="task-detail">erledigt am Montag, 21.09. von <b>Mia</b></span></span></div>
-            <div class="task done" data-at="1650"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Kühlraum Regale</span><span class="task-detail">von <b>Sam</b> um 15:20 Uhr</span></span></div>
-          </div>
-          <p class="tile-text">Aufgaben nach Bereichen, täglich und als wöchentliche Grundreinigung. Jedes Häkchen speichert sofort, mit Name und Uhrzeit.</p>
-        </figure>
-
-        <!-- Temperatur: components/temperature/TemperatureCard.tsx, Knopf aus app/(tabs)/temperature.tsx -->
-        <figure class="tile" data-reveal>
-          <figcaption class="tile-label">Temperatur</figcaption>
-          <div class="card">
-            <div class="temp-name">Tiefkühler</div>
-            <div class="temp-target">maximal -18 °C</div>
-            <div class="temp-row">
-              <div class="app-input"><span class="field-value" data-type data-at="400" data-speed="160">-15.4</span><span class="ph">Temperatur eingeben</span></div>
-              <span class="temp-unit">°C</span>
-            </div>
-            <div class="temp-status swap"><span class="swap-from">Noch nicht geprüft</span><span class="swap-to status-danger" data-at="1250">Ausserhalb Sollbereich</span></div>
-            <div class="temp-action" data-at="1550">
-              <div class="temp-action-label">Korrekturmassnahme (Pflichtfeld)</div>
-              <div class="app-input app-input-area"><span class="field-value" data-type data-at="2200" data-speed="28">Tür war offen, nach 30 Min. erneut gemessen</span><span class="ph">Was wurde unternommen?</span></div>
-            </div>
-          </div>
-          <div class="app-save" data-at="3500">Temperaturen speichern</div>
-          <p class="tile-text">Jede Kühleinheit wird gegen ihren Sollbereich geprüft. Liegt ein Wert daneben, verlangt die App eine Korrekturmassnahme. Gespeichert wird erst danach.</p>
-        </figure>
-
-        <!-- Warenannahme: app/(tabs)/goods-receipt.tsx (Pruefpunkte), components/reusable/YesNoToggle.tsx, lib/receiptChecks.ts -->
-        <figure class="tile" data-reveal>
-          <figcaption class="tile-label">Warenannahme</figcaption>
-          <div class="app-section">Prüfpunkte</div>
-          <div class="card">
-            <div class="check-row" data-at="300"><span class="check-label">Verpackung unbeschädigt</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
-            <div class="check-row" data-at="680"><span class="check-label">Ware unbeschädigt</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
-            <div class="check-row" data-at="1060"><span class="check-label">Ware vollständig</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
-            <div class="check-row" data-at="1440"><span class="check-label">MHD / Verbrauchsdatum geprüft</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
-          </div>
-          <p class="tile-text">Feste Prüfpunkte je Lieferung, Temperatur je Artikel, Lieferscheinnummer und ein Foto des Lieferscheins. Fehlt ein Haken, verlangt die App eine Massnahme.</p>
-        </figure>
-
-        <!-- Kalender: Monatskarte aus app/(tabs)/dashboard.tsx, Uhr aus components/MonthClock.tsx -->
-        <figure class="tile" data-reveal data-clock>
-          <figcaption class="tile-label">Kalender</figcaption>
-          <div class="card card-dash">
-            <div class="month-head">
-              <span class="card-title">September 2026</span>
-              <span class="month-link">Kalender<svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-chevron" /></svg></span>
-            </div>
-            <svg class="clock" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Monatsuhr: ein Strich pro Tag, 17 vollständig, 3 offen, heute der 24.">
-            <line x1="140.19" y1="44.66" x2="143.55" y2="32.1" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="0" data-cos="0.25882" data-sin="-0.96593" data-out="91" />
-            <line x1="154.66" y1="50.12" x2="160.43" y2="38.48" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="1" data-cos="0.44431" data-sin="-0.89587" data-out="91" />
-            <line x1="167.76" y1="58.33" x2="175.72" y2="48.06" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="2" data-cos="0.61234" data-sin="-0.79060" data-out="91" />
-            <line x1="178.99" y1="68.97" x2="188.82" y2="60.46" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="3" data-cos="0.75629" data-sin="-0.65424" data-out="91" />
-            <line x1="187.9" y1="81.61" x2="208.79" y2="69.8" style="stroke: var(--danger)" stroke-width="7" stroke-linecap="round" data-grow="4" data-cos="0.87050" data-sin="-0.49216" data-out="102" />
-            <line x1="194.14" y1="95.76" x2="210.3" y2="90.48" style="stroke: var(--text-muted)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6" data-grow="5" data-cos="0.95050" data-sin="-0.31073" data-out="95" />
-            <line x1="197.46" y1="110.87" x2="210.37" y2="109.34" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="6" data-cos="0.99312" data-sin="-0.11709" data-out="91" />
-            <line x1="197.74" y1="126.33" x2="210.7" y2="127.39" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="7" data-cos="0.99670" data-sin="0.08116" data-out="91" />
-            <line x1="194.97" y1="141.54" x2="207.46" y2="145.14" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="8" data-cos="0.96110" data-sin="0.27622" data-out="91" />
-            <line x1="189.24" y1="155.91" x2="200.78" y2="161.9" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="9" data-cos="0.88770" data-sin="0.46041" data-out="91" />
-            <line x1="180.79" y1="168.87" x2="190.93" y2="177.01" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="10" data-cos="0.77941" data-sin="0.62651" data-out="91" />
-            <line x1="169.96" y1="179.9" x2="185.33" y2="198.33" style="stroke: var(--danger)" stroke-width="7" stroke-linecap="round" data-grow="11" data-cos="0.64048" data-sin="0.76798" data-out="102" />
-            <line x1="157.16" y1="188.58" x2="165.25" y2="203.53" style="stroke: var(--text-muted)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6" data-grow="12" data-cos="0.47637" data-sin="0.87925" data-out="95" />
-            <line x1="142.89" y1="194.56" x2="146.71" y2="206.99" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="13" data-cos="0.29352" data-sin="0.95595" data-out="91" />
-            <line x1="127.73" y1="197.62" x2="129.02" y2="210.55" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="14" data-cos="0.09914" data-sin="0.99507" data-out="91" />
-            <line x1="112.27" y1="197.62" x2="110.98" y2="210.55" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="15" data-cos="-0.09914" data-sin="0.99507" data-out="91" />
-            <line x1="97.11" y1="194.56" x2="90.06" y2="217.51" style="stroke: var(--danger)" stroke-width="7" stroke-linecap="round" data-grow="16" data-cos="-0.29352" data-sin="0.95595" data-out="102" />
-            <line x1="82.84" y1="188.58" x2="76.65" y2="200.01" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="17" data-cos="-0.47637" data-sin="0.87925" data-out="91" />
-            <line x1="70.04" y1="179.9" x2="61.72" y2="189.89" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="18" data-cos="-0.64048" data-sin="0.76798" data-out="91" />
-            <line x1="59.21" y1="168.87" x2="45.96" y2="179.52" style="stroke: var(--text-muted)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6" data-grow="19" data-cos="-0.77941" data-sin="0.62651" data-out="95" />
-            <line x1="50.76" y1="155.91" x2="39.22" y2="161.9" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="20" data-cos="-0.88770" data-sin="0.46041" data-out="91" />
-            <line x1="45.03" y1="141.54" x2="32.54" y2="145.14" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="21" data-cos="-0.96110" data-sin="0.27622" data-out="91" />
-            <line x1="42.26" y1="126.33" x2="29.3" y2="127.39" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="22" data-cos="-0.99670" data-sin="0.08116" data-out="91" />
-            <line x1="42.54" y1="110.87" x2="12.74" y2="107.35" style="stroke: var(--info)" stroke-width="5" stroke-linecap="round" data-grow="23" data-cos="-0.99312" data-sin="-0.11709" data-out="108" />
-            <line x1="45.86" y1="95.76" x2="33.5" y2="91.72" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.95050" data-sin="-0.31073" data-out="91" />
-            <line x1="52.1" y1="81.61" x2="40.78" y2="75.21" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.87050" data-sin="-0.49216" data-out="91" />
-            <line x1="61.01" y1="68.97" x2="51.18" y2="60.46" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.75629" data-sin="-0.65424" data-out="91" />
-            <line x1="72.24" y1="58.33" x2="64.28" y2="48.06" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.61234" data-sin="-0.79060" data-out="91" />
-            <line x1="85.34" y1="50.12" x2="79.57" y2="38.48" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.44431" data-sin="-0.89587" data-out="91" />
-            <line x1="99.81" y1="44.66" x2="96.45" y2="32.1" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.25882" data-sin="-0.96593" data-out="91" />
-            </svg>
-            <div class="balance">
-              <span class="balance-pill"><span class="balance-dot" style="background: var(--success)"></span>17 vollständig</span>
-              <span class="balance-pill"><span class="balance-dot" style="background: var(--danger)"></span>3 offen</span>
-              <span class="balance-pill"><span class="balance-dot" style="background: var(--info)"></span>heute</span>
-            </div>
-          </div>
-          <p class="tile-text">Die Monatsuhr zeigt jeden Tag in seiner Statusfarbe, heute als längster Strich. Ruhetage und Betriebsferien zählen nicht als fehlende Kontrolle. Ein Tipp öffnet den Kalender.</p>
-        </figure>
-
-        <!-- Tagesblatt: components/history/TemperatureDaySection.tsx, PDF-Knopf aus app/day/[date]/[module].tsx -->
-        <figure class="tile" data-reveal>
-          <figcaption class="tile-label">Tagesblatt Temperatur</figcaption>
-          <div class="card card-list day-card">
-            <div class="control-head">07:31 · Alex</div>
-            <div class="entry entry-void" data-at="600">
-              <div class="entry-row"><span>Kühlraum</span><b class="entry-value">31 °C</b></div>
-              <div class="entry-reason">Ungültig: Tippfehler</div>
-              <div class="entry-meta">0 bis 4 °C</div>
-            </div>
-          </div>
-          <div class="card card-list day-card" data-at="1200">
-            <div class="control-head">07:33 · Alex</div>
-            <div class="entry">
-              <div class="entry-row"><span>Kühlraum</span><b class="entry-value">3.1 °C</b></div>
-              <div class="entry-meta">0 bis 4 °C</div>
-            </div>
-            <div class="entry">
-              <div class="entry-row"><span>Tiefkühler</span><b class="entry-value status-danger">-15.4 °C</b></div>
-              <div class="entry-meta">maximal -18 °C</div>
-              <div class="entry-reason">Massnahme: Tür war offen, nach 30 Min. erneut gemessen</div>
-            </div>
-          </div>
-          <div class="app-pdf"><svg class="icon icon-20" aria-hidden="true"><use href="images/icons.svg#i-doc" /></svg>Als PDF speichern</div>
-          <p class="tile-text">Eine Korrektur ist eine neue Messung. Die Fehleingabe bleibt sichtbar, als ungültig markiert mit Begründung. Jedes Tagesblatt gibt es als PDF.</p>
-        </figure>
-
-        <!-- Team: Felder aus app/(auth)/enter-code.tsx, Kopfkarte aus app/(tabs)/dashboard.tsx -->
-        <figure class="tile" data-reveal>
-          <figcaption class="tile-label">Team</figcaption>
-          <div class="app-field"><span class="field-value" data-type data-at="400" data-speed="150">482917</span><span class="ph">Code</span></div>
-          <div class="app-field"><span class="field-value" data-type data-at="1550" data-speed="70">••••••••••</span><span class="ph">Neues Passwort</span></div>
-          <div class="card card-dash head-card" data-at="2600">
-            <div class="head-row">
-              <div>
-                <div class="head-title">Beispielbetrieb</div>
-                <div class="head-greeting">Willkommen, Alex</div>
+      <div class="features">
+        <article class="feature" aria-labelledby="f-checklist">
+          <div class="stage stage-checklist">
+            <!-- Checkliste: app/(tabs)/haccp.tsx (renderAreaBlock, renderTaskRow, Stile ab Zeile 844) -->
+            <div class="tile" data-reveal>
+              <div class="app-area">Küche</div>
+              <div class="app-rhythm">Täglich</div>
+              <div class="card card-list">
+                <div class="task done" data-at="300"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Arbeitsflächen desinfiziert</span><span class="task-detail">von <b>Sam</b> um 14:52 Uhr</span></span></div>
+                <div class="task done" data-at="750"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Schneidebretter gereinigt</span><span class="task-detail">von <b>Sam</b> um 14:58 Uhr</span></span></div>
+                <div class="task done" data-at="1200"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Kühlraum ausgeräumt</span><span class="task-detail">von <b>Mia</b> um 15:04 Uhr</span></span></div>
               </div>
-              <svg class="icon icon-24" aria-hidden="true"><use href="images/icons.svg#i-settings" /></svg>
+              <div class="app-rhythm-row">
+                <span class="app-rhythm">Grundreinigung – diese Woche</span>
+                <span class="app-rhythm-count swap"><span class="swap-from">1 von 2 erledigt</span><span class="swap-to" data-at="1650">2 von 2 erledigt</span></span>
+              </div>
+              <div class="card card-list">
+                <div class="task done"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Dampfabzug Filter</span><span class="task-detail">erledigt am Montag, 21.09. von <b>Mia</b></span></span></div>
+                <div class="task done" data-at="1650"><span class="check" aria-hidden="true"></span><span class="task-text"><span class="task-label">Kühlraum Regale</span><span class="task-detail">von <b>Sam</b> um 15:20 Uhr</span></span></div>
+              </div>
             </div>
           </div>
-          <p class="tile-text">Der Owner lädt per E-Mail mit Code ein. Das Passwort wählt jede Person selbst, niemand sonst kennt es. Drei Rollen: Owner, Admin, Mitarbeiter.</p>
-        </figure>
+          <div class="feature-text">
+            <p class="feature-kicker"><span class="chip chip-checklist"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-checkbox" /></svg></span>01 · Checkliste</p>
+            <h3 id="f-checklist" class="feature-title">Abhaken, <span class="accent">wenn es erledigt ist.</span></h3>
+            <p class="feature-body">Aufgaben nach Bereichen, täglich und als wöchentliche Grundreinigung. Jedes Häkchen speichert sofort, mit Name und Uhrzeit.</p>
+          </div>
+        </article>
+        <article class="feature" aria-labelledby="f-temperature">
+          <div class="stage stage-temperature">
+            <!-- Temperatur: components/temperature/TemperatureCard.tsx, Knopf aus app/(tabs)/temperature.tsx -->
+            <div class="tile" data-reveal>
+              <div class="card">
+                <div class="temp-name">Tiefkühler</div>
+                <div class="temp-target">maximal -18 °C</div>
+                <div class="temp-row">
+                  <div class="app-input"><span class="field-value" data-type data-at="400" data-speed="160">-15.4</span><span class="ph">Temperatur eingeben</span></div>
+                  <span class="temp-unit">°C</span>
+                </div>
+                <div class="temp-status swap"><span class="swap-from">Noch nicht geprüft</span><span class="swap-to status-danger" data-at="1250">Ausserhalb Sollbereich</span></div>
+                <div class="temp-action" data-at="1550">
+                  <div class="temp-action-label">Korrekturmassnahme (Pflichtfeld)</div>
+                  <div class="app-input app-input-area"><span class="field-value" data-type data-at="2200" data-speed="28">Tür war offen, nach 30 Min. erneut gemessen</span><span class="ph">Was wurde unternommen?</span></div>
+                </div>
+              </div>
+              <div class="app-save" data-at="3500">Temperaturen speichern</div>
+            </div>
+          </div>
+          <div class="feature-text">
+            <p class="feature-kicker"><span class="chip chip-temperature"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-thermo" /></svg></span>02 · Temperatur</p>
+            <h3 id="f-temperature" class="feature-title">Eine Abweichung <span class="accent">lässt sich nicht übergehen.</span></h3>
+            <p class="feature-body">Jede Kühleinheit wird gegen ihren Sollbereich geprüft. Liegt ein Wert daneben, verlangt die App eine Korrekturmassnahme. Gespeichert wird erst danach.</p>
+          </div>
+        </article>
+        <article class="feature" aria-labelledby="f-receipt">
+          <div class="stage stage-receipt">
+            <!-- Warenannahme: app/(tabs)/goods-receipt.tsx (Pruefpunkte), components/reusable/YesNoToggle.tsx, lib/receiptChecks.ts -->
+            <div class="tile" data-reveal>
+              <div class="app-section">Prüfpunkte</div>
+              <div class="card">
+                <div class="check-row" data-at="300"><span class="check-label">Verpackung unbeschädigt</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
+                <div class="check-row" data-at="680"><span class="check-label">Ware unbeschädigt</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
+                <div class="check-row" data-at="1060"><span class="check-label">Ware vollständig</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
+                <div class="check-row" data-at="1440"><span class="check-label">MHD / Verbrauchsdatum geprüft</span><span class="yes-no"><span class="yn yn-yes">Ja</span><span class="yn">Nein</span></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-text">
+            <p class="feature-kicker"><span class="chip chip-receipt"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-cube" /></svg></span>03 · Warenannahme</p>
+            <h3 id="f-receipt" class="feature-title">Jede Lieferung, <span class="accent">Punkt für Punkt.</span></h3>
+            <p class="feature-body">Feste Prüfpunkte je Lieferung, Temperatur je Artikel, Lieferscheinnummer und ein Foto des Lieferscheins. Fehlt ein Haken, verlangt die App eine Massnahme.</p>
+          </div>
+        </article>
+        <article class="feature" aria-labelledby="f-calendar">
+          <div class="stage stage-calendar">
+            <!-- Kalender: Monatskarte aus app/(tabs)/dashboard.tsx, Uhr aus components/MonthClock.tsx -->
+            <div class="tile" data-reveal data-clock>
+              <div class="card card-dash">
+                <div class="month-head">
+                  <span class="card-title">September 2026</span>
+                  <span class="month-link">Kalender<svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-chevron" /></svg></span>
+                </div>
+                <svg class="clock" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Monatsuhr: ein Strich pro Tag, 17 vollständig, 3 offen, heute der 24.">
+                <line x1="140.19" y1="44.66" x2="143.55" y2="32.1" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="0" data-cos="0.25882" data-sin="-0.96593" data-out="91" />
+                <line x1="154.66" y1="50.12" x2="160.43" y2="38.48" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="1" data-cos="0.44431" data-sin="-0.89587" data-out="91" />
+                <line x1="167.76" y1="58.33" x2="175.72" y2="48.06" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="2" data-cos="0.61234" data-sin="-0.79060" data-out="91" />
+                <line x1="178.99" y1="68.97" x2="188.82" y2="60.46" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="3" data-cos="0.75629" data-sin="-0.65424" data-out="91" />
+                <line x1="187.9" y1="81.61" x2="208.79" y2="69.8" style="stroke: var(--danger)" stroke-width="7" stroke-linecap="round" data-grow="4" data-cos="0.87050" data-sin="-0.49216" data-out="102" />
+                <line x1="194.14" y1="95.76" x2="210.3" y2="90.48" style="stroke: var(--text-muted)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6" data-grow="5" data-cos="0.95050" data-sin="-0.31073" data-out="95" />
+                <line x1="197.46" y1="110.87" x2="210.37" y2="109.34" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="6" data-cos="0.99312" data-sin="-0.11709" data-out="91" />
+                <line x1="197.74" y1="126.33" x2="210.7" y2="127.39" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="7" data-cos="0.99670" data-sin="0.08116" data-out="91" />
+                <line x1="194.97" y1="141.54" x2="207.46" y2="145.14" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="8" data-cos="0.96110" data-sin="0.27622" data-out="91" />
+                <line x1="189.24" y1="155.91" x2="200.78" y2="161.9" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="9" data-cos="0.88770" data-sin="0.46041" data-out="91" />
+                <line x1="180.79" y1="168.87" x2="190.93" y2="177.01" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="10" data-cos="0.77941" data-sin="0.62651" data-out="91" />
+                <line x1="169.96" y1="179.9" x2="185.33" y2="198.33" style="stroke: var(--danger)" stroke-width="7" stroke-linecap="round" data-grow="11" data-cos="0.64048" data-sin="0.76798" data-out="102" />
+                <line x1="157.16" y1="188.58" x2="165.25" y2="203.53" style="stroke: var(--text-muted)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6" data-grow="12" data-cos="0.47637" data-sin="0.87925" data-out="95" />
+                <line x1="142.89" y1="194.56" x2="146.71" y2="206.99" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="13" data-cos="0.29352" data-sin="0.95595" data-out="91" />
+                <line x1="127.73" y1="197.62" x2="129.02" y2="210.55" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="14" data-cos="0.09914" data-sin="0.99507" data-out="91" />
+                <line x1="112.27" y1="197.62" x2="110.98" y2="210.55" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="15" data-cos="-0.09914" data-sin="0.99507" data-out="91" />
+                <line x1="97.11" y1="194.56" x2="90.06" y2="217.51" style="stroke: var(--danger)" stroke-width="7" stroke-linecap="round" data-grow="16" data-cos="-0.29352" data-sin="0.95595" data-out="102" />
+                <line x1="82.84" y1="188.58" x2="76.65" y2="200.01" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="17" data-cos="-0.47637" data-sin="0.87925" data-out="91" />
+                <line x1="70.04" y1="179.9" x2="61.72" y2="189.89" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="18" data-cos="-0.64048" data-sin="0.76798" data-out="91" />
+                <line x1="59.21" y1="168.87" x2="45.96" y2="179.52" style="stroke: var(--text-muted)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6" data-grow="19" data-cos="-0.77941" data-sin="0.62651" data-out="95" />
+                <line x1="50.76" y1="155.91" x2="39.22" y2="161.9" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="20" data-cos="-0.88770" data-sin="0.46041" data-out="91" />
+                <line x1="45.03" y1="141.54" x2="32.54" y2="145.14" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="21" data-cos="-0.96110" data-sin="0.27622" data-out="91" />
+                <line x1="42.26" y1="126.33" x2="29.3" y2="127.39" style="stroke: var(--success)" stroke-width="7" stroke-linecap="round" data-grow="22" data-cos="-0.99670" data-sin="0.08116" data-out="91" />
+                <line x1="42.54" y1="110.87" x2="12.74" y2="107.35" style="stroke: var(--info)" stroke-width="5" stroke-linecap="round" data-grow="23" data-cos="-0.99312" data-sin="-0.11709" data-out="108" />
+                <line x1="45.86" y1="95.76" x2="33.5" y2="91.72" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.95050" data-sin="-0.31073" data-out="91" />
+                <line x1="52.1" y1="81.61" x2="40.78" y2="75.21" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.87050" data-sin="-0.49216" data-out="91" />
+                <line x1="61.01" y1="68.97" x2="51.18" y2="60.46" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.75629" data-sin="-0.65424" data-out="91" />
+                <line x1="72.24" y1="58.33" x2="64.28" y2="48.06" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.61234" data-sin="-0.79060" data-out="91" />
+                <line x1="85.34" y1="50.12" x2="79.57" y2="38.48" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.44431" data-sin="-0.89587" data-out="91" />
+                <line x1="99.81" y1="44.66" x2="96.45" y2="32.1" style="stroke: var(--surface-elevated)" stroke-width="7" stroke-linecap="round" data-cos="-0.25882" data-sin="-0.96593" data-out="91" />
+                </svg>
+                <div class="balance">
+                  <span class="balance-pill"><span class="balance-dot" style="background: var(--success)"></span>17 vollständig</span>
+                  <span class="balance-pill"><span class="balance-dot" style="background: var(--danger)"></span>3 offen</span>
+                  <span class="balance-pill"><span class="balance-dot" style="background: var(--info)"></span>heute</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-text">
+            <p class="feature-kicker"><span class="chip chip-calendar"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-today" /></svg></span>04 · Kalender</p>
+            <h3 id="f-calendar" class="feature-title">Jeder Tag <span class="accent">nachschlagbar.</span></h3>
+            <p class="feature-body">Die Monatsuhr zeigt jeden Tag in seiner Statusfarbe, heute als längster Strich. Ruhetage und Betriebsferien zählen nicht als fehlende Kontrolle. Ein Tipp öffnet den Kalender.</p>
+          </div>
+        </article>
+        <article class="feature" aria-labelledby="f-daysheet">
+          <div class="stage stage-daysheet">
+            <!-- Tagesblatt: components/history/TemperatureDaySection.tsx, PDF-Knopf aus app/day/[date]/[module].tsx -->
+            <div class="tile" data-reveal>
+              <div class="card card-list day-card">
+                <div class="control-head">07:31 · Alex</div>
+                <div class="entry entry-void" data-at="600">
+                  <div class="entry-row"><span>Kühlraum</span><b class="entry-value">31 °C</b></div>
+                  <div class="entry-reason">Ungültig: Tippfehler</div>
+                  <div class="entry-meta">0 bis 4 °C</div>
+                </div>
+              </div>
+              <div class="card card-list day-card" data-at="1200">
+                <div class="control-head">07:33 · Alex</div>
+                <div class="entry">
+                  <div class="entry-row"><span>Kühlraum</span><b class="entry-value">3.1 °C</b></div>
+                  <div class="entry-meta">0 bis 4 °C</div>
+                </div>
+                <div class="entry">
+                  <div class="entry-row"><span>Tiefkühler</span><b class="entry-value status-danger">-15.4 °C</b></div>
+                  <div class="entry-meta">maximal -18 °C</div>
+                  <div class="entry-reason">Massnahme: Tür war offen, nach 30 Min. erneut gemessen</div>
+                </div>
+              </div>
+              <div class="app-pdf"><svg class="icon icon-20" aria-hidden="true"><use href="images/icons.svg#i-doc" /></svg>Als PDF speichern</div>
+            </div>
+          </div>
+          <div class="feature-text">
+            <p class="feature-kicker"><span class="chip chip-daysheet"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-doc" /></svg></span>05 · Tagesblatt</p>
+            <h3 id="f-daysheet" class="feature-title">Jeder Tag <span class="accent">als PDF.</span></h3>
+            <p class="feature-body">Eine Korrektur ist eine neue Messung. Die Fehleingabe bleibt sichtbar, als ungültig markiert mit Begründung. Jedes Tagesblatt gibt es als PDF.</p>
+          </div>
+        </article>
+        <article class="feature" aria-labelledby="f-team">
+          <div class="stage stage-team">
+            <!-- Team: Felder aus app/(auth)/enter-code.tsx, Kopfkarte aus app/(tabs)/dashboard.tsx -->
+            <div class="tile" data-reveal>
+              <div class="app-field"><span class="field-value" data-type data-at="400" data-speed="150">482917</span><span class="ph">Code</span></div>
+              <div class="app-field"><span class="field-value" data-type data-at="1550" data-speed="70">••••••••••</span><span class="ph">Neues Passwort</span></div>
+              <div class="card card-dash head-card" data-at="2600">
+                <div class="head-row">
+                  <div>
+                    <div class="head-title">Beispielbetrieb</div>
+                    <div class="head-greeting">Willkommen, Alex</div>
+                  </div>
+                  <svg class="icon icon-24" aria-hidden="true"><use href="images/icons.svg#i-settings" /></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-text">
+            <p class="feature-kicker"><span class="chip chip-team"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-settings" /></svg></span>06 · Team</p>
+            <h3 id="f-team" class="feature-title">Jede Person <span class="accent">auf ihrem eigenen Handy.</span></h3>
+            <p class="feature-body">Der Owner lädt per E-Mail mit Code ein. Das Passwort wählt jede Person selbst, niemand sonst kennt es. Drei Rollen: Owner, Admin, Mitarbeiter.</p>
+          </div>
+        </article>
+      </div>
       </div>
     </section>
 
-    <section class="in section" id="grundsaetze" aria-labelledby="grundsaetze-title">
+    <section class="band" id="grundsaetze" aria-labelledby="grundsaetze-title">
+      <div class="in">
       <div class="section-head">
         <p class="eyebrow">Grundsätze</p>
         <h2 id="grundsaetze-title" class="section-title">Was einmal eingetragen ist, geht nicht verloren.</h2>
         <p class="section-lead">Diese Regeln sind in der App fest eingebaut.</p>
       </div>
       <ul class="principles">
-        <li><h3>Nichts wird überschrieben</h3><p>Eine Korrektur ist eine neue Messung. Fehleingaben werden als ungültig markiert, mit Begründung, nicht gelöscht.</p></li>
-        <li><h3>Name und Uhrzeit bei jedem Eintrag</h3><p>Jeder Haken und jede Messung trägt den Namen der Person und die Uhrzeit.</p></li>
-        <li><h3>Deaktivieren statt löschen</h3><p>Mitarbeitende, Kühleinheiten, Aufgaben und Bereiche werden deaktiviert. Die Geschichte bleibt vollständig.</p></li>
-        <li><h3>Umbenennen wirkt nicht rückwirkend</h3><p>Ein alter Eintrag zeigt den Namen, der damals galt.</p></li>
-        <li><h3>Jeder Tag startet leer</h3><p>Keine Vortageswerte im Eingabefeld. So wird nichts versehentlich übernommen.</p></li>
-        <li><h3>Daten in der EU</h3><p>Gespeichert wird in einem Rechenzentrum in der EU.</p></li>
+        <li class="principle"><span class="principle-num">01</span><h3>Nichts wird überschrieben</h3><p>Eine Korrektur ist eine neue Messung. Fehleingaben werden als ungültig markiert, mit Begründung, nicht gelöscht.</p></li>
+        <li class="principle"><span class="principle-num">02</span><h3>Name und Uhrzeit bei jedem Eintrag</h3><p>Jeder Haken und jede Messung trägt den Namen der Person und die Uhrzeit.</p></li>
+        <li class="principle"><span class="principle-num">03</span><h3>Deaktivieren statt löschen</h3><p>Mitarbeitende, Kühleinheiten, Aufgaben und Bereiche werden deaktiviert. Die Geschichte bleibt vollständig.</p></li>
+        <li class="principle"><span class="principle-num">04</span><h3>Umbenennen wirkt nicht rückwirkend</h3><p>Ein alter Eintrag zeigt den Namen, der damals galt.</p></li>
+        <li class="principle"><span class="principle-num">05</span><h3>Jeder Tag startet leer</h3><p>Keine Vortageswerte im Eingabefeld. So wird nichts versehentlich übernommen.</p></li>
+        <li class="principle"><span class="principle-num">06</span><h3>Daten in der EU</h3><p>Gespeichert wird in einem Rechenzentrum in der EU.</p></li>
       </ul>
+      </div>
     </section>
 
-    <section class="in story" aria-label="Über ChefKlick">
-      <p class="eyebrow">Von einem Küchenchef gebaut</p>
-      <p class="story-text">Auf Papier schreibt auch jeder seinen Namen neben die Aufgabe. <span class="accent">ChefKlick macht dasselbe, nur vollständig.</span></p>
-      <p class="story-by">Philipp März, Küchenchef in Zürich</p>
+    <section class="band band-dark" aria-label="Über ChefKlick">
+      <div class="in story">
+        <p class="eyebrow">Von einem Küchenchef gebaut</p>
+        <p class="story-text">Auf Papier schreibt auch jeder seinen Namen neben die Aufgabe. <span class="story-strong">ChefKlick macht dasselbe, nur vollständig.</span></p>
+        <p class="story-by">Philipp März, Küchenchef in Zürich</p>
+      </div>
     </section>
 
-    <section class="in contact" id="kontakt" aria-labelledby="kontakt-title">
-      <p class="soon"><span class="soon-dot" aria-hidden="true"></span>Bald verfügbar</p>
-      <h2 id="kontakt-title" class="section-title">Interesse an ChefKlick?</h2>
-      <p class="section-lead">Wenn du ChefKlick in deinem Betrieb einsetzen möchtest oder Fragen hast, schreib uns.</p>
-      <p class="contact-mail">info@canuma.ch</p>
-      <a class="btn btn-primary" href="mailto:info@canuma.ch">Mail schreiben</a>
+    <section class="band" id="kontakt" aria-labelledby="kontakt-title">
+      <div class="in contact">
+        <p class="soon"><span class="soon-dot" aria-hidden="true"></span>Bald verfügbar</p>
+        <h2 id="kontakt-title" class="section-title">Interesse an ChefKlick?</h2>
+        <p class="section-lead">Wenn du ChefKlick in deinem Betrieb einsetzen möchtest oder Fragen hast, schreib uns.</p>
+        <a class="contact-mail" href="mailto:info@canuma.ch">info@canuma.ch</a>
+      </div>
     </section>
 
     <div class="wordmark bigword" aria-hidden="true"><span class="chef">Chef</span><span class="klick">Klick</span></div>

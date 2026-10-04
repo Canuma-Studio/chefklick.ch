@@ -30,7 +30,7 @@
 
 ## Entscheidungen
 - 04.10.2026: Website-Knöpfe mit Radius 14 wie die App-Knöpfe, keine Pille (Pillen nur für Chips und Zeilen, wie in der App)
-- 04.10.2026: Rahmen A (Raster) bestätigt
+- 04.10.2026: Rahmen A (Raster) bestätigt – am selben Abend verworfen: Abstände und Format zu schlecht (Philipp). Neu: Funktionen untereinander, links die Kachel, rechts der Text; ein Abstandswert --section-y (64 Handy / 96 Desktop) wie bei scoff; Bänder abwechselnd Beige/Weiss, Geschichte dunkelblau (--accent-dark); Kacheln auf farbigen Flächen in den Modulfarben der App, Icon-Chip mit Nummer, grosse Aussage je Funktion; Grundsätze als nummerierte Karten; Mailadresse gross. Nebeneinander erst ab 1000 px, am Handy läuft die Fläche bis an den Rand
 - 04.10.2026: --text-muted auch dort, wo die App es für Text nutzt (Platzhalter, erledigte Aufgaben, "x von y erledigt", ungültige Werte), auf der Website --text-secondary
 - 04.10.2026: Checkliste wie in der App mit zwei Karten (täglich / Grundreinigung), Haken ohne eigene Animation, keine Icons für Begründung und Rückgängig; Grundreinigung zeigt "erledigt am Montag, 21.09. von …"
 - 04.10.2026: Web-Stufe --font-section (30 bis 40 px) für Abschnittstitel
@@ -52,7 +52,8 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
-- 04.10.2026: Startseite fertig gebaut: Kopf mit Links (ab 760 px), Einstieg, Funktionen mit sechs Kacheln 1:1 nach App-Code (Checkliste, Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team) und je einem Satz, Grundsätze, "Von einem Küchenchef gebaut", Kontakt, grosse Wortmarke, Fusszeile. Raster: 1 Spalte Handy, 2 ab 760 px, 3 ab 1180 px (vorher wären die Kacheln schmaler als am Handy). script.js steuert die Abläufe über data-at/data-type; ohne JavaScript und bei "Bewegung reduzieren" sofort Endzustand. Geprüft 390/768/1024/1280/1440 px, kein seitliches Scrollen, Abläufe gemessen
+- 04.10.2026: Umbau nach Rückmeldung (siehe Entscheidungen): Funktionen als Zeilen, Bänder, ein Abstandswert, mehr Charakter. Geprüft 390/768/1024/1280/1440 px, Kachelbreite überall 350–360 px wie am Handy
+- 04.10.2026: Startseite fertig gebaut (erste Fassung, Raster): Kopf mit Links (ab 760 px), Einstieg, Funktionen mit sechs Kacheln 1:1 nach App-Code (Checkliste, Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team) und je einem Satz, Grundsätze, "Von einem Küchenchef gebaut", Kontakt, grosse Wortmarke, Fusszeile. Raster: 1 Spalte Handy, 2 ab 760 px, 3 ab 1180 px (vorher wären die Kacheln schmaler als am Handy). script.js steuert die Abläufe über data-at/data-type; ohne JavaScript und bei "Bewegung reduzieren" sofort Endzustand. Geprüft 390/768/1024/1280/1440 px, kein seitliches Scrollen, Abläufe gemessen
 - 04.10.2026: Kopf und Favicon auf das App-Icon umgestellt, unbenutzte Marken-SVGs aus images/ entfernt (Fehler: zuerst die Bildmarke mit schwarzem Punkt genommen, die es in der App nicht gibt)
 - 04.10.2026: index.html mit Kopf (Bildmarke, Wortmarke, Knopf "Interesse?") und Einstieg mit der Kachel "Heute" (Ringe nach DayRings.tsx, Zeilen nach dashboard.tsx, "Beispielansicht"); script.js: Kacheln bewegen sich einmal beim Sichtbarwerden, Startzustand per Zeile im Kopf von index.html (sonst springt die Animation oder läuft rückwärts); ohne JavaScript und bei "Bewegung reduzieren" Endzustand sofort. Geprüft 390 px und 1280 px, nur heller Modus
 - 04.10.2026: Grundlage für die Startseite: Marken-SVGs nach images/ kopiert, images/icons.svg (7 Ionicons), LICENSES.md, styles.css mit den beiden Soft-Farben, .card nach Card.tsx (Radius 14, Innenabstand 16), neu .card-dash für die Karten auf "Heute" (Radius 20, Innenabstand 20, Rand), Knöpfe Radius 14
