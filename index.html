@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChefKlick – HACCP-App für die Gastronomie</title>
+  <meta name="description"
+    content="ChefKlick ist eine HACCP-App für Gastronomiebetriebe: Temperatur, Checkliste und Warenannahme auf dem Handy. Jede Eingabe mit Name und Uhrzeit, jeder Tag als PDF-Nachweis. Bald verfügbar.">
+  <link rel="canonical" href="https://chefklick.ch/">
+  <link rel="icon" href="images/chefklick-icon-reduziert.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/montserrat-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=1">
+  <!-- Kacheln ab dem ersten Bild im Startzustand, damit nichts rueckwaerts laeuft (siehe script.js) -->
+  <script>if ('IntersectionObserver' in window) document.documentElement.classList.add('reveal-ready');</script>
+  <script src="script.js?v=1" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="in site-header-row">
+      <a class="brand" href="#top" aria-label="ChefKlick, zum Seitenanfang">
+        <img src="images/chefklick-marke-hell.svg" alt="" width="28" height="28">
+        <span class="wordmark"><span class="chef">Chef</span><span class="klick">Klick</span></span>
+      </a>
+      <a class="btn btn-primary btn-small" href="mailto:info@canuma.ch">Interesse?</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="in hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="soon"><span class="soon-dot" aria-hidden="true"></span>Bald verfügbar · HACCP-App für die Gastronomie</p>
+        <h1 id="hero-title" class="display">Die HACCP-Listen deiner Küche. <span class="accent">Auf dem Handy.</span></h1>
+        <p class="lead">Temperatur, Checkliste und Warenannahme. Jede Eingabe mit Name und Uhrzeit, jeder Tag als PDF&#8209;Nachweis.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="mailto:info@canuma.ch">Interesse? Schreib uns</a>
+        </div>
+      </div>
+
+      <!-- Kachel "Heute": app/(tabs)/dashboard.tsx (Ringkarte) und components/DayRings.tsx -->
+      <figure class="tile" data-reveal>
+        <div class="card card-dash today">
+          <p class="card-title">Donnerstag, 24. September</p>
+          <svg class="rings" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true">
+            <circle class="ring-track ring-checklist" cx="75" cy="75" r="69" />
+            <circle class="ring-bar ring-checklist" cx="75" cy="75" r="69" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.8182" />
+            <circle class="ring-track ring-temperature" cx="75" cy="75" r="51" />
+            <circle class="ring-bar ring-temperature" cx="75" cy="75" r="51" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.5" />
+          </svg>
+          <ul class="legend">
+            <li class="legend-row legend-checklist">
+              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-checkbox" /></svg>
+              <span class="legend-label">Checkliste</span>
+              <span class="legend-count">18/22</span>
+            </li>
+            <li class="legend-row legend-temperature">
+              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-thermo" /></svg>
+              <span class="legend-label">Temperatur</span>
+              <span class="legend-count">2/4</span>
+            </li>
+            <li class="legend-row legend-receipt">
+              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-cube" /></svg>
+              <span class="legend-label">Warenannahme</span>
+              <span class="legend-count">keine</span>
+            </li>
+          </ul>
+        </div>
+        <figcaption class="caption">Beispielansicht</figcaption>
+      </figure>
+    </section>
+  </main>
+</body>
+
+</html>

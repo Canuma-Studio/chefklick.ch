@@ -9,8 +9,8 @@
 
 ## Offen
 1. Startseite in index.html umsetzen, je Teilschritt mit Befund. Vorlage ist das Artifact "ChefKlick Kacheln" (Version 2), Rahmen A (Raster).
-   - Nächster Teilschritt: Kopf und Einstieg mit der Kachel "Heute" (index.html, script.js). Befund vom 04.10.2026 angenommen: Ringe bauen sich in 1 s auf, Zahlen stehen fest (wie DayRings.tsx); Navigations-Links erst, wenn es die Abschnitte gibt; Grund der Kopfzeile aus --background abgeleitet; Haupttitel mit --font-display; Zeile "Beispielansicht" unter der Kachel
-   - Danach je Kachel ein Teilschritt: Checkliste, Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team
+   - Nächster Teilschritt: Abschnitt "Funktionen" mit der Kachel Checkliste (Befund zuerst). Mit dem ersten Abschnitt kommen die Navigations-Links in den Kopf
+   - Danach je Kachel ein Teilschritt: Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team
    - Foto des Lieferscheins: Darstellung in der App noch nicht gelesen
    - Testdaten-Namen im Artifact (Sam, Mia, Alex, "Restaurant Muster") vor Übernahme prüfen – keine Namen aus der Entwicklung, "Betrieb" statt "Restaurant"
 2. Marken-PNGs (wortmarke-*.png, icon.png, favicon.png) erst übernehmen, wenn sie gebraucht werden
@@ -46,6 +46,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 04.10.2026: index.html mit Kopf (Bildmarke, Wortmarke, Knopf "Interesse?") und Einstieg mit der Kachel "Heute" (Ringe nach DayRings.tsx, Zeilen nach dashboard.tsx, "Beispielansicht"); script.js: Kacheln bewegen sich einmal beim Sichtbarwerden, Startzustand per Zeile im Kopf von index.html (sonst springt die Animation oder läuft rückwärts); ohne JavaScript und bei "Bewegung reduzieren" Endzustand sofort. Geprüft 390 px und 1280 px, nur heller Modus
 - 04.10.2026: Grundlage für die Startseite: Marken-SVGs nach images/ kopiert, images/icons.svg (7 Ionicons), LICENSES.md, styles.css mit den beiden Soft-Farben, .card nach Card.tsx (Radius 14, Innenabstand 16), neu .card-dash für die Karten auf "Heute" (Radius 20, Innenabstand 20, Rand), Knöpfe Radius 14
 - 04.10.2026: styles.css mit allen App-Werten als CSS-Variablen (nur hell), Grundstile, Wortmarke, Knopf-Hierarchie, Karte; fonts/montserrat-bold.woff2 aus canuma kopiert
 - 04.10.2026: Repo angelegt (öffentlich, leer), lokaler Ordner Projekt/Webseiten/chefklick.ch, STAND.md, .gitignore, .vscode/settings.json (wie canuma)
