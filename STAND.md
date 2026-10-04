@@ -8,11 +8,12 @@
 - Repo ist öffentlich: auch STAND.md und alle Commit-Nachrichten sind sichtbar. Nichts Internes, keine Schlüssel.
 
 ## Offen
-1. Startseite in index.html umsetzen, je Teilschritt mit Befund. Vorlage ist das Artifact "ChefKlick Kacheln" (Version 2), Rahmen A (Raster).
-   - Nächster Teilschritt: Abschnitt "Funktionen" mit der Kachel Checkliste (Befund zuerst). Mit dem ersten Abschnitt kommen die Navigations-Links in den Kopf
-   - Danach je Kachel ein Teilschritt: Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team
-   - Foto des Lieferscheins: Darstellung in der App noch nicht gelesen
-   - Testdaten-Namen im Artifact (Sam, Mia, Alex, "Restaurant Muster") vor Übernahme prüfen – keine Namen aus der Entwicklung, "Betrieb" statt "Restaurant"
+1. Startseite gemeinsam durchgehen (Philipp, 04.10.2026: "erst fertig bauen, dann die Änderungen durchgehen"). Steht komplett, siehe Erledigt. Zum Durchgehen:
+   - Texte unter den Kacheln und im Abschnitt Grundsätze (alle aus CHEFKLICK-KONTEXT, nur Fertiges)
+   - Grundsatz "Jeder Tag bleibt genau so gespeichert, wie er ausgefüllt wurde" bewusst weggelassen: Gültigkeitszeiträume sind noch geplant
+   - Bewegungen, die es in der App nicht gibt: Tagesblatt (zweite Karte blendet ein), Team (Kopfkarte blendet ein); alles andere wie in der App
+   - Codelänge 6 Ziffern angenommen (Supabase-Standard), nicht im App-Code nachgelesen
+   - Foto des Lieferscheins: nur im Text erwähnt, Darstellung in der App noch nicht gelesen
 2. Marken-PNGs (wortmarke-*.png, icon.png, favicon.png) erst übernehmen, wenn sie gebraucht werden
 3. Texte – nur Funktionen, die in der App fertig sind
 4. Entfällt: Statt des Handy-Nachbaus aus canuma steht im Einstieg die Kachel "Heute" (Entscheid 04.10.2026)
@@ -30,6 +31,11 @@
 ## Entscheidungen
 - 04.10.2026: Website-Knöpfe mit Radius 14 wie die App-Knöpfe, keine Pille (Pillen nur für Chips und Zeilen, wie in der App)
 - 04.10.2026: Rahmen A (Raster) bestätigt
+- 04.10.2026: --text-muted auch dort, wo die App es für Text nutzt (Platzhalter, erledigte Aufgaben, "x von y erledigt", ungültige Werte), auf der Website --text-secondary
+- 04.10.2026: Checkliste wie in der App mit zwei Karten (täglich / Grundreinigung), Haken ohne eigene Animation, keine Icons für Begründung und Rückgängig; Grundreinigung zeigt "erledigt am Montag, 21.09. von …"
+- 04.10.2026: Web-Stufe --font-section (30 bis 40 px) für Abschnittstitel
+- 04.10.2026: Namen in den Beispielen (Sam, Mia, Alex) und Aufgaben sind erfunden, Betrieb heisst "Beispielbetrieb"
+- 04.10.2026: Fusszeile vorerst ohne Impressum/Datenschutz – Links kommen mit den Seiten (Punkt 5)
 - 04.10.2026: Icons als eine Datei images/icons.svg (Ionicons 7.4.0), Lizenzen in LICENSES.md (Ionicons MIT, Montserrat OFL)
 - 04.10.2026: Als Bild nur das App-Icon (chefklick-icon.svg: Grund #D8D5CE, C und Haken #163A7C, Punkt #A8823A) – im Kopf neben der Wortmarke und als Favicon. Die Bildmarken (hell/dunkel, reduziert) kommen in der App nicht vor und werden nicht benutzt
 - 04.10.2026: Gestaltung: moderne Seite (Navigation, grosse Überschriften, Raster), nur die Kacheln im App-Design – 1:1 nach dem App-Code (Karten, Radien, Schatten, Ionicons, Ringe, Monatsuhr, runde Haken, Ja/Nein-Knöpfe, Eingabefelder); jede Kachel bewegt sich einmal, wenn sie ins Bild kommt. Verworfen: Handy entfaltet sich, Bonschiene, Papier, Kuli
@@ -46,6 +52,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 04.10.2026: Startseite fertig gebaut: Kopf mit Links (ab 760 px), Einstieg, Funktionen mit sechs Kacheln 1:1 nach App-Code (Checkliste, Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team) und je einem Satz, Grundsätze, "Von einem Küchenchef gebaut", Kontakt, grosse Wortmarke, Fusszeile. Raster: 1 Spalte Handy, 2 ab 760 px, 3 ab 1180 px (vorher wären die Kacheln schmaler als am Handy). script.js steuert die Abläufe über data-at/data-type; ohne JavaScript und bei "Bewegung reduzieren" sofort Endzustand. Geprüft 390/768/1024/1280/1440 px, kein seitliches Scrollen, Abläufe gemessen
 - 04.10.2026: Kopf und Favicon auf das App-Icon umgestellt, unbenutzte Marken-SVGs aus images/ entfernt (Fehler: zuerst die Bildmarke mit schwarzem Punkt genommen, die es in der App nicht gibt)
 - 04.10.2026: index.html mit Kopf (Bildmarke, Wortmarke, Knopf "Interesse?") und Einstieg mit der Kachel "Heute" (Ringe nach DayRings.tsx, Zeilen nach dashboard.tsx, "Beispielansicht"); script.js: Kacheln bewegen sich einmal beim Sichtbarwerden, Startzustand per Zeile im Kopf von index.html (sonst springt die Animation oder läuft rückwärts); ohne JavaScript und bei "Bewegung reduzieren" Endzustand sofort. Geprüft 390 px und 1280 px, nur heller Modus
 - 04.10.2026: Grundlage für die Startseite: Marken-SVGs nach images/ kopiert, images/icons.svg (7 Ionicons), LICENSES.md, styles.css mit den beiden Soft-Farben, .card nach Card.tsx (Radius 14, Innenabstand 16), neu .card-dash für die Karten auf "Heute" (Radius 20, Innenabstand 20, Rand), Knöpfe Radius 14

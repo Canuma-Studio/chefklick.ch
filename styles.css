@@ -64,6 +64,8 @@
   /* Ergaenzung nur fuer die Website (Entscheid 04.10.2026): Haupttitel der Startseite,
      34px am Handy bis 44px am Desktop. Gibt es in der App nicht. */
   --font-display: clamp(34px, calc(16px + 5vw), 44px);
+  /* Ebenso nur Website: Abschnittstitel, 30px am Handy bis 40px am Desktop (Entscheid 04.10.2026) */
+  --font-section: clamp(30px, calc(18px + 3vw), 40px);
 
   /* Schatten (App: #000, Versatz 0/6, Deckkraft 0.25, Radius 12) */
   /* iOS shadowRadius entspricht etwa dem halben CSS-Weichzeichner, daher 24px */
@@ -144,7 +146,7 @@ a:focus-visible, button:focus-visible {
 }
 
 /* ===== Seite ===== */
-.in { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+.in { max-width: 1180px; margin: 0 auto; padding-inline: 20px; }
 .accent { color: var(--accent); }
 .icon { width: 18px; height: 18px; flex: none; }
 
@@ -208,10 +210,163 @@ a:focus-visible, button:focus-visible {
 .legend-temperature { border-color: var(--module-temperature); background: var(--module-temperature-soft); color: var(--module-temperature); }
 .legend-receipt { color: var(--text-muted); } /* nur das Icon, Text hat eigene Farben */
 
-/* ===== Desktop ===== */
+/* ===== Abschnitte ===== */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 72px; }
+.site-nav { display: none; gap: 22px; margin-left: auto; font-size: 15px; }
+.site-nav a { color: var(--text-secondary); text-decoration: none; }
+.site-nav a:hover { color: var(--accent); }
+.eyebrow { font-size: var(--font-caption); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+.section { padding-block: var(--space-xxl); border-top: 1px solid var(--divider); }
+.section-head { display: grid; gap: 10px; max-width: 46ch; margin-bottom: var(--space-xl); }
+.section-title { font-size: var(--font-section); letter-spacing: -0.02em; line-height: 1.1; }
+.section-lead { color: var(--text-secondary); font-size: 17px; max-width: 46ch; }
+
+/* Raster der Kacheln (Rahmen A) */
+.bento { display: grid; grid-template-columns: 1fr; gap: var(--space-xxl) 22px; align-items: start; }
+.bento .tile { display: block; max-width: none; justify-self: stretch; }
+.tile-label { font-size: var(--font-caption); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px; }
+.tile-text { color: var(--text-secondary); font-size: 15px; margin-top: var(--space-sm); }
+
+/* Grundsaetze */
+.principles { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-lg); grid-template-columns: 1fr; }
+.principles li { border-top: 2px solid var(--accent); padding-top: var(--space-md); }
+.principles h3 { font-size: var(--font-subheading); margin-bottom: 6px; }
+.principles p { color: var(--text-secondary); }
+
+/* Geschichte */
+.story { padding-block: 64px; display: grid; gap: var(--space-md); border-top: 1px solid var(--divider); }
+.story-text { font-size: 26px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; text-wrap: balance; max-width: 24em; }
+.story-by { color: var(--text-secondary); }
+
+/* Kontakt */
+.contact { padding-block: 56px 40px; display: grid; gap: 18px; justify-items: start; border-top: 1px solid var(--divider); }
+.contact-mail { font-size: 22px; font-weight: 600; color: var(--accent); user-select: all; }
+
+/* Grosse Wortmarke als Abschluss (nur Schmuck) */
+.bigword { display: block; font-size: min(18.5vw, 232px); line-height: 0.9; text-align: center; padding-block: var(--space-lg) var(--space-sm); opacity: 0.1; user-select: none; overflow: hidden; }
+.site-footer { padding-block: var(--space-md) 30px; font-size: var(--font-caption); color: var(--text-secondary); }
+.site-footer a { color: var(--text-secondary); }
+
+/* ===== App-Bausteine (1:1 nach App-Code) ===== */
+/* Karten mit Rand: haccp.tsx listCard, TemperatureDaySection.tsx listCard (Radius lg, Innenabstand md, Rand) */
+.card-list { border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.icon-20 { width: 20px; height: 20px; }
+.icon-24 { width: 24px; height: 24px; }
+.status-danger { color: var(--danger); }
+/* Website-Regel: --text-muted nie fuer lesbaren Text. Die App benutzt es fuer Platzhalter,
+   erledigte Aufgaben, "x von y erledigt" und ungueltige Werte - hier --text-secondary (Entscheid 04.10.2026). */
+.ph { color: var(--text-secondary); }
+.field-value:not(:empty) + .ph { display: none; }
+.field-value.typing::after { content: "|"; color: var(--accent); margin-left: 1px; }
+
+/* Wechsel zwischen zwei Texten: ohne Ablauf steht der Endtext */
+.swap-from { display: none; }
+.reveal-ready .swap-from { display: inline; }
+.reveal-ready .swap-to:not(.step-on) { display: none; }
+.reveal-ready .swap:has(.swap-to.step-on) .swap-from { display: none; }
+
+/* Checkliste: haccp.tsx areaTitle, rhythmTitle, rhythmRow, taskRow, checkbox, taskDetail */
+.app-area { color: var(--accent); font-size: var(--font-subheading); font-weight: 700; line-height: 1.25; margin-bottom: var(--space-sm); }
+.app-rhythm { color: var(--text-secondary); font-size: var(--font-body); font-weight: 600; margin-bottom: var(--space-sm); }
+.app-rhythm-row { display: flex; align-items: center; flex-wrap: wrap; column-gap: var(--space-md); margin: var(--space-md) 0 var(--space-sm); }
+.app-rhythm-row .app-rhythm { margin-bottom: 0; }
+.app-rhythm-count { color: var(--text-secondary); font-size: var(--font-body); }
+.task { display: flex; align-items: center; padding-block: var(--space-sm); min-height: 44px; border-bottom: 1px solid var(--divider); }
+.task:last-child { border-bottom: 0; }
+.check { flex: none; width: 24px; height: 24px; border-radius: var(--radius-pill); margin-right: var(--space-md); border: 1px solid var(--border); display: grid; place-items: center; font-size: 14px; font-weight: 700; line-height: 1; color: var(--background); }
+.task-text { flex: 1; min-width: 0; }
+.task-label { display: block; font-size: var(--font-body); color: var(--text-primary); }
+.task-detail { display: none; font-size: var(--font-caption); color: var(--text-secondary); margin-top: 2px; }
+.task-detail b { color: var(--accent); font-weight: 700; }
+.task.done .check { background: var(--success); border-color: var(--success); }
+.task.done .check::after { content: "✓"; }
+.task.done .task-label { color: var(--text-secondary); }
+.task.done .task-detail { display: block; }
+.reveal-ready .task.done[data-at]:not(.step-on) .check { background: transparent; border-color: var(--border); }
+.reveal-ready .task.done[data-at]:not(.step-on) .check::after { content: none; }
+.reveal-ready .task.done[data-at]:not(.step-on) .task-label { color: var(--text-primary); }
+.reveal-ready .task.done[data-at]:not(.step-on) .task-detail { display: none; }
+
+/* Temperatur: TemperatureCard.tsx, saveButton aus temperature.tsx */
+.temp-name { color: var(--text-primary); font-size: var(--font-heading); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-sm); }
+.temp-target { color: var(--text-secondary); font-size: var(--font-caption); margin-bottom: var(--space-md); }
+.temp-row { display: flex; align-items: center; margin-bottom: var(--space-sm); }
+.app-input { flex: 1; min-width: 0; min-height: 40px; display: flex; align-items: center; color: var(--text-primary); font-size: var(--font-body); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-sm); margin-right: var(--space-sm); }
+.temp-unit { color: var(--text-primary); font-size: var(--font-body); font-weight: 700; }
+.temp-status { font-size: var(--font-caption); color: var(--text-secondary); }
+.temp-action { margin-top: var(--space-md); }
+.temp-action-label { color: var(--danger); font-size: var(--font-caption); margin-bottom: var(--space-sm); }
+.app-input-area { margin-right: 0; min-height: 70px; align-items: flex-start; border-color: var(--danger); }
+.reveal-ready .temp-action:not(.step-on) { display: none; }
+.app-save { margin-top: var(--space-md); border-radius: var(--radius-md); padding: var(--space-md); text-align: center; background: var(--accent); color: var(--background); font-size: var(--font-body); font-weight: 700; }
+.reveal-ready .app-save:not(.step-on) { background: var(--disabled); color: var(--text-secondary); }
+
+/* Warenannahme: goods-receipt.tsx sectionTitle, checkRow, rowDivider; YesNoToggle.tsx */
+.app-section { color: var(--accent); font-size: var(--font-subheading); font-weight: 700; line-height: 1.25; margin-bottom: var(--space-md); }
+.check-row { display: flex; align-items: center; padding-block: var(--space-md); min-height: 44px; }
+.check-row + .check-row { border-top: 1px solid var(--divider); }
+.check-label { flex: 1; min-width: 0; font-size: var(--font-body); color: var(--text-primary); padding-right: var(--space-sm); }
+.yes-no { display: flex; gap: var(--space-sm); }
+.yn { min-width: 52px; min-height: 44px; padding-inline: var(--space-md); display: grid; place-items: center; border-radius: var(--radius-pill); border: 1px solid var(--border); font-size: var(--font-caption); color: var(--text-secondary); }
+.check-row .yn-yes { background: var(--success); border-color: var(--success); color: var(--background); font-weight: 700; }
+.reveal-ready .check-row:not(.step-on) .yn-yes { background: transparent; border-color: var(--border); color: var(--text-secondary); font-weight: 400; }
+
+/* Monatsuhr: MonthClock.tsx (240, Bilanzzeile 32 hoch); Kopf der Monatskarte aus dashboard.tsx */
+.month-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.month-head .card-title { margin-bottom: 0; }
+.month-link { display: flex; align-items: center; color: var(--accent); font-size: var(--font-body); }
+.month-link .icon { margin-left: 2px; }
+.clock { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.balance { min-height: 32px; margin-top: var(--space-sm); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-sm); }
+.balance-pill { height: 32px; display: flex; align-items: center; padding-inline: 10px; border-radius: var(--radius-pill); border: 1px solid var(--border); font-size: var(--font-caption); color: var(--text-secondary); }
+.balance-dot { width: 8px; height: 8px; border-radius: 4px; margin-right: 6px; }
+
+/* Tagesblatt: TemperatureDaySection.tsx; PDF-Knopf aus day/[date]/[module].tsx */
+.day-card + .day-card { margin-top: var(--space-md); }
+.control-head { color: var(--accent); font-size: var(--font-caption); font-weight: 700; }
+.entry { margin-top: var(--space-md); }
+.entry + .entry { border-top: 1px solid var(--divider); padding-top: var(--space-md); }
+.entry-row { display: flex; justify-content: space-between; gap: var(--space-sm); font-size: var(--font-body); }
+.entry-value { font-weight: 700; font-variant-numeric: tabular-nums; }
+.entry-reason { color: var(--danger); font-size: var(--font-caption); margin-top: var(--space-xs); }
+.entry-meta { color: var(--text-secondary); font-size: var(--font-caption); margin-top: var(--space-xs); }
+.entry-void .entry-value { color: var(--text-secondary); text-decoration: line-through; }
+.reveal-ready .entry-void:not(.step-on) .entry-value { color: var(--text-primary); text-decoration: none; }
+.reveal-ready .entry-void:not(.step-on) .entry-reason { display: none; }
+.reveal-ready .day-card[data-at] { transition: opacity 300ms ease-out; }
+.reveal-ready .day-card[data-at]:not(.step-on) { opacity: 0; }
+.app-pdf { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); margin-top: var(--space-lg); background: var(--surface-elevated); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); color: var(--accent); font-size: var(--font-body); font-weight: 600; }
+
+/* Team: enter-code.tsx input; Kopfkarte aus dashboard.tsx (title, greeting, headerRow) */
+.app-field { height: 50px; display: flex; align-items: center; background: var(--surface-elevated); border: 1px solid var(--border); border-radius: var(--radius-md); padding-inline: var(--space-md); margin-bottom: var(--space-md); font-size: var(--font-body); color: var(--text-primary); }
+.head-card { padding-block: var(--space-md); }
+.head-row { display: flex; justify-content: space-between; align-items: center; }
+.head-title { color: var(--text-primary); font-size: var(--font-title); font-weight: 700; line-height: 1.2; margin: 25px 0 8px; }
+.head-greeting { color: var(--text-primary); font-size: var(--font-subheading); font-weight: 600; margin-bottom: 25px; }
+.head-row .icon { color: var(--accent); }
+.reveal-ready .head-card[data-at] { transition: opacity 350ms ease-out, transform 450ms cubic-bezier(0.33, 1, 0.68, 1); }
+.reveal-ready .head-card[data-at]:not(.step-on) { opacity: 0; transform: translateY(8px); }
+
+/* ===== Tablet und Desktop ===== */
+@media (min-width: 640px) {
+  .principles { grid-template-columns: repeat(2, 1fr); }
+}
 @media (min-width: 760px) {
   .in { padding-inline: 40px; }
+  .site-nav { display: flex; margin-right: var(--space-lg); }
   .hero { grid-template-columns: 1.15fr 0.85fr; gap: 56px; padding-block: 64px 72px; }
+  .section { padding-block: 72px; }
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .story { padding-block: 96px; }
+  .story-text { font-size: 36px; }
+}
+@media (min-width: 1000px) {
+  .principles { grid-template-columns: repeat(3, 1fr); }
+}
+/* Drei Spalten erst, wenn jede Kachel mindestens so breit ist wie auf dem Handy */
+@media (min-width: 1180px) {
+  .bento { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (prefers-reduced-motion: reduce) {
