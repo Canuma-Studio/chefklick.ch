@@ -8,10 +8,15 @@
 - Repo ist öffentlich: auch STAND.md und alle Commit-Nachrichten sind sichtbar. Nichts Internes, keine Schlüssel.
 
 ## Offen
-1. Gestaltung der Abschnitte an einem Artifact entscheiden (Struktur steht, siehe Entscheidungen)
+1. Kacheln umsetzen: Gestaltung ist entschieden (siehe Entscheidungen). Vorlage ist das Artifact "ChefKlick Kacheln" (Version 2). Offen dabei:
+   - Website-Knöpfe: Pille (wie bisher in styles.css) oder Radius 14 wie die Knöpfe der App?
+   - Rahmen A (Raster) als Annahme übernommen – bestätigen
+   - styles.css ergänzen: --module-checklist-soft #E6ECE9, --module-temperature-soft #E4EEF6 (gibt es in der App, fehlen hier)
+   - Ionicons (MIT) als SVG einbinden, Lizenzhinweis ins Repo
+   - Foto des Lieferscheins: Darstellung in der App noch nicht gelesen
 2. Marken-Dateien aus ChefKlick/assets/brand übernehmen (kopieren, nicht neu zeichnen)
 3. Texte – nur Funktionen, die in der App fertig sind
-4. Handy im Einstieg: Nachbau in HTML aus canuma übernehmen (canuma/index.html Panel "01 ChefKlick" class "phone/ck", styles.css ab "ChefKlick: Handy im echten App-Design", script.js ab "01 ChefKlick"); Demo-Betrieb "Restaurant Muster", Begriffe der App verwenden
+4. Entfällt: Statt des Handy-Nachbaus aus canuma steht im Einstieg die Kachel "Heute" (Entscheid 04.10.2026)
 5. impressum.html und datenschutz.html (Vorlage canuma, Entwurf – muss geprüft werden), 404.html
 6. Online gehen: CNAME, GitHub Pages einschalten, DNS bei Hostpoint wie bei canuma.ch, Enforce HTTPS, Domain bei GitHub verifizieren
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
@@ -24,6 +29,7 @@
 - Login-Bereich, falls je nötig: eigenes Projekt unter eigener Unteradresse (z. B. app.chefklick.ch), nicht in dieser Seite
 
 ## Entscheidungen
+- 04.10.2026: Gestaltung: moderne Seite (Navigation, grosse Überschriften, Raster), nur die Kacheln im App-Design – 1:1 nach dem App-Code (Karten, Radien, Schatten, Ionicons, Ringe, Monatsuhr, runde Haken, Ja/Nein-Knöpfe, Eingabefelder); jede Kachel bewegt sich einmal, wenn sie ins Bild kommt. Verworfen: Handy entfaltet sich, Bonschiene, Papier, Kuli
 - 04.10.2026: Erste Version = reine Vorstellung, "Bald verfügbar", Kontakt per Mail-Link, kein Formular, keine Daten
 - 04.10.2026: Einfaches HTML statt Astro, gleicher Ablauf wie canuma (Push → GitHub Pages)
 - 04.10.2026: Vorerst nur heller Modus (bewusst zurückgestellt, nicht vergessen – siehe Später)
