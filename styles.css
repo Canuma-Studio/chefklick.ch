@@ -30,6 +30,8 @@
   --info: #1F6FB2;
   --module-temperature: #1F6FB2;
   --module-checklist: #2F5D4A;
+  --module-temperature-soft: #E4EEF6;
+  --module-checklist-soft: #E6ECE9;
   --border: #D8D5CE;
   --divider: #E6E3DC;
   --disabled: #C9C6BF;
@@ -108,14 +110,14 @@ a:focus-visible, button:focus-visible {
 .wordmark .chef { color: var(--logo-chef); }
 .wordmark .klick { color: var(--logo-klick); }
 
-/* Knopf-Hierarchie wie in der App, als Pille */
+/* Knopf-Hierarchie wie in der App, Radius 14 wie die App-Knoepfe (Entscheid 04.10.2026) */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
   padding: 12px var(--space-lg);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-md);
   border: 1.5px solid transparent;
   font: 600 var(--font-body) / 1.2 var(--font-system);
   text-decoration: none;
@@ -126,12 +128,19 @@ a:focus-visible, button:focus-visible {
 .btn-tertiary { background: transparent; border-color: var(--border); color: var(--text-secondary); }
 .btn[disabled], .btn[aria-disabled="true"] { background: var(--disabled); border-color: transparent; color: var(--text-muted); cursor: default; }
 
-/* Karte wie in der App */
+/* Karte wie in der App: components/reusable/Card.tsx (Radius md, Innenabstand md, Schatten) */
 .card {
   background: var(--surface);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
   box-shadow: var(--shadow);
+  overflow: hidden;
+}
+/* Karten auf "Heute": dashboard.tsx styles.card (Radius lg, Innenabstand 20, Rand) */
+.card-dash {
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--border);
 }
 
 @media (prefers-reduced-motion: reduce) {

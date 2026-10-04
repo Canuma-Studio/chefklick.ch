@@ -8,13 +8,12 @@
 - Repo ist öffentlich: auch STAND.md und alle Commit-Nachrichten sind sichtbar. Nichts Internes, keine Schlüssel.
 
 ## Offen
-1. Kacheln umsetzen: Gestaltung ist entschieden (siehe Entscheidungen). Vorlage ist das Artifact "ChefKlick Kacheln" (Version 2). Offen dabei:
-   - Website-Knöpfe: Pille (wie bisher in styles.css) oder Radius 14 wie die Knöpfe der App?
-   - Rahmen A (Raster) als Annahme übernommen – bestätigen
-   - styles.css ergänzen: --module-checklist-soft #E6ECE9, --module-temperature-soft #E4EEF6 (gibt es in der App, fehlen hier)
-   - Ionicons (MIT) als SVG einbinden, Lizenzhinweis ins Repo
+1. Startseite in index.html umsetzen, je Teilschritt mit Befund. Vorlage ist das Artifact "ChefKlick Kacheln" (Version 2), Rahmen A (Raster).
+   - Nächster Teilschritt: Kopf und Einstieg mit der Kachel "Heute" (index.html, script.js). Befund vom 04.10.2026 angenommen: Ringe bauen sich in 1 s auf, Zahlen stehen fest (wie DayRings.tsx); Navigations-Links erst, wenn es die Abschnitte gibt; Grund der Kopfzeile aus --background abgeleitet; Haupttitel mit --font-display; Zeile "Beispielansicht" unter der Kachel
+   - Danach je Kachel ein Teilschritt: Checkliste, Temperatur, Warenannahme, Monatsuhr, Tagesblatt, Team
    - Foto des Lieferscheins: Darstellung in der App noch nicht gelesen
-2. Marken-Dateien aus ChefKlick/assets/brand übernehmen (kopieren, nicht neu zeichnen)
+   - Testdaten-Namen im Artifact (Sam, Mia, Alex, "Restaurant Muster") vor Übernahme prüfen – keine Namen aus der Entwicklung, "Betrieb" statt "Restaurant"
+2. Marken-PNGs (wortmarke-*.png, icon.png, favicon.png) erst übernehmen, wenn sie gebraucht werden
 3. Texte – nur Funktionen, die in der App fertig sind
 4. Entfällt: Statt des Handy-Nachbaus aus canuma steht im Einstieg die Kachel "Heute" (Entscheid 04.10.2026)
 5. impressum.html und datenschutz.html (Vorlage canuma, Entwurf – muss geprüft werden), 404.html
@@ -29,6 +28,10 @@
 - Login-Bereich, falls je nötig: eigenes Projekt unter eigener Unteradresse (z. B. app.chefklick.ch), nicht in dieser Seite
 
 ## Entscheidungen
+- 04.10.2026: Website-Knöpfe mit Radius 14 wie die App-Knöpfe, keine Pille (Pillen nur für Chips und Zeilen, wie in der App)
+- 04.10.2026: Rahmen A (Raster) bestätigt
+- 04.10.2026: Icons als eine Datei images/icons.svg (Ionicons 7.4.0), Lizenzen in LICENSES.md (Ionicons MIT, Montserrat OFL)
+- 04.10.2026: Favicon chefklick-icon-reduziert.svg
 - 04.10.2026: Gestaltung: moderne Seite (Navigation, grosse Überschriften, Raster), nur die Kacheln im App-Design – 1:1 nach dem App-Code (Karten, Radien, Schatten, Ionicons, Ringe, Monatsuhr, runde Haken, Ja/Nein-Knöpfe, Eingabefelder); jede Kachel bewegt sich einmal, wenn sie ins Bild kommt. Verworfen: Handy entfaltet sich, Bonschiene, Papier, Kuli
 - 04.10.2026: Erste Version = reine Vorstellung, "Bald verfügbar", Kontakt per Mail-Link, kein Formular, keine Daten
 - 04.10.2026: Einfaches HTML statt Astro, gleicher Ablauf wie canuma (Push → GitHub Pages)
@@ -43,5 +46,6 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 04.10.2026: Grundlage für die Startseite: Marken-SVGs nach images/ kopiert, images/icons.svg (7 Ionicons), LICENSES.md, styles.css mit den beiden Soft-Farben, .card nach Card.tsx (Radius 14, Innenabstand 16), neu .card-dash für die Karten auf "Heute" (Radius 20, Innenabstand 20, Rand), Knöpfe Radius 14
 - 04.10.2026: styles.css mit allen App-Werten als CSS-Variablen (nur hell), Grundstile, Wortmarke, Knopf-Hierarchie, Karte; fonts/montserrat-bold.woff2 aus canuma kopiert
 - 04.10.2026: Repo angelegt (öffentlich, leer), lokaler Ordner Projekt/Webseiten/chefklick.ch, STAND.md, .gitignore, .vscode/settings.json (wie canuma)
