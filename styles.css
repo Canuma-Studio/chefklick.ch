@@ -1,0 +1,139 @@
+/* ChefKlick Website - Grundlage
+   Alle Werte 1:1 aus der App: constants/chefklick-theme.ts (ChefKlickThemeLight).
+   Vorerst nur heller Modus (Entscheid 04.10.2026). Der dunkle Modus kommt spaeter
+   als zweiter Satz derselben Variablen dazu - keine Farbe direkt in Regeln schreiben. */
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/montserrat-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Farben (Schluessel wie in der App; "gold" heisst hier --accent, im hellen Modus Blau) */
+  --background: #F4F2ED;
+  --surface: #FFFFFF;
+  --surface-elevated: #EAE7E0;
+  --accent: #163A7C;
+  --accent-light: #2F6FE0;
+  --accent-dark: #0E2652;
+  --text-primary: #1A1A1C;
+  --text-secondary: #56544F;
+  --text-muted: #8A8781;   /* Kontrast 3.2 - nur Dekoratives, nie lesbarer Text */
+  --success: #2E7D46;
+  --warning: #B26A00;
+  --danger: #B23B3B;
+  --info: #1F6FB2;
+  --module-temperature: #1F6FB2;
+  --module-checklist: #2F5D4A;
+  --border: #D8D5CE;
+  --divider: #E6E3DC;
+  --disabled: #C9C6BF;
+  --tab-active: #E4EAF5;
+
+  /* Wortmarke (LOGO_COLORS.light) */
+  --logo-chef: #163A7C;
+  --logo-klick: #1A1A1C;
+
+  /* Abstaende */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+
+  /* Radien */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Schriftgroessen aus der App */
+  --font-title: 26px;
+  --font-heading: 22px;
+  --font-subheading: 18px;
+  --font-body: 16px;
+  --font-caption: 13px;
+  /* Ergaenzung nur fuer die Website (Entscheid 04.10.2026): Haupttitel der Startseite,
+     34px am Handy bis 44px am Desktop. Gibt es in der App nicht. */
+  --font-display: clamp(34px, calc(16px + 5vw), 44px);
+
+  /* Schatten (App: #000, Versatz 0/6, Deckkraft 0.25, Radius 12) */
+  /* iOS shadowRadius entspricht etwa dem halben CSS-Weichzeichner, daher 24px */
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+
+  /* Schriften: Systemschrift wie in der App, Montserrat nur fuer die Wortmarke */
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-wordmark: "Montserrat", var(--font-system);
+}
+
+/* Grundlage */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-system);
+  font-size: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.2; text-wrap: balance; }
+h1 { font-size: var(--font-title); }
+h2 { font-size: var(--font-heading); }
+h3 { font-size: var(--font-subheading); }
+p { margin: 0; }
+img, svg { max-width: 100%; }
+
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.caption { font-size: var(--font-caption); color: var(--text-secondary); }
+.display { font-size: var(--font-display); line-height: 1.1; letter-spacing: -0.01em; }
+
+/* Wortmarke: "Chef" Akzent, "Klick" Text (wie App, heller Modus) */
+.wordmark { font-family: var(--font-wordmark); font-weight: 700; white-space: nowrap; }
+.wordmark .chef { color: var(--logo-chef); }
+.wordmark .klick { color: var(--logo-klick); }
+
+/* Knopf-Hierarchie wie in der App, als Pille */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 12px var(--space-lg);
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  font: 600 var(--font-body) / 1.2 var(--font-system);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--background); }
+.btn-secondary { background: var(--surface-elevated); border-color: var(--accent); color: var(--accent); }
+.btn-tertiary { background: transparent; border-color: var(--border); color: var(--text-secondary); }
+.btn[disabled], .btn[aria-disabled="true"] { background: var(--disabled); border-color: transparent; color: var(--text-muted); cursor: default; }
+
+/* Karte wie in der App */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
