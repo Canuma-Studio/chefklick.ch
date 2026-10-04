@@ -118,17 +118,34 @@
   if (!Element.prototype.animate) {
     items.forEach(function (el) { el.classList.add('m-done'); });
   } else {
+    // Arten: float (Titel), fade (Text), line (Linie zieht sich von links), ring (Ringe hinter dem
+    // Zwischentitel fuellen sich wie DayRings.tsx), row (Grundsatz: Linie, dann Titel, dann Text).
+    // Was gleichzeitig ins Bild kommt, startet gestaffelt; data-delay verschiebt zusaetzlich.
     var io = new IntersectionObserver(function (entries) {
+      var dur = window.innerWidth < 750 ? 600 : 1200, k = dur / 1200, batch = 0;
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        var el = e.target;
+        var el = e.target, type = el.dataset.m;
         io.unobserve(el);
-        var dur = window.innerWidth < 750 ? 600 : 1200;
-        var kf = el.dataset.m === 'float'
-          ? [{ opacity: 0, transform: 'translateY(60px)' }, { opacity: 1, transform: 'none' }]
-          : [{ opacity: 0 }, { opacity: 1 }];
+        var delay = (batch++ * 150 + (+el.dataset.delay || 0)) * k;
         el.classList.add('m-done');
-        el.animate(kf, { duration: dur, easing: EASE, fill: 'backwards' });
+        if (type === 'row') {
+          el.style.setProperty('--dur', dur + 'ms');
+          el.style.setProperty('--d', delay + 'ms');
+          var h = el.querySelector('h3'), t = el.querySelector('p');
+          if (h) h.animate([{ opacity: 0, transform: 'translateY(30px)' }, { opacity: 1, transform: 'none' }], { duration: dur, delay: delay + 250 * k, easing: EASE, fill: 'backwards' });
+          if (t) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dur, delay: delay + 450 * k, easing: EASE, fill: 'backwards' });
+          return;
+        }
+        var kf;
+        if (type === 'float') kf = [{ opacity: 0, transform: 'translateY(60px)' }, { opacity: 1, transform: 'none' }];
+        else if (type === 'line') kf = [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }];
+        else if (type === 'ring') kf = [{ strokeDashoffset: 100 }, { strokeDashoffset: +el.style.getPropertyValue('--to') }];
+        else kf = [{ opacity: 0 }, { opacity: 1 }];
+        var opts = type === 'ring'
+          ? { duration: 1800, delay: delay, easing: 'cubic-bezier(0.33, 1, 0.68, 1)', fill: 'backwards' }
+          : { duration: dur, delay: delay, easing: EASE, fill: 'backwards' };
+        el.animate(kf, opts);
       });
     }, { threshold: 0.15 });
     items.forEach(function (el) { io.observe(el); });

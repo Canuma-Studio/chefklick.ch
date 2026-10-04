@@ -10,11 +10,11 @@
   <link rel="canonical" href="https://chefklick.ch/">
   <link rel="icon" href="images/chefklick-icon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/montserrat-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <!-- js: Menue-Knopf zeigen. reveal-ready: Kacheln und Texte ab dem ersten Bild im Startzustand,
        damit nichts rueckwaerts laeuft (siehe script.js). Bei "Bewegung reduzieren" kein Startzustand. -->
   <script>document.documentElement.classList.add('js'); if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('reveal-ready');</script>
-  <script src="script.js?v=5" defer></script>
+  <script src="script.js?v=6" defer></script>
 </head>
 
 <body>
@@ -22,10 +22,10 @@
        Breite, Zweiteilung, duenne Titel in Grossbuchstaben, Menue nur als Symbol oben rechts. -->
   <button class="menu-btn" id="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Seitenbereiche">
-    <a href="#top">Start</a>
-    <a href="#funktionen">Funktionen</a>
-    <a href="#grundsaetze">Grundsätze</a>
-    <a href="#kontakt">Kontakt</a>
+    <a style="--i: 0" href="#top">Start</a>
+    <a style="--i: 1" href="#funktionen">Funktionen</a>
+    <a style="--i: 2" href="#grundsaetze">Grundsätze</a>
+    <a style="--i: 3" href="#kontakt">Kontakt</a>
   </nav>
 
   <main id="top">
@@ -77,13 +77,13 @@
       </div>
       <div class="half bg-cream">
         <p class="body" data-m="fade">Ich bin Küchenchef in Zürich. Auf Papier schreibt auch jeder seinen Namen neben die Aufgabe, die er erledigt hat. ChefKlick macht dasselbe auf dem Handy, nur vollständig: Name und Uhrzeit bei jedem Eintrag, und nichts wird überschrieben.</p>
-        <div class="foot"><hr><div class="foot-row"><span>Philipp März</span><a class="more" href="#funktionen">+ So sieht es aus</a></div></div>
+        <div class="foot"><hr data-m="line"><div class="foot-row" data-m="fade" data-delay="500"><span>Philipp März</span><a class="more" href="#funktionen">+ So sieht es aus</a></div></div>
       </div>
     </section>
 
     <section class="banner" id="funktionen" aria-labelledby="funktionen-title">
       <!-- Ringe wie DayRings.tsx als Hintergrund, stehen beim Scrollen still -->
-      <div class="banner-bg" data-fixed aria-hidden="true"><svg viewBox="0 0 520 520"><circle class="tr" cx="260" cy="260" r="234" /><circle class="br" cx="260" cy="260" r="234" pathLength="100" transform="rotate(-90 260 260)" style="stroke-dashoffset: 18.18" /><circle class="tr" cx="260" cy="260" r="162" /><circle class="br" cx="260" cy="260" r="162" pathLength="100" transform="rotate(-90 260 260)" style="stroke-dashoffset: 50" /></svg></div>
+      <div class="banner-bg" data-fixed aria-hidden="true"><svg viewBox="0 0 520 520"><circle class="tr" cx="260" cy="260" r="234" /><circle class="br" cx="260" cy="260" r="234" pathLength="100" transform="rotate(-90 260 260)" style="--to: 18.18" data-m="ring" /><circle class="tr" cx="260" cy="260" r="162" /><circle class="br" cx="260" cy="260" r="162" pathLength="100" transform="rotate(-90 260 260)" style="--to: 50" data-m="ring" data-delay="150" /></svg></div>
       <h2 id="funktionen-title" class="caps" data-m="float">So sieht es in der App aus</h2>
       <p class="banner-note" data-m="fade">Mit Beispieldaten.</p>
     </section>
@@ -92,7 +92,7 @@
       <div class="half bg-check">
         <h3 id="f-checklist" class="caps title" data-m="float">Checkliste</h3>
         <p class="body" data-m="fade">Aufgaben nach Bereichen, täglich und als wöchentliche Grundreinigung. Jedes Häkchen speichert sofort, mit Name und Uhrzeit.</p>
-        <div class="foot"><hr><a class="more" href="#kontakt">+ Interesse</a></div>
+        <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-cream">
             <div class="tile" data-reveal data-par>
@@ -118,7 +118,7 @@
       <div class="half bg-temp">
         <h3 id="f-temperature" class="caps title" data-m="float">Temperatur</h3>
         <p class="body" data-m="fade">Jede Kühleinheit wird gegen ihren Sollbereich geprüft. Liegt ein Wert daneben, verlangt die App eine Korrekturmassnahme. Gespeichert wird erst danach.</p>
-        <div class="foot"><hr><a class="more" href="#kontakt">+ Interesse</a></div>
+        <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-hero">
             <div class="tile" data-reveal data-par>
@@ -143,7 +143,7 @@
       <div class="half bg-ware">
         <h3 id="f-receipt" class="caps title" data-m="float">Warenannahme</h3>
         <p class="body" data-m="fade">Feste Prüfpunkte je Lieferung, Temperatur je Artikel, Lieferscheinnummer und ein Foto des Lieferscheins. Fehlt ein Haken, verlangt die App eine Massnahme.</p>
-        <div class="foot"><hr><a class="more" href="#kontakt">+ Interesse</a></div>
+        <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-cream">
             <div class="tile" data-reveal data-par>
@@ -161,7 +161,7 @@
       <div class="half bg-hero">
         <h3 id="f-calendar" class="caps title" data-m="float">Kalender</h3>
         <p class="body" data-m="fade">Die Monatsuhr zeigt jeden Tag in seiner Statusfarbe, heute als längster Strich. Ruhetage und Betriebsferien zählen nicht als fehlende Kontrolle. Ein Tipp öffnet den Kalender.</p>
-        <div class="foot"><hr><a class="more" href="#kontakt">+ Interesse</a></div>
+        <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-check">
             <div class="tile" data-reveal data-par data-clock>
@@ -215,7 +215,7 @@
       <div class="half bg-day">
         <h3 id="f-daysheet" class="caps title" data-m="float">Tagesblatt</h3>
         <p class="body" data-m="fade">Eine Korrektur ist eine neue Messung. Die Fehleingabe bleibt sichtbar, als ungültig markiert mit Begründung. Jedes Tagesblatt gibt es als PDF.</p>
-        <div class="foot"><hr><a class="more" href="#kontakt">+ Interesse</a></div>
+        <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-temp">
             <div class="tile" data-reveal data-par>
@@ -247,7 +247,7 @@
       <div class="half bg-check">
         <h3 id="f-team" class="caps title" data-m="float">Team</h3>
         <p class="body" data-m="fade">Der Owner lädt per E-Mail mit Code ein. Das Passwort wählt jede Person selbst, niemand sonst kennt es. Drei Rollen: Owner, Admin, Mitarbeiter.</p>
-        <div class="foot"><hr><a class="more" href="#kontakt">+ Interesse</a></div>
+        <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
       <div class="half media bg-cream">
             <div class="tile" data-reveal data-par>
@@ -270,12 +270,12 @@
       <h2 id="grundsaetze-title" class="caps" data-m="float">Grundsätze</h2>
       <p class="principles-lead" data-m="fade">Diese Regeln sind in der App fest eingebaut.</p>
       <ul>
-        <li data-m="fade"><h3>Nichts wird überschrieben</h3><p>Eine Korrektur ist eine neue Messung. Fehleingaben werden als ungültig markiert, mit Begründung, nicht gelöscht.</p></li>
-        <li data-m="fade"><h3>Name und Uhrzeit bei jedem Eintrag</h3><p>Jeder Haken und jede Messung trägt den Namen der Person und die Uhrzeit.</p></li>
-        <li data-m="fade"><h3>Deaktivieren statt löschen</h3><p>Mitarbeitende, Kühleinheiten, Aufgaben und Bereiche werden deaktiviert. Die Geschichte bleibt vollständig.</p></li>
-        <li data-m="fade"><h3>Umbenennen wirkt nicht rückwirkend</h3><p>Ein alter Eintrag zeigt den Namen, der damals galt.</p></li>
-        <li data-m="fade"><h3>Jeder Tag startet leer</h3><p>Keine Vortageswerte im Eingabefeld. So wird nichts versehentlich übernommen.</p></li>
-        <li data-m="fade"><h3>Daten in der EU</h3><p>Gespeichert wird in einem Rechenzentrum in der EU.</p></li>
+        <li data-m="row"><h3>Nichts wird überschrieben</h3><p>Eine Korrektur ist eine neue Messung. Fehleingaben werden als ungültig markiert, mit Begründung, nicht gelöscht.</p></li>
+        <li data-m="row"><h3>Name und Uhrzeit bei jedem Eintrag</h3><p>Jeder Haken und jede Messung trägt den Namen der Person und die Uhrzeit.</p></li>
+        <li data-m="row"><h3>Deaktivieren statt löschen</h3><p>Mitarbeitende, Kühleinheiten, Aufgaben und Bereiche werden deaktiviert. Die Geschichte bleibt vollständig.</p></li>
+        <li data-m="row"><h3>Umbenennen wirkt nicht rückwirkend</h3><p>Ein alter Eintrag zeigt den Namen, der damals galt.</p></li>
+        <li data-m="row"><h3>Jeder Tag startet leer</h3><p>Keine Vortageswerte im Eingabefeld. So wird nichts versehentlich übernommen.</p></li>
+        <li data-m="row"><h3>Daten in der EU</h3><p>Gespeichert wird in einem Rechenzentrum in der EU.</p></li>
       </ul>
     </section>
 

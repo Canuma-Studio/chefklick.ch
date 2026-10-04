@@ -180,6 +180,9 @@ html { scroll-behavior: smooth; }
 .menu-open body { overflow: hidden; }
 .menu a { font-size: clamp(34px, 8vw, 64px); text-transform: uppercase; color: var(--text-primary); text-decoration: none; line-height: 1.05; }
 .menu a:hover { color: var(--accent); }
+/* Links schweben beim Oeffnen nacheinander herein; beim Schliessen bleiben sie stehen, bis das Menue draussen ist */
+.menu a { opacity: 0; transform: translateY(40px); transition: opacity 0s 0.4s, transform 0s 0.4s; }
+.menu-open .menu a { opacity: 1; transform: none; transition: opacity 0.5s ease-out, transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); transition-delay: calc(0.15s + var(--i, 0) * 0.07s); }
 
 /* Einstieg: grosse Wortmarke links oben, Leitsatz rechts, Text links unten */
 .hero { background: var(--f-hero); padding: 72px 20px 40px; display: grid; gap: 32px; min-height: 620px; align-content: space-between; }
@@ -210,7 +213,7 @@ html { scroll-behavior: smooth; }
 .half .title { font-size: clamp(36px, 5vw, 52px); }
 .half .body { font-size: clamp(19px, 2.1vw, 24px); max-width: 30ch; }
 .half .foot { margin-top: auto; padding-top: 40px; display: grid; gap: 14px; }
-.half .foot hr { border: 0; border-top: 1px solid currentColor; opacity: 0.45; margin: 0; width: 100%; }
+.half .foot hr { border: 0; border-top: 1px solid currentColor; opacity: 0.45; margin: 0; width: 100%; transform-origin: left center; }
 .more, .foot-row { font-size: 14px; text-transform: uppercase; letter-spacing: 0.03em; }
 .more { justify-self: end; text-decoration: none; color: inherit; }
 .more:hover { text-decoration: underline; }
@@ -226,15 +229,20 @@ html { scroll-behavior: smooth; }
 .banner-bg svg { width: min(760px, 120%); height: auto; }
 .banner-bg circle { fill: none; stroke: var(--f-strong-ink); stroke-width: 52; }
 .banner-bg .tr { stroke-opacity: 0.08; }
-.banner-bg .br { stroke-opacity: 0.2; stroke-linecap: round; stroke-dasharray: 100 100; }
+.banner-bg .br { stroke-opacity: 0.2; stroke-linecap: round; stroke-dasharray: 100 100; stroke-dashoffset: var(--to); }
 
 /* Grundsaetze: Titel mittig, Zeilen mit feiner Linie */
 .principles { background: var(--f-cream); padding: 72px 20px; }
 .principles > h2 { text-align: center; font-size: clamp(32px, 5vw, 52px); letter-spacing: 0.06em; }
 .principles-lead { text-align: center; color: var(--text-secondary); margin: 12px 0 48px; }
 .principles ul { list-style: none; margin: 0 auto; padding: 0; max-width: 980px; display: grid; }
-.principles li { display: grid; gap: 6px; padding-block: 24px; border-top: 1px solid var(--text-primary); }
-.principles li:last-child { border-bottom: 1px solid var(--text-primary); }
+.principles li { position: relative; display: grid; gap: 6px; padding-block: 24px; }
+.principles li::before, .principles li:last-child::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--text-primary); transform-origin: left center; }
+.principles li::before { top: 0; }
+.principles li:last-child::after { bottom: 0; }
+/* Linie zieht sich zuerst, dann kommen Titel und Text (script.js) */
+.reveal-ready .principles li[data-m="row"]::before, .reveal-ready .principles li[data-m="row"]::after { transform: scaleX(0); }
+.reveal-ready .principles li[data-m="row"].m-done::before, .reveal-ready .principles li[data-m="row"].m-done::after { transform: scaleX(1); transition: transform var(--dur, 1200ms) cubic-bezier(0.445, 0.05, 0.55, 0.95) var(--d, 0ms); }
 .principles h3 { font-size: clamp(24px, 3.4vw, 34px); font-weight: 300; line-height: 1.15; }
 .principles li p { font-size: 18px; color: var(--text-secondary); max-width: 52ch; }
 
