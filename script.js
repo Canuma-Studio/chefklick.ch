@@ -1,45 +1,33 @@
 // ChefKlick Website
-// Kacheln bewegen sich einmal, wenn sie ins Bild kommen (Entscheid 04.10.2026).
-// Den Startzustand setzt eine Zeile im Kopf von index.html (Klasse reveal-ready),
-// damit er schon im ersten Bild gilt. Ohne JavaScript oder ohne IntersectionObserver
-// fehlt die Klasse und die Kacheln stehen gleich im Endzustand.
+// Kacheln: der Ablauf aus der App laeuft in Schleife, solange die Kachel im Bild ist, unabhaengig
+// vom Scrollen (Entscheid 11.10.2026, ersetzt "einmal beim Sichtbarwerden" vom 04.10.2026).
+// Die Kachel hat von Anfang an die Hoehe ihres Endzustands, damit beim Ablauf nichts darunter
+// rutscht. Den Startzustand setzt eine Zeile im Kopf von index.html (Klasse reveal-ready), damit er
+// schon im ersten Bild gilt. Ohne JavaScript oder ohne IntersectionObserver fehlt die Klasse und die
+// Kacheln stehen gleich im Endzustand.
 //
-// Ablauf je Kachel: Elemente mit data-at="ms" bekommen zu diesem Zeitpunkt die
-// Klasse step-on (das CSS legt fest, was sich dann aendert). Hat ein Element
-// zusaetzlich data-type, wird sein Text ab diesem Zeitpunkt Zeichen fuer Zeichen
-// geschrieben (data-speed = ms pro Zeichen).
+// Ablauf je Kachel: Elemente mit data-at="ms" bekommen zu diesem Zeitpunkt die Klasse step-on (das
+// CSS legt fest, was sich dann aendert). Hat ein Element zusaetzlich data-type, wird sein Text ab
+// diesem Zeitpunkt Zeichen fuer Zeichen geschrieben (data-speed = ms pro Zeichen). Alle Zeiten werden
+// mit TEMPO gestreckt (langsamer, Entscheid 11.10.2026).
 (function () {
   var tiles = document.querySelectorAll('[data-reveal]');
   // Ohne die Klasse (kein IntersectionObserver oder "Bewegung reduzieren") laeuft nichts ab.
   if (!tiles.length || !document.documentElement.classList.contains('reveal-ready')) return;
 
+  var TEMPO = 1.8;      // Faktor auf data-at und data-speed
+  var HALTEN = 6000;    // so lange steht der Endzustand
+  var AUS = 800;        // Ausblenden vor dem Neustart (gleich wie .tile.fading im CSS)
+  var PAUSE = 900;      // leer, bevor es wieder beginnt
 
-  // Text, der getippt wird, vorher leeren (die Kacheln liegen beim Laden unter dem Bildrand).
-  document.querySelectorAll('[data-type]').forEach(function (el) {
-    el.dataset.text = el.textContent;
-    el.textContent = '';
-  });
+  // Getippter Text: Endtext merken
+  document.querySelectorAll('[data-type]').forEach(function (el) { el.dataset.text = el.textContent; });
 
   // Monatsuhr (MonthClock.tsx): die Striche bis heute stehen zuerst als Punkt am Innenkreis.
   var INNEN = 78, MITTE = 120;
-  var clockLines = document.querySelectorAll('[data-clock] line[data-grow]');
   function setLength(line, r) {
     line.setAttribute('x2', (MITTE + r * +line.dataset.cos).toFixed(2));
     line.setAttribute('y2', (MITTE + r * +line.dataset.sin).toFixed(2));
-  }
-  clockLines.forEach(function (line) { setLength(line, INNEN); });
-
-  function typeText(el) {
-    var text = el.dataset.text || '';
-    var speed = +el.dataset.speed || 60;
-    var i = 0;
-    el.classList.add('typing');
-    (function next() {
-      i += 1;
-      el.textContent = text.slice(0, i);
-      if (i < text.length) setTimeout(next, speed);
-      else el.classList.remove('typing');
-    })();
   }
 
   // Aufbau wie MonthClock.tsx: 1000 ms, Easing.out(cubic) auf den Gesamtwert,
@@ -49,7 +37,7 @@
     if (!lines.length) return;
     var last = 0;
     lines.forEach(function (l) { last = Math.max(last, +l.dataset.grow); });
-    var STAFFELUNG = 0.55, DAUER = 1000, t0 = performance.now();
+    var STAFFELUNG = 0.55, DAUER = 1000 * TEMPO, t0 = performance.now();
     (function frame(now) {
       var t = Math.min(1, (now - t0) / DAUER);
       var k = 1 - Math.pow(1 - t, 3);
@@ -62,32 +50,88 @@
     })(t0);
   }
 
-  function run(tile) {
+  // Zustand setzen: Start (leer) oder Ende (alles da). Ohne Uebergaenge (Klasse resetting).
+  function setState(tile, end) {
+    tile.classList.add('resetting');
+    tile.querySelectorAll('[data-at]').forEach(function (el) { el.classList.toggle('step-on', end); });
+    tile.querySelectorAll('[data-type]').forEach(function (el) { el.textContent = end ? el.dataset.text : ''; el.classList.remove('typing'); });
+    tile.querySelectorAll('line[data-grow]').forEach(function (l) { setLength(l, end ? +l.dataset.out : INNEN); });
+    tile.classList.toggle('is-on', end);
+    tile.offsetHeight; // Zustand sofort anwenden
+    tile.classList.remove('resetting');
+  }
+
+  // Hoehe des Endzustands messen und als Mindesthoehe setzen
+  function fit(tile) {
+    if (tile._busy) return; // waehrend des Ablaufs nicht messen
+    tile.style.minHeight = '';
+    setState(tile, true);
+    tile.style.minHeight = Math.ceil(tile.getBoundingClientRect().height) + 'px';
+    setState(tile, false);
+  }
+
+  function typeText(tile, el) {
+    var text = el.dataset.text || '', speed = (+el.dataset.speed || 60) * TEMPO, i = 0;
+    el.classList.add('typing');
+    (function next() {
+      i += 1;
+      el.textContent = text.slice(0, i);
+      if (i < text.length) tile._timers.push(setTimeout(next, speed));
+      else el.classList.remove('typing');
+    })();
+  }
+
+  function later(tile, ms, fn) { tile._timers.push(setTimeout(fn, ms)); }
+
+  // Ein Durchgang: Ablauf, Endzustand halten, ausblenden, leeren, neu beginnen (nur wenn sichtbar)
+  function cycle(tile) {
+    tile._busy = true;
+    tile._timers = [];
     tile.classList.add('is-on');
     if (tile.hasAttribute('data-clock')) growClock(tile);
+    var end = tile.hasAttribute('data-clock') ? 1000 * TEMPO : 0;
     tile.querySelectorAll('[data-at]').forEach(function (el) {
-      var go = function () {
+      var at = +el.dataset.at * TEMPO;
+      var dur = el.hasAttribute('data-type') ? (el.dataset.text || '').length * (+el.dataset.speed || 60) * TEMPO : 400;
+      end = Math.max(end, at + dur);
+      later(tile, at, function () {
         el.classList.add('step-on');
-        if (el.hasAttribute('data-type')) typeText(el);
-      };
-      setTimeout(go, +el.dataset.at);
+        if (el.hasAttribute('data-type')) typeText(tile, el);
+      });
+    });
+    later(tile, end + HALTEN, function () {
+      tile.classList.add('fading');
+      later(tile, AUS, function () {
+        setState(tile, false);
+        tile.classList.remove('fading');
+        tile._busy = false;
+        if (tile._visible) later(tile, PAUSE, function () { if (tile._visible && !tile._busy) cycle(tile); });
+      });
     });
   }
 
+  tiles.forEach(function (tile) { tile._timers = []; fit(tile); });
+  // Schrift kann die Hoehe noch aendern: nach dem Laden der Schriften nochmals messen
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { tiles.forEach(fit); });
+
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      var el = entry.target;
-      observer.unobserve(el);
-      // Zwei Bilder warten: sonst sieht der Browser bei einer Kachel, die schon beim
-      // Laden im Bild ist, Start und Ende im selben Moment und springt ans Ende.
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { run(el); });
-      });
+      var tile = entry.target;
+      tile._visible = entry.isIntersecting;
+      // Laeuft schon ein Durchgang, endet er von selbst; danach startet nur ein sichtbare Kachel neu.
+      if (tile._visible && !tile._busy) {
+        // Zwei Bilder warten: sonst sieht der Browser Start und Ende im selben Moment.
+        requestAnimationFrame(function () { requestAnimationFrame(function () { if (!tile._busy) cycle(tile); }); });
+      }
     });
-  }, { threshold: 0.45 });
-
+  }, { threshold: 0.3 });
   tiles.forEach(function (el) { observer.observe(el); });
+
+  var wait;
+  window.addEventListener('resize', function () {
+    clearTimeout(wait);
+    wait = setTimeout(function () { tiles.forEach(fit); }, 200);
+  });
 })();
 
 // Menue: nur ein Symbol oben rechts wie bei der Vorlage (Entscheid 04.10.2026).
@@ -118,7 +162,7 @@
   if (!Element.prototype.animate) {
     items.forEach(function (el) { el.classList.add('m-done'); });
   } else {
-    // Arten: float (Titel), fade (Text), line (Linie zieht sich von links), ring (Ringe hinter dem
+    // Arten: float (Titel), fade (Text), reveal (Kachel-Flaeche wird aufgedeckt), line (Linie zieht sich von links), ring (Ringe hinter dem
     // Zwischentitel fuellen sich wie DayRings.tsx), row (Grundsatz: Linie, dann Titel, dann Text).
     // Was gleichzeitig ins Bild kommt, startet gestaffelt; data-delay verschiebt zusaetzlich.
     var io = new IntersectionObserver(function (entries) {
@@ -140,11 +184,16 @@
         var kf;
         if (type === 'float') kf = [{ opacity: 0, transform: 'translateY(60px)' }, { opacity: 1, transform: 'none' }];
         else if (type === 'line') kf = [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }];
+        else if (type === 'reveal') kf = [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }];
         else if (type === 'ring') kf = [{ strokeDashoffset: 100 }, { strokeDashoffset: +el.style.getPropertyValue('--to') }];
         else kf = [{ opacity: 0 }, { opacity: 1 }];
+        // reveal: Flaeche der Kachel wird von unten nach oben aufgedeckt wie die Bilder der Vorlage
+        // (motion-revealIn, 1200 ms, cubic-bezier(0.645, 0.045, 0.355, 1)), Entscheid 11.10.2026
         var opts = type === 'ring'
           ? { duration: 1800, delay: delay, easing: 'cubic-bezier(0.33, 1, 0.68, 1)', fill: 'backwards' }
-          : { duration: dur, delay: delay, easing: EASE, fill: 'backwards' };
+          : type === 'reveal'
+            ? { duration: dur, delay: delay, easing: 'cubic-bezier(0.645, 0.045, 0.355, 1)', fill: 'backwards' }
+            : { duration: dur, delay: delay, easing: EASE, fill: 'backwards' };
         el.animate(kf, opts);
       });
     }, { threshold: 0.15 });

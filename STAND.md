@@ -12,6 +12,7 @@
    - Texte unter den Kacheln und im Abschnitt Grundsätze (alle aus CHEFKLICK-KONTEXT, nur Fertiges)
    - Grundsatz "Jeder Tag bleibt genau so gespeichert, wie er ausgefüllt wurde" bewusst weggelassen: Gültigkeitszeiträume sind noch geplant
    - Bewegungen, die es in der App nicht gibt: Tagesblatt (zweite Karte blendet ein), Team (Kopfkarte blendet ein); alles andere wie in der App
+   - Schleife und Aufdecken am Handy bei allen sechs Kacheln ansehen (geprüft nur Temperatur)
    - Menü nur als Symbol: am Desktop sind die Bereiche nicht direkt sichtbar (Nachteil aus dem Artifact)
    - Codelänge 6 Ziffern angenommen (Supabase-Standard), nicht im App-Code nachgelesen
    - Foto des Lieferscheins: nur im Text erwähnt, Darstellung in der App noch nicht gelesen
@@ -30,6 +31,8 @@
 - Knopf „Anmelden“ auf app.chefklick.ch, sobald die Webversion der App läuft (siehe Entscheidungen, 11.10.2026)
 
 ## Entscheidungen
+- 11.10.2026: Kacheln wie die Bilder der Vorlage noahbachofen.ch: die Fläche wird beim Hereinkommen von unten nach oben aufgedeckt (1200 ms, Handy 600 ms, cubic-bezier(0.645, 0.045, 0.355, 1)). Der Ablauf in der Kachel läuft in Schleife, solange sie im Bild ist, unabhängig vom Scrollen (Philipp: "ruckelig", "ohne es mit dem Scrollen zu verbinden"); langsamer: alle Zeiten × 1.8, Endzustand 6 s, 800 ms ausblenden, 900 ms Pause. Jede Kachel hat von Anfang an die Höhe ihres Endzustands, nichts darunter rutscht. Feld "Korrekturmassnahme" klappt jetzt weich auf (ersetzt "Nicht gewählt" vom 04.10.). Ersetzt "jede Kachel bewegt sich einmal" vom 04.10.
+- 11.10.2026: Kachel "Heute" unter dem Einstieg entfernt (Philipp: Dashboard-Diagramm stört). Stattdessen Einleitung: Titel "Digital, aber nicht kompliziert" auf --f-ware (Einstiegsfarbe würde am Handy mit dem Einstieg verschmelzen), zwei Absätze, Linie mit "Canuma Studio". Kein persönlicher Name auf der Seite (Philipp), ersetzt "Name Philipp März in der Linie" vom 04.10. Regeln für Ringe und Legende aus styles.css entfernt
 - 11.10.2026: Login nicht auf dieser Seite. Die App bekommt eine Webversion; sie läuft getrennt unter app.chefklick.ch und bringt ihren eigenen Anmeldebildschirm mit. Gründe: der Browser trennt den Speicher der Anmeldung von der Website, kein Supabase-Schlüssel im öffentlichen Website-Repo, Website und App werden unabhängig voneinander geändert. Die Website bekommt nur einen Knopf „Anmelden“. Hosting der Webversion wird im App-Projekt entschieden
 - 05.10.2026: Ruhiger, weil die Seite für eine Dokumentations-App zu verspielt wirkte (Philipp): Flächen in den App-Farben statt "Kräftig" (--f-* = tabActive, background, moduleChecklistSoft, moduleTemperatureSoft, surfaceElevated, surface); Pfeil pulsiert nicht mehr; Mitlaufen der Kacheln entfernt; Häkchen blendet nur noch ein, ohne Aufspringen. Bleibt: Titel schweben herein, Texte blenden ein, Linien ziehen sich, Ringe füllen sich und stehen still, Grundsätze nacheinander, Menü gestaffelt, weiche Übergänge in den Kacheln, Wortmarke wie beim App-Start
 - 04.10.2026 (spät): Abläufe der Kacheln flüssiger (Philipp: "bauen sich komisch auf, nicht so flüssig"): weiche Übergänge bei jedem Schritt (Haken füllt sich und Häkchen springt leicht auf – weicht bewusst von der App ab –, Zeile darunter klappt auf, Ja-Knöpfe, Texte blenden über, Speichern-Knopf, Strich); Mitlaufen gedämpft (zieht weich nach, wird am Rand der Fläche langsamer statt hart zu stoppen). Nicht gewählt: Feld Korrekturmassnahme klappt auf (blendet nur ein, die Kachel wächst weiter in einem Schritt), Kachel schwebt herein
@@ -60,6 +63,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 11.10.2026: Einleitung statt Kachel "Heute", Kacheln aufdecken und in Schleife mit fester Höhe (siehe Entscheidungen). Geprüft 390 und 1280 px: Temperatur-Kachel bleibt über zwei Durchgänge gleich hoch, Schleife startet neu, keine Fehler in der Konsole, kein seitliches Scrollen
 - 05.10.2026: Farben auf App-Farben, Pulsieren und Mitlaufen entfernt, Häkchen ohne Aufspringen. Geprüft 390 und 1280 px, keine Fehler
 - 04.10.2026 (spät): Abläufe flüssiger (siehe Entscheidungen). Gemessen: Mitlaufen höchstens 2 px pro Bild; Einzelbilder Checkliste und Temperatur; bei "Bewegung reduzieren" Endzustand sofort
 - 04.10.2026 (spät): Vier zusätzliche Bewegungen eingebaut (siehe Entscheidungen). Geprüft 1280 px mit Zwischenbildern, Menü 390 und 1280 px (deckt das ganze Bild, Esc schliesst, Fokus zurück auf den Knopf), keine Fehler in der Konsole

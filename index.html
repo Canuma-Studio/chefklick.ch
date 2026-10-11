@@ -10,11 +10,11 @@
   <link rel="canonical" href="https://chefklick.ch/">
   <link rel="icon" href="images/chefklick-icon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/montserrat-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=10">
   <!-- js: Menue-Knopf zeigen. reveal-ready: Kacheln und Texte ab dem ersten Bild im Startzustand,
        damit nichts rueckwaerts laeuft (siehe script.js). Bei "Bewegung reduzieren" kein Startzustand. -->
   <script>document.documentElement.classList.add('js'); if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('reveal-ready');</script>
-  <script src="script.js?v=8" defer></script>
+  <script src="script.js?v=10" defer></script>
 </head>
 
 <body>
@@ -42,42 +42,15 @@
       </div>
     </section>
 
-    <section class="split" aria-label="Über ChefKlick">
-      <div class="half media bg-cream">
-        <!-- Kachel "Heute": app/(tabs)/dashboard.tsx (Ringkarte) und components/DayRings.tsx -->
-        <figure class="tile tile-hero" data-reveal>
-            <div class="card card-dash today">
-              <p class="card-title">Donnerstag, 24. September</p>
-              <svg class="rings" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true">
-                <circle class="ring-track ring-checklist" cx="75" cy="75" r="69" />
-                <circle class="ring-bar ring-checklist" cx="75" cy="75" r="69" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.8182" />
-                <circle class="ring-track ring-temperature" cx="75" cy="75" r="51" />
-                <circle class="ring-bar ring-temperature" cx="75" cy="75" r="51" pathLength="100" transform="rotate(-90 75 75)" style="--progress: 0.5" />
-              </svg>
-              <ul class="legend">
-                <li class="legend-row legend-checklist">
-                  <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-checkbox" /></svg>
-                  <span class="legend-label">Checkliste</span>
-                  <span class="legend-count">18/22</span>
-                </li>
-                <li class="legend-row legend-temperature">
-                  <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-thermo" /></svg>
-                  <span class="legend-label">Temperatur</span>
-                  <span class="legend-count">2/4</span>
-                </li>
-                <li class="legend-row legend-receipt">
-                  <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-cube" /></svg>
-                  <span class="legend-label">Warenannahme</span>
-                  <span class="legend-count">keine</span>
-                </li>
-              </ul>
-            </div>
-            <figcaption class="caption">Beispielansicht</figcaption>
-        </figure>
+    <!-- Einleitung statt der Kachel "Heute" (Entscheid 11.10.2026): Titel und Text, ohne Namen -->
+    <section class="split" aria-labelledby="intro-title">
+      <div class="half bg-ware">
+        <h2 id="intro-title" class="caps title" data-m="float">Digital, aber nicht kompliziert</h2>
       </div>
       <div class="half bg-cream">
-        <p class="body" data-m="fade">Ich bin Küchenchef in Zürich. Auf Papier schreibt auch jeder seinen Namen neben die Aufgabe, die er erledigt hat. ChefKlick macht dasselbe auf dem Handy, nur vollständig: Name und Uhrzeit bei jedem Eintrag, und nichts wird überschrieben.</p>
-        <div class="foot"><hr data-m="line"><div class="foot-row" data-m="fade" data-delay="500"><span>Philipp März</span><a class="more" href="#funktionen">+ So sieht es aus</a></div></div>
+        <p class="body" data-m="fade">Im Service hat niemand Zeit für komplizierte Software. Deshalb macht ChefKlick nur, was die Papierliste auch macht: abhaken, messen, eintragen.</p>
+        <p class="body" data-m="fade">Mit klaren Hinweisen und ohne zusätzliche Bestätigungen. Gebaut von einem Küchenchef in Zürich, für Küchen wie seine.</p>
+        <div class="foot"><hr data-m="line"><div class="foot-row" data-m="fade" data-delay="500"><span>Canuma Studio</span><a class="more" href="#funktionen">+ So sieht es aus</a></div></div>
       </div>
     </section>
 
@@ -94,7 +67,7 @@
         <p class="body" data-m="fade">Aufgaben nach Bereichen, täglich und als wöchentliche Grundreinigung. Jedes Häkchen speichert sofort, mit Name und Uhrzeit.</p>
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
-      <div class="half media bg-cream">
+      <div class="half media bg-cream" data-m="reveal">
             <div class="tile" data-reveal>
               <div class="app-area">Küche</div>
               <div class="app-rhythm">Täglich</div>
@@ -120,7 +93,7 @@
         <p class="body" data-m="fade">Jede Kühleinheit wird gegen ihren Sollbereich geprüft. Liegt ein Wert daneben, verlangt die App eine Korrekturmassnahme. Gespeichert wird erst danach.</p>
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
-      <div class="half media bg-hero">
+      <div class="half media bg-hero" data-m="reveal">
             <div class="tile" data-reveal>
               <div class="card">
                 <div class="temp-name">Tiefkühler</div>
@@ -130,10 +103,10 @@
                   <span class="temp-unit">°C</span>
                 </div>
                 <div class="temp-status swap"><span class="swap-from">Noch nicht geprüft</span><span class="swap-to status-danger" data-at="1250">Ausserhalb Sollbereich</span></div>
-                <div class="temp-action" data-at="1550">
+                <div class="temp-action" data-at="1550"><div>
                   <div class="temp-action-label">Korrekturmassnahme (Pflichtfeld)</div>
                   <div class="app-input app-input-area"><span class="field-value" data-type data-at="2200" data-speed="28">Tür war offen, nach 30 Min. erneut gemessen</span><span class="ph">Was wurde unternommen?</span></div>
-                </div>
+                </div></div>
               </div>
               <div class="app-save" data-at="3500">Temperaturen speichern</div>
             </div>
@@ -145,7 +118,7 @@
         <p class="body" data-m="fade">Feste Prüfpunkte je Lieferung, Temperatur je Artikel, Lieferscheinnummer und ein Foto des Lieferscheins. Fehlt ein Haken, verlangt die App eine Massnahme.</p>
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
-      <div class="half media bg-cream">
+      <div class="half media bg-cream" data-m="reveal">
             <div class="tile" data-reveal>
               <div class="app-section">Prüfpunkte</div>
               <div class="card">
@@ -163,7 +136,7 @@
         <p class="body" data-m="fade">Die Monatsuhr zeigt jeden Tag in seiner Statusfarbe, heute als längster Strich. Ruhetage und Betriebsferien zählen nicht als fehlende Kontrolle. Ein Tipp öffnet den Kalender.</p>
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
-      <div class="half media bg-check">
+      <div class="half media bg-check" data-m="reveal">
             <div class="tile" data-reveal data-clock>
               <div class="card card-dash">
                 <div class="month-head">
@@ -217,7 +190,7 @@
         <p class="body" data-m="fade">Eine Korrektur ist eine neue Messung. Die Fehleingabe bleibt sichtbar, als ungültig markiert mit Begründung. Jedes Tagesblatt gibt es als PDF.</p>
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
-      <div class="half media bg-temp">
+      <div class="half media bg-temp" data-m="reveal">
             <div class="tile" data-reveal>
               <div class="card card-list day-card">
                 <div class="control-head">07:31 · Alex</div>
@@ -249,7 +222,7 @@
         <p class="body" data-m="fade">Der Owner lädt per E-Mail mit Code ein. Das Passwort wählt jede Person selbst, niemand sonst kennt es. Drei Rollen: Owner, Admin, Mitarbeiter.</p>
         <div class="foot"><hr data-m="line"><a class="more" href="#kontakt" data-m="fade" data-delay="500">+ Interesse</a></div>
       </div>
-      <div class="half media bg-cream">
+      <div class="half media bg-cream" data-m="reveal">
             <div class="tile" data-reveal>
               <div class="app-field"><span class="field-value" data-type data-at="400" data-speed="150">482917</span><span class="ph">Code</span></div>
               <div class="app-field"><span class="field-value" data-type data-at="1550" data-speed="70">••••••••••</span><span class="ph">Neues Passwort</span></div>
