@@ -10,7 +10,7 @@
 ## Offen
 1. Startseite im Browser beurteilen (Farbflächen, neu eingebaut) und gemeinsam durchgehen (Philipp, 04.10.2026: "erst fertig bauen, dann die Änderungen durchgehen"). Steht komplett, siehe Erledigt. Zum Durchgehen:
    - Texte unter den Kacheln und im Abschnitt Grundsätze (alle aus CHEFKLICK-KONTEXT, nur Fertiges)
-   - Grundsatz "Jeder Tag bleibt genau so gespeichert, wie er ausgefüllt wurde" bewusst weggelassen: Gültigkeitszeiträume sind noch geplant
+   - Grundsatz "Jeder Tag bleibt genau so gespeichert, wie er ausgefüllt wurde": bisher bewusst weggelassen, seit 12.10.2026 in der App fertig (Kalender, Tagesblatt, PDF) – kann aufgenommen werden
    - Bewegungen, die es in der App nicht gibt: Tagesblatt (zweite Karte blendet ein), Team (Kopfkarte blendet ein); alles andere wie in der App
    - Schleife und Aufdecken am Handy bei allen sechs Kacheln ansehen (geprüft nur Temperatur)
    - Menü nur als Symbol: am Desktop sind die Bereiche nicht direkt sichtbar (Nachteil aus dem Artifact)
@@ -25,7 +25,7 @@
 
 ## Später
 - Dunkler Modus (wie App: Gold auf Schwarz): zweiter Satz derselben Variablen in styles.css + Umschalter-Pille oben rechts + prefers-color-scheme; color-scheme: light dann entfernen
-- Mehrsprachigkeit: dann neu prüfen, ob ein Static-Site-Generator (z. B. Astro) sinnvoll ist
+- Mehrsprachigkeit: dann neu prüfen, ob ein Static-Site-Generator (z. B. Astro) sinnvoll ist. Die App startet nur auf Deutsch (12.10.2026), Mehrsprachigkeit frühestens nach der Beta
 - Warteliste, Preise, Anleitung/FAQ
 - Datenschutzerklärung und Support-Adresse für den App Store (kann hier liegen)
 - Knopf „Anmelden“ auf app.chefklick.ch, sobald die Webversion der App läuft (siehe Entscheidungen, 11.10.2026)
@@ -33,7 +33,7 @@
 ## Entscheidungen
 - 11.10.2026: Kacheln wie die Bilder der Vorlage noahbachofen.ch: die Fläche wird beim Hereinkommen von unten nach oben aufgedeckt (1200 ms, Handy 600 ms, cubic-bezier(0.645, 0.045, 0.355, 1)). Der Ablauf in der Kachel läuft in Schleife, solange sie im Bild ist, unabhängig vom Scrollen (Philipp: "ruckelig", "ohne es mit dem Scrollen zu verbinden"); langsamer: alle Zeiten × 1.8, Endzustand 6 s, 800 ms ausblenden, 900 ms Pause. Jede Kachel hat von Anfang an die Höhe ihres Endzustands, nichts darunter rutscht. Feld "Korrekturmassnahme" klappt jetzt weich auf (ersetzt "Nicht gewählt" vom 04.10.). Ersetzt "jede Kachel bewegt sich einmal" vom 04.10.
 - 11.10.2026: Kachel "Heute" unter dem Einstieg entfernt (Philipp: Dashboard-Diagramm stört). Stattdessen Einleitung: Titel "Digital, aber nicht kompliziert" auf --f-ware (Einstiegsfarbe würde am Handy mit dem Einstieg verschmelzen), zwei Absätze, Linie mit "Canuma Studio". Kein persönlicher Name auf der Seite (Philipp), ersetzt "Name Philipp März in der Linie" vom 04.10. Regeln für Ringe und Legende aus styles.css entfernt
-- 11.10.2026: Login nicht auf dieser Seite. Die App bekommt eine Webversion; sie läuft getrennt unter app.chefklick.ch und bringt ihren eigenen Anmeldebildschirm mit. Gründe: der Browser trennt den Speicher der Anmeldung von der Website, kein Supabase-Schlüssel im öffentlichen Website-Repo, Website und App werden unabhängig voneinander geändert. Die Website bekommt nur einen Knopf „Anmelden“. Hosting der Webversion wird im App-Projekt entschieden
+- 11.10.2026: Login nicht auf dieser Seite. Die App bekommt eine Webversion; sie läuft getrennt unter app.chefklick.ch und bringt ihren eigenen Anmeldebildschirm mit. Gründe: der Browser trennt den Speicher der Anmeldung von der Website, kein Supabase-Schlüssel im öffentlichen Website-Repo, Website und App werden unabhängig voneinander geändert. Die Website bekommt nur einen Knopf „Anmelden“. Hosting der Webversion wird im App-Projekt entschieden – seit 12.10.2026: Cloudflare Pages unter app.chefklick.ch
 - 05.10.2026: Ruhiger, weil die Seite für eine Dokumentations-App zu verspielt wirkte (Philipp): Flächen in den App-Farben statt "Kräftig" (--f-* = tabActive, background, moduleChecklistSoft, moduleTemperatureSoft, surfaceElevated, surface); Pfeil pulsiert nicht mehr; Mitlaufen der Kacheln entfernt; Häkchen blendet nur noch ein, ohne Aufspringen. Bleibt: Titel schweben herein, Texte blenden ein, Linien ziehen sich, Ringe füllen sich und stehen still, Grundsätze nacheinander, Menü gestaffelt, weiche Übergänge in den Kacheln, Wortmarke wie beim App-Start
 - 04.10.2026 (spät): Abläufe der Kacheln flüssiger (Philipp: "bauen sich komisch auf, nicht so flüssig"): weiche Übergänge bei jedem Schritt (Haken füllt sich und Häkchen springt leicht auf – weicht bewusst von der App ab –, Zeile darunter klappt auf, Ja-Knöpfe, Texte blenden über, Speichern-Knopf, Strich); Mitlaufen gedämpft (zieht weich nach, wird am Rand der Fläche langsamer statt hart zu stoppen). Nicht gewählt: Feld Korrekturmassnahme klappt auf (blendet nur ein, die Kachel wächst weiter in einem Schritt), Kachel schwebt herein
 - 04.10.2026 (spät): Zusätzliche Bewegungen (Philipp: "mir fehlen noch ein paar Animationen"): Linie unter jedem Text zieht sich von links, danach "+ Interesse"; Ringe hinter dem Zwischentitel füllen sich wie DayRings.tsx (1.8 s); Grundsätze kommen nacheinander (Linie, Titel, Text); Menü-Links schweben gestaffelt herein. Was gleichzeitig ins Bild kommt, startet gestaffelt (150 ms)
