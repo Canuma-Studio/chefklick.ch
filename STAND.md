@@ -20,7 +20,11 @@
 2. Marken-PNGs (wortmarke-*.png, icon.png, favicon.png) erst übernehmen, wenn sie gebraucht werden
 3. Texte – nur Funktionen, die in der App fertig sind
 4. Entfällt: Statt des Handy-Nachbaus aus canuma steht im Einstieg die Kachel "Heute" (Entscheid 04.10.2026)
-5. impressum.html und datenschutz.html (Vorlage canuma, Entwurf – muss geprüft werden), 404.html
+5. Rechtstexte von einer Fachperson prüfen lassen (Philipp, in den nächsten Tagen). Entwürfe von Claude sind online. Fragen dazu:
+   - Impressum ohne Postadresse (nur "Zürich, Schweiz") – reicht das, solange auf der Seite nichts verkauft wird? Ab wann braucht es eine vollständige Adresse?
+   - Canuma Studio ist nicht im Handelsregister: reicht "Canuma Studio, Philipp März" als Anbieter?
+   - GitHub (Hosting, USA) unter dem Swiss-U.S. Data Privacy Framework – Formulierung so richtig?
+   - Für die App (app.chefklick.ch, Beta mit Codes): Datenschutzerklärung, Nutzungsbedingungen, Auftragsbearbeitung (Betriebe speichern Namen ihrer Mitarbeitenden), Aufbewahrungsdauer, Haftung bei Ausfall
 6. Online gehen: CNAME, GitHub Pages einschalten, DNS bei Hostpoint wie bei canuma.ch, Enforce HTTPS, Domain bei GitHub verifizieren
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
 
@@ -31,6 +35,7 @@
 - Datenschutzerklärung und Support-Adresse für den App Store (kann hier liegen)
 
 ## Entscheidungen
+- 20.10.2026: Online gehen mit Rechtstexten als Entwurf von Claude, Prüfung durch eine Fachperson folgt (Philipp: günstiger als alles schreiben zu lassen). Impressum: Canuma Studio, Philipp März, Zürich, Schweiz, info@canuma.ch – der Name steht nur im Impressum und in der Datenschutzerklärung, sonst nirgends auf der Seite. Ohne Postadresse wie bei canuma.ch (Frage an Fachperson, Punkt 5). Datenschutzerklärung gilt nur für die Website, ausdrücklich nicht für die App. Rechtstexte per Du wie die übrige Seite (canuma: Sie). Seiten ohne script.js und ohne Bewegung; 404.html mit Pfaden ab der Wurzel, weil GitHub Pages sie für jede unbekannte Adresse zeigt
 - 20.10.2026: Ringe hinter "So sieht es in der App aus" stehen per CSS still (.banner-bg position: fixed, .banner clip-path: inset(0)) statt per Scroll-Handler in script.js. Grund: Philipp, "beim Scrollen sehr ruckelhaft" – der Handler lief ein Bild hinter dem Scrollen her. Wirkung gleich (Ringe in der Bildmitte, Fläche gleitet darüber), Füllen der Ringe startet weiterhin erst beim Hereinkommen. Zum Ausprobieren, Alternative wäre: Ringe scrollen mit
 - 20.10.2026: Link „Anmelden“ zur Webversion der App (https://app.chefklick.ch, seit heute online) im Menü als letzter Eintrag, abgesetzt mit Linie und kleiner, und in der Fusszeile rechts, fett. Kein eigener Knopf oben, damit das Menü ein einziges Symbol bleibt und neue Besucher nicht denken, sie könnten schon loslegen ("Bald verfügbar" bleibt). Öffnet im selben Tab, Pfeil ↗ nur zur Zierde (aria-hidden)
 - 11.10.2026: Kacheln wie die Bilder der Vorlage noahbachofen.ch: die Fläche wird beim Hereinkommen von unten nach oben aufgedeckt (1200 ms, Handy 600 ms, cubic-bezier(0.645, 0.045, 0.355, 1)). Der Ablauf in der Kachel läuft in Schleife, solange sie im Bild ist, unabhängig vom Scrollen (Philipp: "ruckelig", "ohne es mit dem Scrollen zu verbinden"); langsamer: alle Zeiten × 1.8, Endzustand 6 s, 800 ms ausblenden, 900 ms Pause. Jede Kachel hat von Anfang an die Höhe ihres Endzustands, nichts darunter rutscht. Feld "Korrekturmassnahme" klappt jetzt weich auf (ersetzt "Nicht gewählt" vom 04.10.). Ersetzt "jede Kachel bewegt sich einmal" vom 04.10.
@@ -48,7 +53,7 @@
 - 04.10.2026: Checkliste wie in der App mit zwei Karten (täglich / Grundreinigung), Haken ohne eigene Animation (spät geändert, siehe oben: Haken blendet weich ein), keine Icons für Begründung und Rückgängig; Grundreinigung zeigt "erledigt am Montag, 21.09. von …"
 - 04.10.2026: Web-Stufe --font-section (30 bis 40 px) für Abschnittstitel
 - 04.10.2026: Namen in den Beispielen (Sam, Mia, Alex) und Aufgaben sind erfunden, Betrieb heisst "Beispielbetrieb"
-- 04.10.2026: Fusszeile vorerst ohne Impressum/Datenschutz – Links kommen mit den Seiten (Punkt 5)
+- 04.10.2026: Fusszeile vorerst ohne Impressum/Datenschutz – Links kommen mit den Seiten (erledigt 20.10.2026)
 - 04.10.2026: Icons als eine Datei images/icons.svg (Ionicons 7.4.0), Lizenzen in LICENSES.md (Ionicons MIT, Montserrat OFL)
 - 04.10.2026: Als Bild nur das App-Icon (chefklick-icon.svg: Grund #D8D5CE, C und Haken #163A7C, Punkt #A8823A) – im Kopf neben der Wortmarke und als Favicon. Die Bildmarken (hell/dunkel, reduziert) kommen in der App nicht vor und werden nicht benutzt
 - 04.10.2026: Gestaltung: moderne Seite (Navigation, grosse Überschriften, Raster), nur die Kacheln im App-Design – 1:1 nach dem App-Code (Karten, Radien, Schatten, Ionicons, Ringe, Monatsuhr, runde Haken, Ja/Nein-Knöpfe, Eingabefelder); jede Kachel bewegt sich einmal, wenn sie ins Bild kommt. Verworfen: Handy entfaltet sich, Bonschiene, Papier, Kuli
@@ -65,6 +70,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 20.10.2026: impressum.html, datenschutz.html, 404.html (Entwurf, siehe Entscheidungen), Fusszeile der Startseite mit Impressum · Datenschutz, Cache-Version v=11. Geprüft 390 und 1280 px: kein seitliches Scrollen, keine Fehler, keine fehlenden Dateien, 404 lädt die Stile auch aus Unterordnern
 - 20.10.2026: Ruckeln der Ringe behoben (siehe Entscheidungen), Scroll-Handler und data-fixed entfernt. Geprüft 390 und 1280 px beim Hereinkommen, in der Mitte und beim Hinausgehen: Ringe bleiben in der Fläche, keine Fehler in der Konsole; Ringe füllen sich beim Laden oben noch nicht. Am echten Gerät (Trackpad, iPhone) noch von Philipp zu prüfen
 - 20.10.2026: Link „Anmelden“ in Menü und Fusszeile (siehe Entscheidungen). Geprüft 390 und 1280 px: Ziel https://app.chefklick.ch, keine Fehler in der Konsole, kein seitliches Scrollen
 - 11.10.2026: Einleitung statt Kachel "Heute", Kacheln aufdecken und in Schleife mit fester Höhe (siehe Entscheidungen). Geprüft 390 und 1280 px: Temperatur-Kachel bleibt über zwei Durchgänge gleich hoch, Schleife startet neu, keine Fehler in der Konsole, kein seitliches Scrollen
