@@ -25,7 +25,7 @@
    - Canuma Studio ist nicht im Handelsregister: reicht "Canuma Studio, Philipp März" als Anbieter?
    - GitHub (Hosting, USA) unter dem Swiss-U.S. Data Privacy Framework – Formulierung so richtig?
    - Für die App (app.chefklick.ch, Beta mit Codes): Datenschutzerklärung, Nutzungsbedingungen, Auftragsbearbeitung (Betriebe speichern Namen ihrer Mitarbeitenden), Aufbewahrungsdauer, Haftung bei Ausfall
-6. Domain in den Org-Settings bei GitHub verifizieren (TXT-Eintrag bei Hostpoint), schützt vor Übernahme der Domain. Danach Google Search Console (Property "Domain", TXT bei Hostpoint, Sitemap einreichen)
+6. canuma.ch bei GitHub verifizieren: TXT-Eintrag steht und ist sichtbar, erster Versuch "Verify" war zu früh – nochmals klicken (Org-Settings → Pages). Für chefklick.ch erledigt
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
 
 ## Später
@@ -35,6 +35,7 @@
 - Datenschutzerklärung und Support-Adresse für den App Store (kann hier liegen)
 
 ## Entscheidungen
+- 21.10.2026: Vorschaubild beim Teilen (Open Graph) Variante B aus dem Artifact "ChefKlick Teilen-Vorschau": Grund Warmweiss #F4F2ED, App-Icon, Wortmarke, Zeile "HACCP-App für die Gastronomie" (Inter, gerendert). Gleicher Aufbau wie bei canuma.ch. Titel und Beschreibung wörtlich aus title und meta description. Verworfen: A Einstiegsfarbe, C dunkel mit Gold
 - 21.10.2026: "Anmelden" am Handy (unter 760 px) nur im Menü der Startseite, nicht in der Fusszeile – auf allen Seiten, auch Impressum, Datenschutz und 404 (die haben kein Menü, dort führt "Zurück" zur Startseite). Grund: Philipp, am Handy stand der Link allein und fett rechts unter "Kontakt" und sah komisch aus. Am Desktop bleibt er rechts in der Fusszeile. Ergänzt den Eintrag vom 20.10.
 - 20.10.2026: Online gehen mit Rechtstexten als Entwurf von Claude, Prüfung durch eine Fachperson folgt (Philipp: günstiger als alles schreiben zu lassen). Impressum: Canuma Studio, Philipp März, Zürich, Schweiz, info@canuma.ch – der Name steht nur im Impressum und in der Datenschutzerklärung, sonst nirgends auf der Seite. Ohne Postadresse wie bei canuma.ch (Frage an Fachperson, Punkt 5). Datenschutzerklärung gilt nur für die Website, ausdrücklich nicht für die App. Rechtstexte per Du wie die übrige Seite (canuma: Sie). Seiten ohne script.js und ohne Bewegung; 404.html mit Pfaden ab der Wurzel, weil GitHub Pages sie für jede unbekannte Adresse zeigt
 - 20.10.2026: Ringe hinter "So sieht es in der App aus" stehen per CSS still (.banner-bg position: fixed, .banner clip-path: inset(0)) statt per Scroll-Handler in script.js. Grund: Philipp, "beim Scrollen sehr ruckelhaft" – der Handler lief ein Bild hinter dem Scrollen her. Wirkung gleich (Ringe in der Bildmitte, Fläche gleitet darüber), Füllen der Ringe startet weiterhin erst beim Hereinkommen. Zum Ausprobieren, Alternative wäre: Ringe scrollen mit
@@ -71,6 +72,9 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 21.10.2026: Open Graph: images/og-image.png (1200 × 630) und 16 Zeilen im Kopf von index.html nach dem Vorbild canuma. Geprüft 390 und 1280 px: alle Angaben vorhanden, Bild lädt (200, image/png), keine Fehler, kein seitliches Scrollen
+- 21.10.2026: Google Search Console für chefklick.ch (Property "Domain", TXT google-site-verification bei Hostpoint, Name leer), Inhaberschaft bestätigt, Sitemap https://chefklick.ch/sitemap.xml eingereicht: erfolgreich, 1 Seite. TXT-Eintrag stehen lassen
+- 21.10.2026: chefklick.ch in den Org-Settings von GitHub (Canuma-Studio → Pages) verifiziert, TXT _github-pages-challenge-Canuma-Studio bei Hostpoint. TXT-Eintrag stehen lassen. Für canuma.ch ebenfalls eingetragen, Bestätigung offen (Offen Punkt 6)
 - 21.10.2026: "Anmelden" am Handy aus der Fusszeile (siehe Entscheidungen), Cache-Version v=12. Geprüft alle vier Seiten bei 390 und 1280 px: am Handy ausgeblendet, am Desktop sichtbar, keine Fehler, kein seitliches Scrollen. Fehler (Claude): zuerst nur index.html gelesen und übersehen, dass auch Impressum, Datenschutz und 404 den Link in der Fusszeile haben. http leitet seit 00:25 mit 301 auf https weiter, canuma ist gepusht
 - 21.10.2026: ONLINE unter https://chefklick.ch – GitHub Pages (main, Wurzel), DNS-Check grün, Enforce HTTPS an, Zertifikat Let's Encrypt. Geprüft: Startseite, Impressum, Datenschutz 200, unbekannte Adresse 404, www leitet auf chefklick.ch weiter, app.chefklick.ch unverändert erreichbar. DNS: 4× A 185.199.108–111.153, 4× AAAA 2606:50c0:8000–8003::153, CNAME www → canuma-studio.github.io; gelöscht A/AAAA für chefklick.ch und *.chefklick.ch (Hostpoint-Webhosting); unverändert app, MX (auch *), autoconfig, autodiscover, lists, TXT SPF. Fehler (Claude): mit dig zuerst nur die A-Einträge gelesen, AAAA und Wildcards erst auf Philipps Screenshot gesehen
 - 21.10.2026: Impressum und Datenschutz aus sitemap.xml entfernt – sie sind noindex, sonst Warnung in der Search Console (ebenso in canuma)
