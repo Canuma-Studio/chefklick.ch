@@ -225,10 +225,11 @@ html { scroll-behavior: smooth; }
 .bg-ware { background: var(--f-ware); } .bg-day { background: var(--f-day); } .bg-hero { background: var(--f-hero); } .bg-warm { background: var(--f-warm); }
 
 /* Zwischentitel ueber die ganze Breite, dahinter stehen die Ringe still */
-.banner { position: relative; overflow: hidden; background: var(--f-strong); color: var(--f-strong-ink); padding: 72px 20px; display: grid; gap: 20px; }
+.banner { position: relative; overflow: hidden; clip-path: inset(0); background: var(--f-strong); color: var(--f-strong-ink); padding: 72px 20px; display: grid; gap: 20px; }
 .banner h2 { position: relative; font-size: clamp(44px, 9vw, 104px); max-width: 12ch; }
 .banner-note { position: relative; font-size: 18px; }
-.banner-bg { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+/* Ringe stehen still: fest im Bild, die Flaeche schneidet sie mit clip-path zu (ohne Skript, Entscheid 20.10.2026) */
+.banner-bg { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; }
 .banner-bg svg { width: min(760px, 120%); height: auto; }
 .banner-bg circle { fill: none; stroke: var(--f-strong-ink); stroke-width: 52; }
 .banner-bg .tr { stroke-opacity: 0.08; }

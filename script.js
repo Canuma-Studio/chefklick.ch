@@ -153,8 +153,7 @@
 })();
 
 // Bewegung wie bei der Vorlage: Titel (data-m="float") schweben 60 px herein, Texte
-// (data-m="fade") blenden ein, 1200 ms, am Handy 600 ms. Die Ringe hinter dem
-// Zwischentitel (data-fixed) stehen still.
+// (data-m="fade") blenden ein, 1200 ms, am Handy 600 ms.
 (function () {
   if (!document.documentElement.classList.contains('reveal-ready')) return;
   var EASE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
@@ -200,23 +199,8 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
-  // Die Ringe hinter dem Zwischentitel (data-fixed) stehen beim Scrollen still.
-  // Mitlaufen der Kacheln entfernt (Entscheid 05.10.2026: zu verspielt).
-  var fixed = document.querySelectorAll('[data-fixed]'), waiting = false;
-  function update() {
-    waiting = false;
-    var h = window.innerHeight;
-    fixed.forEach(function (el) {
-      var r = el.parentElement.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > h) return;
-      el.style.transform = 'translateY(' + (-r.top + (h - r.height) / 2).toFixed(1) + 'px)';
-    });
-  }
-  window.addEventListener('scroll', function () {
-    if (!waiting) { waiting = true; requestAnimationFrame(update); }
-  }, { passive: true });
-  window.addEventListener('resize', update);
-  update();
+  // Die Ringe hinter dem Zwischentitel stehen per CSS still (position: fixed + clip-path, styles.css),
+  // nicht mehr per Scroll-Handler: der lief ein Bild hinterher und ruckelte (Entscheid 20.10.2026).
 })();
 
 // Wortmarke im Einstieg wie beim Start der App (Entscheid 04.10.2026).

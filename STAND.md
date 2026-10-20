@@ -31,6 +31,7 @@
 - Datenschutzerklärung und Support-Adresse für den App Store (kann hier liegen)
 
 ## Entscheidungen
+- 20.10.2026: Ringe hinter "So sieht es in der App aus" stehen per CSS still (.banner-bg position: fixed, .banner clip-path: inset(0)) statt per Scroll-Handler in script.js. Grund: Philipp, "beim Scrollen sehr ruckelhaft" – der Handler lief ein Bild hinter dem Scrollen her. Wirkung gleich (Ringe in der Bildmitte, Fläche gleitet darüber), Füllen der Ringe startet weiterhin erst beim Hereinkommen. Zum Ausprobieren, Alternative wäre: Ringe scrollen mit
 - 20.10.2026: Link „Anmelden“ zur Webversion der App (https://app.chefklick.ch, seit heute online) im Menü als letzter Eintrag, abgesetzt mit Linie und kleiner, und in der Fusszeile rechts, fett. Kein eigener Knopf oben, damit das Menü ein einziges Symbol bleibt und neue Besucher nicht denken, sie könnten schon loslegen ("Bald verfügbar" bleibt). Öffnet im selben Tab, Pfeil ↗ nur zur Zierde (aria-hidden)
 - 11.10.2026: Kacheln wie die Bilder der Vorlage noahbachofen.ch: die Fläche wird beim Hereinkommen von unten nach oben aufgedeckt (1200 ms, Handy 600 ms, cubic-bezier(0.645, 0.045, 0.355, 1)). Der Ablauf in der Kachel läuft in Schleife, solange sie im Bild ist, unabhängig vom Scrollen (Philipp: "ruckelig", "ohne es mit dem Scrollen zu verbinden"); langsamer: alle Zeiten × 1.8, Endzustand 6 s, 800 ms ausblenden, 900 ms Pause. Jede Kachel hat von Anfang an die Höhe ihres Endzustands, nichts darunter rutscht. Feld "Korrekturmassnahme" klappt jetzt weich auf (ersetzt "Nicht gewählt" vom 04.10.). Ersetzt "jede Kachel bewegt sich einmal" vom 04.10.
 - 11.10.2026: Kachel "Heute" unter dem Einstieg entfernt (Philipp: Dashboard-Diagramm stört). Stattdessen Einleitung: Titel "Digital, aber nicht kompliziert" auf --f-ware (Einstiegsfarbe würde am Handy mit dem Einstieg verschmelzen), zwei Absätze, Linie mit "Canuma Studio". Kein persönlicher Name auf der Seite (Philipp), ersetzt "Name Philipp März in der Linie" vom 04.10. Regeln für Ringe und Legende aus styles.css entfernt
@@ -64,6 +65,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 20.10.2026: Ruckeln der Ringe behoben (siehe Entscheidungen), Scroll-Handler und data-fixed entfernt. Geprüft 390 und 1280 px beim Hereinkommen, in der Mitte und beim Hinausgehen: Ringe bleiben in der Fläche, keine Fehler in der Konsole; Ringe füllen sich beim Laden oben noch nicht. Am echten Gerät (Trackpad, iPhone) noch von Philipp zu prüfen
 - 20.10.2026: Link „Anmelden“ in Menü und Fusszeile (siehe Entscheidungen). Geprüft 390 und 1280 px: Ziel https://app.chefklick.ch, keine Fehler in der Konsole, kein seitliches Scrollen
 - 11.10.2026: Einleitung statt Kachel "Heute", Kacheln aufdecken und in Schleife mit fester Höhe (siehe Entscheidungen). Geprüft 390 und 1280 px: Temperatur-Kachel bleibt über zwei Durchgänge gleich hoch, Schleife startet neu, keine Fehler in der Konsole, kein seitliches Scrollen
 - 05.10.2026: Farben auf App-Farben, Pulsieren und Mitlaufen entfernt, Häkchen ohne Aufspringen. Geprüft 390 und 1280 px, keine Fehler
