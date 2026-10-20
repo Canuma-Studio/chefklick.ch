@@ -181,6 +181,8 @@ html { scroll-behavior: smooth; }
 .menu-open body { overflow: hidden; }
 .menu a { font-size: clamp(34px, 8vw, 64px); text-transform: uppercase; color: var(--text-primary); text-decoration: none; line-height: 1.05; }
 .menu a:hover { color: var(--accent); }
+/* Anmelden fuehrt zur Webversion der App: abgesetzt, kleiner, mit Linie darueber */
+.menu .menu-app { margin-top: 28px; padding-top: 20px; border-top: 1px solid currentColor; font-size: clamp(22px, 4vw, 32px); }
 /* Links schweben beim Oeffnen nacheinander herein; beim Schliessen bleiben sie stehen, bis das Menue draussen ist */
 .menu a { opacity: 0; transform: translateY(40px); transition: opacity 0s 0.4s, transform 0s 0.4s; }
 .menu-open .menu a { opacity: 1; transform: none; transition: opacity 0.5s ease-out, transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); transition-delay: calc(0.15s + var(--i, 0) * 0.07s); }
@@ -258,6 +260,7 @@ html { scroll-behavior: smooth; }
 .foot-nav nav { display: flex; flex-wrap: wrap; gap: 12px 36px; }
 .foot-nav a { color: inherit; text-decoration: none; }
 .foot-nav a:hover { text-decoration: underline; }
+.foot-nav .foot-app { margin-left: auto; font-weight: 700; }
 .foot-nav small { font-size: 12px; text-transform: none; }
 .foot-nav small a { text-decoration: underline; }
 
