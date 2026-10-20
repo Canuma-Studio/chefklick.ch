@@ -25,7 +25,8 @@
    - Canuma Studio ist nicht im Handelsregister: reicht "Canuma Studio, Philipp März" als Anbieter?
    - GitHub (Hosting, USA) unter dem Swiss-U.S. Data Privacy Framework – Formulierung so richtig?
    - Für die App (app.chefklick.ch, Beta mit Codes): Datenschutzerklärung, Nutzungsbedingungen, Auftragsbearbeitung (Betriebe speichern Namen ihrer Mitarbeitenden), Aufbewahrungsdauer, Haftung bei Ausfall
-6. Online gehen: CNAME, GitHub Pages einschalten, DNS bei Hostpoint wie bei canuma.ch, Enforce HTTPS, Domain bei GitHub verifizieren
+6. Online gehen (CNAME, robots.txt, sitemap.xml im Repo seit 20.10.2026): GitHub Pages einschalten (main, Wurzel), DNS bei Hostpoint wie bei canuma.ch, Enforce HTTPS, Domain bei GitHub verifizieren
+   - DNS vorher (20.10.2026, gelesen mit dig): chefklick.ch und www A 217.26.48.101 (Hostpoint-Webhosting) → ersetzen. app.chefklick.ch CNAME chefklick.pages.dev (Webversion der App) und MX/SPF (Hostpoint-Mail) NICHT anfassen
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
 
 ## Später
