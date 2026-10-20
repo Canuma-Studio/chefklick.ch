@@ -25,12 +25,7 @@
    - Canuma Studio ist nicht im Handelsregister: reicht "Canuma Studio, Philipp März" als Anbieter?
    - GitHub (Hosting, USA) unter dem Swiss-U.S. Data Privacy Framework – Formulierung so richtig?
    - Für die App (app.chefklick.ch, Beta mit Codes): Datenschutzerklärung, Nutzungsbedingungen, Auftragsbearbeitung (Betriebe speichern Namen ihrer Mitarbeitenden), Aufbewahrungsdauer, Haftung bei Ausfall
-6. Online gehen – fast fertig (21.10.2026, kurz nach Mitternacht):
-   - Erledigt: GitHub Pages aktiv (main, Wurzel, Custom Domain chefklick.ch), DNS bei Hostpoint umgestellt und bei ns.hostpoint.ch aktiv, GitHub liefert alle Seiten richtig aus (geprüft direkt über 185.199.108.153), www leitet auf chefklick.ch weiter
-   - Offen: öffentliche DNS-Server hatten "gibt es nicht" zwischengespeichert (höchstens 1 Stunde, SOA). Danach: Seite live prüfen (Handy, Desktop), unter Settings → Pages "Enforce HTTPS" anhaken, sobald GitHub das Zertifikat hat
-   - Später: Domain in den Org-Settings bei GitHub verifizieren (TXT-Eintrag bei Hostpoint), schützt vor Übernahme der Domain
-   - DNS jetzt: chefklick.ch 4× A 185.199.108–111.153, 4× AAAA 2606:50c0:8000–8003::153, CNAME www → canuma-studio.github.io. Gelöscht: A/AAAA für chefklick.ch und *.chefklick.ch (Hostpoint-Webhosting 217.26.48.101 / 2a00:d70:0:a::166). Unverändert: app CNAME chefklick.pages.dev, MX (auch *), autoconfig, autodiscover, lists, TXT SPF
-   - Fehler (Claude): mit dig zuerst nur die A-Einträge gelesen, AAAA und Wildcards erst auf Philipps Screenshot gesehen
+6. Domain in den Org-Settings bei GitHub verifizieren (TXT-Eintrag bei Hostpoint), schützt vor Übernahme der Domain. Danach Google Search Console (Property "Domain", TXT bei Hostpoint, Sitemap einreichen)
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
 
 ## Später
@@ -75,6 +70,8 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 21.10.2026: ONLINE unter https://chefklick.ch – GitHub Pages (main, Wurzel), DNS-Check grün, Enforce HTTPS an, Zertifikat Let's Encrypt. Geprüft: Startseite, Impressum, Datenschutz 200, unbekannte Adresse 404, www leitet auf chefklick.ch weiter, app.chefklick.ch unverändert erreichbar. DNS: 4× A 185.199.108–111.153, 4× AAAA 2606:50c0:8000–8003::153, CNAME www → canuma-studio.github.io; gelöscht A/AAAA für chefklick.ch und *.chefklick.ch (Hostpoint-Webhosting); unverändert app, MX (auch *), autoconfig, autodiscover, lists, TXT SPF. Fehler (Claude): mit dig zuerst nur die A-Einträge gelesen, AAAA und Wildcards erst auf Philipps Screenshot gesehen
+- 21.10.2026: Impressum und Datenschutz aus sitemap.xml entfernt – sie sind noindex, sonst Warnung in der Search Console (ebenso in canuma)
 - 20.10.2026: impressum.html, datenschutz.html, 404.html (Entwurf, siehe Entscheidungen), Fusszeile der Startseite mit Impressum · Datenschutz, Cache-Version v=11. Geprüft 390 und 1280 px: kein seitliches Scrollen, keine Fehler, keine fehlenden Dateien, 404 lädt die Stile auch aus Unterordnern
 - 20.10.2026: Ruckeln der Ringe behoben (siehe Entscheidungen), Scroll-Handler und data-fixed entfernt. Geprüft 390 und 1280 px beim Hereinkommen, in der Mitte und beim Hinausgehen: Ringe bleiben in der Fläche, keine Fehler in der Konsole; Ringe füllen sich beim Laden oben noch nicht. Am echten Gerät (Trackpad, iPhone) noch von Philipp zu prüfen
 - 20.10.2026: Link „Anmelden“ in Menü und Fusszeile (siehe Entscheidungen). Geprüft 390 und 1280 px: Ziel https://app.chefklick.ch, keine Fehler in der Konsole, kein seitliches Scrollen
