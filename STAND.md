@@ -25,8 +25,12 @@
    - Canuma Studio ist nicht im Handelsregister: reicht "Canuma Studio, Philipp März" als Anbieter?
    - GitHub (Hosting, USA) unter dem Swiss-U.S. Data Privacy Framework – Formulierung so richtig?
    - Für die App (app.chefklick.ch, Beta mit Codes): Datenschutzerklärung, Nutzungsbedingungen, Auftragsbearbeitung (Betriebe speichern Namen ihrer Mitarbeitenden), Aufbewahrungsdauer, Haftung bei Ausfall
-6. Online gehen (CNAME, robots.txt, sitemap.xml im Repo seit 20.10.2026): GitHub Pages einschalten (main, Wurzel), DNS bei Hostpoint wie bei canuma.ch, Enforce HTTPS, Domain bei GitHub verifizieren
-   - DNS vorher (20.10.2026, gelesen mit dig): chefklick.ch und www A 217.26.48.101 (Hostpoint-Webhosting) → ersetzen. app.chefklick.ch CNAME chefklick.pages.dev (Webversion der App) und MX/SPF (Hostpoint-Mail) NICHT anfassen
+6. Online gehen – fast fertig (21.10.2026, kurz nach Mitternacht):
+   - Erledigt: GitHub Pages aktiv (main, Wurzel, Custom Domain chefklick.ch), DNS bei Hostpoint umgestellt und bei ns.hostpoint.ch aktiv, GitHub liefert alle Seiten richtig aus (geprüft direkt über 185.199.108.153), www leitet auf chefklick.ch weiter
+   - Offen: öffentliche DNS-Server hatten "gibt es nicht" zwischengespeichert (höchstens 1 Stunde, SOA). Danach: Seite live prüfen (Handy, Desktop), unter Settings → Pages "Enforce HTTPS" anhaken, sobald GitHub das Zertifikat hat
+   - Später: Domain in den Org-Settings bei GitHub verifizieren (TXT-Eintrag bei Hostpoint), schützt vor Übernahme der Domain
+   - DNS jetzt: chefklick.ch 4× A 185.199.108–111.153, 4× AAAA 2606:50c0:8000–8003::153, CNAME www → canuma-studio.github.io. Gelöscht: A/AAAA für chefklick.ch und *.chefklick.ch (Hostpoint-Webhosting 217.26.48.101 / 2a00:d70:0:a::166). Unverändert: app CNAME chefklick.pages.dev, MX (auch *), autoconfig, autodiscover, lists, TXT SPF
+   - Fehler (Claude): mit dig zuerst nur die A-Einträge gelesen, AAAA und Wildcards erst auf Philipps Screenshot gesehen
 7. Danach in canuma: ChefKlick-Link aktivieren (Kommentar in index.html) und Begriffe angleichen ("Putzliste" → "Checkliste", "Wareneingang" → "Warenannahme", "in Sekunden" prüfen)
 
 ## Später
