@@ -72,6 +72,7 @@
 - Schatten: App-Wert, Weichzeichner als 24px umgerechnet (iOS shadowRadius 12)
 
 ## Erledigt
+- 03.11.2026: Kontaktadresse auf info@chefklick.ch umgestellt (Postfach bei Hostpoint eingerichtet, Signatur in Apple Mail) – index.html (Kontakt), impressum.html, datenschutz.html (2 Stellen). Fusszeile "ein Projekt von Canuma Studio" → canuma.ch bleibt
 - 21.10.2026: Open Graph: images/og-image.png (1200 × 630) und 16 Zeilen im Kopf von index.html nach dem Vorbild canuma. Geprüft 390 und 1280 px: alle Angaben vorhanden, Bild lädt (200, image/png), keine Fehler, kein seitliches Scrollen
 - 21.10.2026: Google Search Console für chefklick.ch (Property "Domain", TXT google-site-verification bei Hostpoint, Name leer), Inhaberschaft bestätigt, Sitemap https://chefklick.ch/sitemap.xml eingereicht: erfolgreich, 1 Seite. TXT-Eintrag stehen lassen
 - 21.10.2026: chefklick.ch in den Org-Settings von GitHub (Canuma-Studio → Pages) verifiziert, TXT _github-pages-challenge-Canuma-Studio bei Hostpoint. TXT-Eintrag stehen lassen. Für canuma.ch ebenfalls eingetragen, Bestätigung offen (Offen Punkt 6)
