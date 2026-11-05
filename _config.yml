@@ -1,0 +1,9 @@
+# Arbeitsdateien nicht veroeffentlichen (GitHub Pages / Jekyll)
+exclude:
+  - CLAUDE.md
+  - PROJEKT.md
+  - STAND.md
+  - VERLAUF.md
+  - ERKENNTNISSE.md
+  - UEBERGABE.txt
+  - README.md
