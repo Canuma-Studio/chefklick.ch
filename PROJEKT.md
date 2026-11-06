@@ -40,7 +40,7 @@ Commit-Nachrichten umschrieben (ue, ae, oe).
 - CNAME, robots.txt, sitemap.xml – Domain und Suchmaschinen
 - _config.yml – nimmt die Arbeitsdateien von der Veröffentlichung aus
 - LICENSES.md – Lizenzen von Ionicons und Montserrat (bleibt öffentlich)
-- CLAUDE.md, PROJEKT.md, STAND.md – Arbeitsdateien, nicht veröffentlicht
+- CLAUDE.md, PROJEKT.md, STAND.md, VERLAUF.md – Arbeitsdateien, nicht veröffentlicht
 
 ## 5. Grenzen
 
