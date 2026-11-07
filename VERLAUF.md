@@ -2,6 +2,7 @@
 
 Erledigtes, neueste oben. Offenes steht in STAND.md.
 
+- 07.11.2026: Favicon als volles Quadrat (Ecken jetzt #D8D5CE statt durchsichtig) und Vorschaubild gestapelt (images/og-image.png, gleiche Adresse, 1200 × 630, Inhalt liegt im mittleren Quadrat x 340–861). Google zeigt beides erst nach dem nächsten Besuch der Seite
 - 06.11.2026: Arbeitsdateien nach dem Skill mein-workflow: _config.yml nimmt CLAUDE.md, PROJEKT.md, STAND.md, VERLAUF.md, ERKENNTNISSE.md, UEBERGABE.txt und README.md von der Veröffentlichung aus (vorher war STAND.md unter /STAND als Seite abrufbar). CLAUDE.md angelegt, UEBERGABE.txt in .gitignore. PROJEKT.md angelegt: Projekt und Entscheidungen aus STAND.md verschoben, Ziel, Sprachregel, harte Regeln und Design aus der Projektanweisung übernommen. VERLAUF.md angelegt: Erledigtes aus STAND.md verschoben. Geprüft live: alle Arbeitsdateien 404, Seiten 200
 - 03.11.2026: Kontaktadresse auf info@chefklick.ch umgestellt (Postfach bei Hostpoint eingerichtet, Signatur in Apple Mail) – index.html (Kontakt), impressum.html, datenschutz.html (2 Stellen). Fusszeile "ein Projekt von Canuma Studio" → canuma.ch bleibt
 - 21.10.2026: Open Graph: images/og-image.png (1200 × 630) und 16 Zeilen im Kopf von index.html nach dem Vorbild canuma. Geprüft 390 und 1280 px: alle Angaben vorhanden, Bild lädt (200, image/png), keine Fehler, kein seitliches Scrollen
